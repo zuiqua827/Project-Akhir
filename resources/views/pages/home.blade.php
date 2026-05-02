@@ -2,20 +2,27 @@
 
 @section('content')
     @php
-        $products = [
-            ['name' => 'Signature Espresso', 'price' => '$4.50', 'desc' => 'Rich, dark, and smooth with a caramel finish.', 'img' => 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&q=80&w=600'],
-            ['name' => 'Velvet Latte', 'price' => '$5.50', 'desc' => 'Creamy steamed milk poured over double espresso.', 'img' => 'https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=600'],
-            ['name' => 'Cloud Cappuccino', 'price' => '$5.00', 'desc' => 'Traditional balance of espresso, milk, and deep foam.', 'img' => 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&q=80&w=600'],
-            ['name' => 'Cold Brew Nitro', 'price' => '$6.00', 'desc' => 'Slow-steeped for 24 hours, infused with nitrogen.', 'img' => 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&q=80&w=600'],
+        use App\Models\Product;
+        
+        $products = Product::where('is_featured', true)->take(4)->get();
+        $pricing = Product::where('is_available', true)->limit(6)->get();
+        $special = Product::where('is_special', true)->first();
+        
+        $gallery = [
+            ['img' => 'https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&q=80&w=600', 'caption' => 'Morning brew'],
+            ['img' => 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=600', 'caption' => 'Art of brewing'],
+            ['img' => 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=600', 'caption' => 'Our space'],
+            ['img' => 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=600', 'caption' => 'Perfect shot'],
+            ['img' => 'https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&q=80&w=600', 'caption' => 'Latte art'],
+            ['img' => 'https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&q=80&w=600', 'caption' => 'Sweet treat'],
+            ['img' => 'https://images.unsplash.com/photo-1542993243-a7c68aaf5b48?auto=format&fit=crop&q=80&w=600', 'caption' => 'Chocolate'],
+            ['img' => 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&q=80&w=600', 'caption' => 'Matcha'],
         ];
 
-        $pricing = [
-            ['item' => 'Affogato', 'price' => '$7.00'],
-            ['item' => 'Macchiato', 'price' => '$4.00'],
-            ['item' => 'Flat White', 'price' => '$5.25'],
-            ['item' => 'Mocha Blend', 'price' => '$6.00'],
-            ['item' => 'Matcha Latte', 'price' => '$5.50'],
-            ['item' => 'Artisan Tea', 'price' => '$4.50'],
+        $testimonials = [
+            ['name' => 'Amanda Sari', 'text' => 'The best coffee in Jepara! The atmosphere is perfect for working or catching up with friends. My go-to spot.', 'rating' => 5, 'img' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150'],
+            ['name' => 'Budi Santoso', 'text' => 'Amazing latte art and the staff is incredibly skilled. Been coming here every weekend for months.', 'rating' => 5, 'img' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150'],
+            ['name' => 'Diana Permata', 'text' => 'Such a cozy place! The Caramel Macadamia Latte is to die for. Highly recommended.', 'rating' => 5, 'img' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150'],
         ];
     @endphp
 
@@ -59,18 +66,18 @@
                 <p class="text-[#2D1B10]/60">Hand-crafted by our master baristas.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 @foreach($products as $product)
                     <div class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
                         <div class="h-64 overflow-hidden relative">
-                            <img src="{{ $product['img'] }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="{{ $product['name'] }}">
+                            <img src="{{ $product->image }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="{{ $product->name }}">
                             <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full font-bold text-sm">
-                                {{ $product['price'] }}
+                                ${{ number_format($product->price, 2) }}
                             </div>
                         </div>
                         <div class="p-8">
-                            <h3 class="text-xl font-serif font-bold mb-3 group-hover:text-[#D4A373] transition-colors">{{ $product['name'] }}</h3>
-                            <p class="text-[#2D1B10]/50 text-sm leading-relaxed">{{ $product['desc'] }}</p>
+                            <h3 class="text-xl font-serif font-bold mb-3 group-hover:text-[#D4A373] transition-colors">{{ $product->name }}</h3>
+                            <p class="text-[#2D1B10]/50 text-sm leading-relaxed">{{ $product->description }}</p>
                         </div>
                     </div>
                 @endforeach
@@ -78,7 +85,7 @@
         </div>
     </section>
 
-    {{-- Best Sellers --}}
+{{-- Best Sellers --}}
     <section class="py-32 bg-[#2D1B10] text-[#FDFBF7]">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
@@ -88,22 +95,80 @@
                         @foreach($pricing as $item)
                             <div class="flex justify-between items-end border-b border-white/10 pb-4 group cursor-default">
                                 <div>
-                                    <h4 class="text-xl font-medium group-hover:text-[#D4A373] transition-colors">{{ $item['item'] }}</h4>
+                                    <h4 class="text-xl font-medium group-hover:text-[#D4A373] transition-colors">{{ $item->name }}</h4>
                                     <p class="text-xs text-white/40 uppercase tracking-widest mt-1">Premium Roast</p>
                                 </div>
-                                <div class="text-xl font-serif italic text-[#D4A373]">{{ $item['price'] }}</div>
+                                <div class="text-xl font-serif italic text-[#D4A373]">${{ number_format($item->price, 2) }}</div>
                             </div>
                         @endforeach
                     </div>
                 </div>
                 <div class="flex items-center justify-center lg:pl-12">
+                    @if($special)
+                    <div class="text-center p-16 border border-white/10 rounded-3xl bg-white/5 backdrop-blur-sm">
+                        <h3 class="text-2xl font-serif mb-6 italic">Today's Special</h3>
+                        <p class="text-4xl font-serif mb-8 text-[#D4A373]">{{ $special->name }}</p>
+                        <p class="text-white/60 mb-10 leading-relaxed">{{ $special->description }}</p>
+                        <span class="text-5xl font-serif">${{ number_format($special->price, 2) }}</span>
+                    </div>
+                    @else
                     <div class="text-center p-16 border border-white/10 rounded-3xl bg-white/5 backdrop-blur-sm">
                         <h3 class="text-2xl font-serif mb-6 italic">Today's Special</h3>
                         <p class="text-4xl font-serif mb-8 text-[#D4A373]">Caramel Macadamia Latte</p>
                         <p class="text-white/60 mb-10 leading-relaxed">Topped with crushed roasted macadamia and house-made salted caramel.</p>
                         <span class="text-5xl font-serif">$7.50</span>
                     </div>
+                    @endif
                 </div>
+            </div>
+        </div>
+    </section>
+
+    {{-- Gallery Section (Instagram-style) --}}
+    <section class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">Our Moments</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-[#2D1B10]">Gallery</h2>
+            </div>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                @foreach($gallery as $index => $item)
+                    <div class="group relative aspect-square overflow-hidden rounded-2xl" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+                        <img src="{{ $item['img'] }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="{{ $item['caption'] }}">
+                        <div class="absolute inset-0 bg-[#2D1B10]/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+                            <span class="text-white font-serif text-lg">{{ $item['caption'] }}</span>
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+        </div>
+    </section>
+
+    {{-- Testimonials Section --}}
+    <section class="py-24 bg-[#FDFBF7]">
+        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+            <div class="text-center mb-16" data-aos="fade-up">
+                <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">What They Say</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-[#2D1B10]">Testimonials</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                @foreach($testimonials as $index => $testimonial)
+                    <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-500" data-aos="fade-up" data-aos-delay="{{ $index * 150 }}">
+                        <div class="flex items-center gap-1 mb-4">
+                            @for($i = 0; $i < $testimonial['rating']; $i++)
+                                <svg class="w-5 h-5 text-[#D4A373]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
+                            @endfor
+                        </div>
+                        <p class="text-[#2D1B10]/70 mb-6 leading-relaxed">"{{ $testimonial['text'] }}"</p>
+                        <div class="flex items-center gap-4">
+                            <img src="{{ $testimonial['img'] }}" class="w-12 h-12 rounded-full object-cover" alt="{{ $testimonial['name'] }}">
+                            <div>
+                                <h4 class="font-serif font-bold text-[#2D1B10]">{{ $testimonial['name'] }}</h4>
+                                <p class="text-xs text-[#2D1B10]/50 uppercase tracking-widest">Customer</p>
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>

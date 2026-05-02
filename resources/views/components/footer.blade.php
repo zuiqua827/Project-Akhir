@@ -8,7 +8,7 @@
             <div class="flex space-x-6">
                 <a href="#" class="hover:text-[#D4A373] transition-colors uppercase text-xs font-bold tracking-widest">Instagram</a>
                 <a href="#" class="hover:text-[#D4A373] transition-colors uppercase text-xs font-bold tracking-widest">Twitter</a>
-                <a href="#" class="hover:text-[#D4A373] transition-colors uppercase text-xs font-bold tracking-widest">Facebook</a>
+                <a href="#" class="hover:text-[#D4A373] transition-colors uppercase text-xs font-bold tracking-widest" >Facebook</a>
             </div>
         </div>
         <div>
