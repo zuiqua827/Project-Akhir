@@ -21,6 +21,19 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm">
                 <div class="flex items-center justify-between">
                     <div>
+                        <p class="text-sm text-gray-500 mb-1">Total Moments</p>
+                        <p class="text-3xl font-bold text-gray-800">{{ \App\Models\Moment::count() }}</p>
+                    </div>
+                    <div class="w-14 h-14 rounded-2xl bg-indigo-50 flex items-center justify-center">
+                        <svg class="w-7 h-7 text-indigo-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zm0 0v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zM2 4v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zM2 10v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zM2 16v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 3h20v2H2V3zM2 7h20v2H2V7zM2 11h20v2H2V11zM2 15h20v2H2V15zM2 19h20v2H2V19z"></path></svg>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="bg-white rounded-2xl p-6 shadow-sm">
+                <div class="flex items-center justify-between">
+                    <div>
                         <p class="text-sm text-gray-500 mb-1">Featured</p>
                         <p class="text-3xl font-bold text-gray-800">{{ \App\Models\Product::where('is_featured', true)->count() }}</p>
                     </div>
@@ -63,6 +76,10 @@
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                     Add Product
                 </a>
+                <a href="{{ route('admin.moments.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 transition-colors">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zm0 0v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zM2 4v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zM2 10v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zM2 16v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 3h20v2H2V3zM2 7h20v2H2V7zM2 11h20v2H2V11zM2 15h20v2H2V15zM2 19h20v2H2V19z"></path></svg>
+                    Add Moment
+                </a>
                 <a href="{{ route('home') }}" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                     View Website
@@ -71,7 +88,7 @@
         </div>
 
         {{-- Recent Products --}}
-        <div class="bg-white rounded-2xl p-6 shadow-sm">
+        <div class="bg-white rounded-2xl p-6 shadow-sm mb-8">
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-lg font-semibold text-gray-800">Recent Products</h2>
                 <a href="{{ route('admin.products.index') }}" class="text-sm text-[#D4A373] hover:underline">View All</a>
@@ -116,6 +133,52 @@
                                 </td>
                             </tr>
                         @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {{-- Recent Moments --}}
+        <div class="bg-white rounded-2xl p-6 shadow-sm">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-lg font-semibold text-gray-800">Recent Moments</h2>
+                <a href="{{ route('admin.moments.index') }}" class="text-sm text-[#D4A373] hover:underline">View All</a>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="w-full">
+                    <thead>
+                        <tr class="border-b border-gray-200">
+                            <th class="text-left text-sm font-semibold text-gray-600 pb-4">Preview</th>
+                            <th class="text-left text-sm font-semibold text-gray-600 pb-4">Caption</th>
+                            <th class="text-left text-sm font-semibold text-gray-600 pb-4">Order</th>
+                            <th class="text-right text-sm font-semibold text-gray-600 pb-4">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-100">
+                        @forelse(\App\Models\Moment::latest()->take(5)->get() as $moment)
+                            <tr>
+                                <td class="py-4">
+                                    <img src="{{ $moment->image }}" class="w-12 h-12 rounded-xl object-cover" alt="{{ $moment->caption }}" onerror="this.src='https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=150'">
+                                </td>
+                                <td class="py-4">
+                                    <p class="line-clamp-1 font-medium text-gray-800">{{ $moment->caption }}</p>
+                                </td>
+                                <td class="py-4">
+                                    <span class="text-sm font-mono bg-gray-100 px-2 py-1 rounded-full">{{ $moment->order }}</span>
+                                </td>
+                                <td class="py-4 text-right">
+                                    @if($moment->is_featured)
+                                        <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">Featured</span>
+                                    @endif
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="4" class="py-12 text-center text-gray-500 text-sm">
+                                    No moments yet
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

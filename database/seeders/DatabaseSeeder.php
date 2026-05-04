@@ -15,13 +15,16 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        User::factory()->create([
+        User::create([
             'name' => 'Admin User',
-            'email' => 'admin@auracafe.com',
+            'email' => 'admincafe@gmail.com',
+            'password' => bcrypt('admincafe'),
         ]);
 
         $this->call([
             ProductSeeder::class,
+            MomentSeeder::class,
         ]);
+
     }
 }

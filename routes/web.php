@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\MomentController;
 
 Route::view('/', 'pages.home')->name('home');
 Route::view('/menu', 'pages.menu')->name('menu');
@@ -21,10 +22,14 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
         'update' => 'products.update',
         'destroy' => 'products.destroy',
     ]);
+
+    // Moments Gallery CRUD
+    Route::resource('moments', MomentController::class);
+
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::view('dashboard', 'admin.dashboard')->name('dashboard');
 });
 
 require __DIR__.'/settings.php';

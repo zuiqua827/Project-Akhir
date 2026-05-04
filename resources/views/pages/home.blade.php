@@ -1,30 +1,21 @@
 @extends('layouts.app')
 
 @section('content')
-    @php
-        use App\Models\Product;
-        
-        $products = Product::where('is_featured', true)->take(4)->get();
-        $pricing = Product::where('is_available', true)->limit(6)->get();
-        $special = Product::where('is_special', true)->first();
-        
-        $gallery = [
-            ['img' => 'https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&q=80&w=600', 'caption' => 'Morning brew'],
-            ['img' => 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=600', 'caption' => 'Art of brewing'],
-            ['img' => 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=600', 'caption' => 'Our space'],
-            ['img' => 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=600', 'caption' => 'Perfect shot'],
-            ['img' => 'https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&q=80&w=600', 'caption' => 'Latte art'],
-            ['img' => 'https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&q=80&w=600', 'caption' => 'Sweet treat'],
-            ['img' => 'https://images.unsplash.com/photo-1542993243-a7c68aaf5b48?auto=format&fit=crop&q=80&w=600', 'caption' => 'Chocolate'],
-            ['img' => 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&q=80&w=600', 'caption' => 'Matcha'],
-        ];
+@php
+    use App\Models\Product;
 
-        $testimonials = [
-            ['name' => 'Amanda Sari', 'text' => 'The best coffee in Jepara! The atmosphere is perfect for working or catching up with friends. My go-to spot.', 'rating' => 5, 'img' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150'],
-            ['name' => 'Budi Santoso', 'text' => 'Amazing latte art and the staff is incredibly skilled. Been coming here every weekend for months.', 'rating' => 5, 'img' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150'],
-            ['name' => 'Diana Permata', 'text' => 'Such a cozy place! The Caramel Macadamia Latte is to die for. Highly recommended.', 'rating' => 5, 'img' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150'],
-        ];
-    @endphp
+    $products = Product::where('is_featured', true)->take(4)->get();
+    $pricing = Product::where('is_available', true)->limit(6)->get();
+    $special = Product::where('is_special', true)->first();
+
+    $moments = App\Models\Moment::ordered()->get();
+
+    $testimonials = [
+        ['name' => 'Amanda Sari', 'text' => 'The best coffee in Jepara! The atmosphere is perfect for working or catching up with friends. My go-to spot.', 'rating' => 5, 'img' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150'],
+        ['name' => 'Budi Santoso', 'text' => 'Amazing latte art and the staff is incredibly skilled. Been coming here every weekend for months.', 'rating' => 5, 'img' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150'],
+        ['name' => 'Diana Permata', 'text' => 'Such a cozy place! The Caramel Macadamia Latte is to die for. Highly recommended.', 'rating' => 5, 'img' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150'],
+    ];
+@endphp
 
     {{-- Hero Section --}}
     <section id="home" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
@@ -132,14 +123,18 @@
                 <h2 class="text-4xl md:text-5xl font-serif text-[#2D1B10]">Gallery</h2>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                @foreach($gallery as $index => $item)
+                @forelse($moments as $index => $moment)
                     <div class="group relative aspect-square overflow-hidden rounded-2xl" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
-                        <img src="{{ $item['img'] }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="{{ $item['caption'] }}">
+                        <img src="{{ $moment->image }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="{{ $moment->caption }}">
                         <div class="absolute inset-0 bg-[#2D1B10]/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
-                            <span class="text-white font-serif text-lg">{{ $item['caption'] }}</span>
+                            <span class="text-white font-serif text-lg">{{ $moment->caption }}</span>
                         </div>
                     </div>
-                @endforeach
+                @empty
+                    <div class="col-span-full text-center py-12 text-gray-500">
+                        <p>Gallery coming soon...</p>
+                    </div>
+                @endforelse
             </div>
         </div>
     </section>
