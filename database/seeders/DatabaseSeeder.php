@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('admincafe'),
         ]);
 
-        $this->call([
+$this->call([
             ProductSeeder::class,
             MomentSeeder::class,
         ]);

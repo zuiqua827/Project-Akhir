@@ -5,7 +5,7 @@
         $contactInfo = [
             'address' => 'Jl. KH Achmad Fauzan No.17, Krasak, Bangsri, Kec. Bangsri, Kabupaten Jepara, Jawa Tengah 59415',
             'phone' => '+62 812-3456-7890',
-            'email' => 'hello@auracafe.com',
+            'email' => 'hello@cafe.com',
             'mapsUrl' => 'https://www.google.com/maps/place/SMK+Negeri+1+Bangsri/@-6.5275824,110.7483335,17z/data=!3m1!4b1!4m6!3m5!1s0x2e71224fcb07076b:0xd0eadbcc365f1b0d!8m2!3d-6.5275877!4d110.7509084!16s%2Fg%2F1pzv_ytw7?hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D',
         ];
         

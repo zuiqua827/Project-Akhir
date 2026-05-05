@@ -10,11 +10,7 @@
 
     $moments = App\Models\Moment::ordered()->get();
 
-    $testimonials = [
-        ['name' => 'Amanda Sari', 'text' => 'The best coffee in Jepara! The atmosphere is perfect for working or catching up with friends. My go-to spot.', 'rating' => 5, 'img' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=150'],
-        ['name' => 'Budi Santoso', 'text' => 'Amazing latte art and the staff is incredibly skilled. Been coming here every weekend for months.', 'rating' => 5, 'img' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=150'],
-        ['name' => 'Diana Permata', 'text' => 'Such a cozy place! The Caramel Macadamia Latte is to die for. Highly recommended.', 'rating' => 5, 'img' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=150'],
-    ];
+
 @endphp
 
     {{-- Hero Section --}}
@@ -77,7 +73,7 @@
     </section>
 
 {{-- Best Sellers --}}
-    <section class="py-32 bg-[#2D1B10] text-[#FDFBF7]">
+    {{-- <section class="py-32 bg-[#2D1B10] text-[#FDFBF7]">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
                 <div>
@@ -113,20 +109,20 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     {{-- Gallery Section (Instagram-style) --}}
-    <section class="py-24 bg-white">
+    <section class="py-24 bg-[#2D1B10]">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             <div class="text-center mb-16" data-aos="fade-up">
                 <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">Our Moments</span>
-                <h2 class="text-4xl md:text-5xl font-serif text-[#2D1B10]">Gallery</h2>
+                <h2 class="text-4xl md:text-5xl font-serif text-[#FDFBF7]">Gallery</h2>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 @forelse($moments as $index => $moment)
                     <div class="group relative aspect-square overflow-hidden rounded-2xl" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
                         <img src="{{ $moment->image }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="{{ $moment->caption }}">
-                        <div class="absolute inset-0 bg-[#2D1B10]/60 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
+                        <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
                             <span class="text-white font-serif text-lg">{{ $moment->caption }}</span>
                         </div>
                     </div>
@@ -139,34 +135,7 @@
         </div>
     </section>
 
-    {{-- Testimonials Section --}}
-    <section class="py-24 bg-[#FDFBF7]">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">What They Say</span>
-                <h2 class="text-4xl md:text-5xl font-serif text-[#2D1B10]">Testimonials</h2>
-            </div>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                @foreach($testimonials as $index => $testimonial)
-                    <div class="bg-white p-8 rounded-3xl shadow-sm hover:shadow-xl transition-all duration-500" data-aos="fade-up" data-aos-delay="{{ $index * 150 }}">
-                        <div class="flex items-center gap-1 mb-4">
-                            @for($i = 0; $i < $testimonial['rating']; $i++)
-                                <svg class="w-5 h-5 text-[#D4A373]" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/></svg>
-                            @endfor
-                        </div>
-                        <p class="text-[#2D1B10]/70 mb-6 leading-relaxed">"{{ $testimonial['text'] }}"</p>
-                        <div class="flex items-center gap-4">
-                            <img src="{{ $testimonial['img'] }}" class="w-12 h-12 rounded-full object-cover" alt="{{ $testimonial['name'] }}">
-                            <div>
-                                <h4 class="font-serif font-bold text-[#2D1B10]">{{ $testimonial['name'] }}</h4>
-                                <p class="text-xs text-[#2D1B10]/50 uppercase tracking-widest">Customer</p>
-                            </div>
-                        </div>
-                    </div>
-                @endforeach
-            </div>
-        </div>
-    </section>
+
 
     {{-- Location --}}
     <section id="location" class="py-24 bg-white">

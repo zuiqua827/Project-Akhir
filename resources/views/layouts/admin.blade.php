@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $title ?? 'Admin Panel - Aura Café' }}</title>
+    <title>{{ $title ?? 'Admin Panel -  Café' }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -18,7 +18,7 @@
         <aside class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform transition-transform duration-300 lg:translate-x-0 -translate-x-full" id="sidebar">
             <div class="flex items-center justify-center h-16 border-b border-gray-200">
                 <a href="{{ route('admin.dashboard') }}" class="text-xl font-bold text-gray-800">
-                    AURA<span class="text-[#D4A373]">CAFÉ</span>
+                    <span class="text-[#D4A373]">CAFÉ</span>
                 </a>
             </div>
             <nav class="mt-6 px-4 space-y-2">
@@ -36,6 +36,8 @@
                 </a>
 
                 <form method="POST" action="{{ route('logout') }}" class="mt-4 pt-4 border-t border-gray-200">
+
+
                     @csrf
                     <button type="submit" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-red-600 hover:bg-red-50 w-full">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>

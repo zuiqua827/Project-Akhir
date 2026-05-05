@@ -28,6 +28,10 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
 
 });
 
+
+
+
+
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::view('dashboard', 'admin.dashboard')->name('dashboard');
 });

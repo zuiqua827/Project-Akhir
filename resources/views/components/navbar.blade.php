@@ -3,7 +3,7 @@
         <div class="flex justify-between items-center h-20">
             <div class="flex-shrink-0 flex items-center">
                 <a href="{{ route('home') }}" class="text-2xl font-serif font-bold tracking-tighter text-[#2D1B10]">
-                    AURA<span class="text-[#D4A373]">CAFÉ</span>
+                ARA <span class="text-[#D4A373]">CAFÉ</span>
                 </a>
             </div>
             
