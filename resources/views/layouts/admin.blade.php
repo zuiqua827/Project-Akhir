@@ -35,6 +35,10 @@
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zm0 0v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zM2 4v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zM2 10v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zM2 16v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 3h20v2H2V3zM2 7h20v2H2V7zM2 11h20v2H2V11zM2 15h20v2H2V15zM2 19h20v2H2V19z"></path></svg>
                     Moments
                 </a>
+                <a href="{{ route('admin.settings.best-seller') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium {{ request()->routeIs('admin.settings.best-seller') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+                    Best Seller
+                </a>
 
                 {{-- Website Settings Dropdown --}}
                 <div x-data="{ open: {{ request()->routeIs('admin.settings.*') ? 'true' : 'false' }} }" class="mt-4 pt-4 border-t border-gray-200">
@@ -56,6 +60,7 @@
                             <div x-show="openHome" class="pl-4 mt-1 space-y-1 border-l-2 border-gray-100">
                                 <a href="{{ route('admin.settings.home.hero') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.home.hero') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}">Hero Section</a>
                                 <a href="{{ route('admin.settings.home.gallery') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.home.gallery') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}">Gallery Section</a>
+                                <a href="{{ route('admin.settings.home.location') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.home.location') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}">Location Section</a>
                             </div>
                         </div>
 
@@ -67,6 +72,7 @@
                             </button>
                             <div x-show="openAbout" class="pl-4 mt-1 space-y-1 border-l-2 border-gray-100">
                                 <a href="{{ route('admin.settings.about.hero') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.about.hero') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}">Hero & Stats</a>
+                                <a href="{{ route('admin.settings.about.team') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.about.team') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}">Team Section</a>
                             </div>
                         </div>
 

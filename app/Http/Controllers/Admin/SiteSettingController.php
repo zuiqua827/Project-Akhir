@@ -62,6 +62,32 @@ class SiteSettingController extends Controller
         return back()->with('success', 'Home Gallery settings updated successfully.');
     }
 
+    public function homeLocation()
+    {
+        $settings = SiteSetting::getGroup('home_location');
+        return view('admin.settings.home-location', compact('settings'));
+    }
+
+    public function updateHomeLocation(Request $request)
+    {
+        $data = $request->validate([
+            'badge' => 'nullable|string',
+            'title' => 'nullable|string',
+            'subtitle' => 'nullable|string',
+            'description' => 'nullable|string',
+            'address' => 'nullable|string',
+            'hours' => 'nullable|string',
+            'cta_text' => 'nullable|string',
+            'maps_query' => 'nullable|string',
+        ]);
+
+        foreach ($data as $key => $value) {
+            SiteSetting::set('home_location', $key, $value);
+        }
+
+        return back()->with('success', 'Location settings updated successfully.');
+    }
+
     public function aboutHero()
     {
         $settings = SiteSetting::getGroup('about_hero');
@@ -194,5 +220,26 @@ class SiteSettingController extends Controller
         SiteSetting::set('contact_hours', 'hours_json', json_encode($hours));
 
         return back()->with('success', 'Contact Info & Hours updated successfully.');
+    }
+
+    public function bestSeller()
+    {
+        $products = \App\Models\Product::where('is_available', true)->orderBy('name')->get();
+        return view('admin.settings.best-seller', compact('products'));
+    }
+
+    public function updateBestSeller(Request $request)
+    {
+        $bestSellerIds = $request->input('best_sellers', []);
+
+        // Reset all products is_featured to false
+        \App\Models\Product::query()->update(['is_featured' => false]);
+
+        // Set selected products as best seller (is_featured = true)
+        if (!empty($bestSellerIds)) {
+            \App\Models\Product::whereIn('id', $bestSellerIds)->update(['is_featured' => true]);
+        }
+
+        return back()->with('success', 'Best Seller products updated successfully.');
     }
 }

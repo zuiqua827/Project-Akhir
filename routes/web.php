@@ -32,6 +32,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
         Route::put('home-hero', [\App\Http\Controllers\Admin\SiteSettingController::class, 'updateHomeHero']);
         Route::get('home-gallery', [\App\Http\Controllers\Admin\SiteSettingController::class, 'homeGallery'])->name('home.gallery');
         Route::put('home-gallery', [\App\Http\Controllers\Admin\SiteSettingController::class, 'updateHomeGallery']);
+        Route::get('home-location', [\App\Http\Controllers\Admin\SiteSettingController::class, 'homeLocation'])->name('home.location');
+        Route::put('home-location', [\App\Http\Controllers\Admin\SiteSettingController::class, 'updateHomeLocation']);
         
         Route::get('about-hero', [\App\Http\Controllers\Admin\SiteSettingController::class, 'aboutHero'])->name('about.hero');
         Route::put('about-hero', [\App\Http\Controllers\Admin\SiteSettingController::class, 'updateAboutHero']);
@@ -43,6 +45,14 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
         Route::put('contact-hero', [\App\Http\Controllers\Admin\SiteSettingController::class, 'updateContactHero']);
         Route::get('contact-info', [\App\Http\Controllers\Admin\SiteSettingController::class, 'contactInfo'])->name('contact.info');
         Route::put('contact-info', [\App\Http\Controllers\Admin\SiteSettingController::class, 'updateContactInfo']);
+
+        Route::get('best-seller', [\App\Http\Controllers\Admin\SiteSettingController::class, 'bestSeller'])->name('best-seller');
+        Route::put('best-seller', [\App\Http\Controllers\Admin\SiteSettingController::class, 'updateBestSeller']);
+
+        Route::get('team', [\App\Http\Controllers\Admin\TeamMemberController::class, 'index'])->name('about.team');
+        Route::post('team', [\App\Http\Controllers\Admin\TeamMemberController::class, 'store'])->name('team.store');
+        Route::put('team/{teamMember}', [\App\Http\Controllers\Admin\TeamMemberController::class, 'update'])->name('team.update');
+        Route::delete('team/{teamMember}', [\App\Http\Controllers\Admin\TeamMemberController::class, 'destroy'])->name('team.destroy');
     });
 });
 

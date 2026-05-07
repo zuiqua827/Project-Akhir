@@ -110,6 +110,9 @@
 </section>
 
 {{-- Team Section --}}
+@php
+    $teamMembers = \App\Models\TeamMember::ordered()->get();
+@endphp
 <section class="py-24 bg-[#FDFBF7]">
     <div class="max-w-7xl mx-auto px-6 lg:px-12">
         <div class="text-center mb-16">
@@ -117,29 +120,27 @@
             <h2 class="text-4xl md:text-5xl font-serif text-[#2D1B10] mb-6">Meet the Team</h2>
             <p class="text-[#2D1B10]/60 max-w-2xl mx-auto">The passionate minds behind every perfect cup.</p>
         </div>
+        @if($teamMembers->count() > 0)
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            @foreach($teamMembers as $member)
             <div class="group text-center">
                 <div class="aspect-[3/4] rounded-3xl overflow-hidden mb-6 shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1577219491135-ce391730fb2c?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Barista">
+                    @if($member->image)
+                        <img src="{{ $member->image }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="{{ $member->name }}">
+                    @else
+                        <div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 text-6xl">👤</div>
+                    @endif
                 </div>
-                <h3 class="text-xl font-serif font-bold text-[#2D1B10] mb-1">Sarah Mitchell</h3>
-                <p class="text-[#D4A373] text-sm font-bold uppercase tracking-widest">Head Barista</p>
+                <h3 class="text-xl font-serif font-bold text-[#2D1B10] mb-1">{{ $member->name }}</h3>
+                <p class="text-[#D4A373] text-sm font-bold uppercase tracking-widest">{{ $member->role }}</p>
             </div>
-            <div class="group text-center">
-                <div class="aspect-[3/4] rounded-3xl overflow-hidden mb-6 shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1556157382-97edd2f9e4c7?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Roaster">
-                </div>
-                <h3 class="text-xl font-serif font-bold text-[#2D1B10] mb-1">James Chen</h3>
-                <p class="text-[#D4A373] text-sm font-bold uppercase tracking-widest">Master Roaster</p>
-            </div>
-            <div class="group text-center">
-                <div class="aspect-[3/4] rounded-3xl overflow-hidden mb-6 shadow-lg">
-                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Owner">
-                </div>
-                <h3 class="text-xl font-serif font-bold text-[#2D1B10] mb-1">Emma Laurent</h3>
-                <p class="text-[#D4A373] text-sm font-bold uppercase tracking-widest">Founder</p>
-            </div>
+            @endforeach
         </div>
+        @else
+        <div class="text-center py-12">
+            <p class="text-[#2D1B10]/40 text-lg">Team members coming soon...</p>
+        </div>
+        @endif
     </div>
 </section>
 

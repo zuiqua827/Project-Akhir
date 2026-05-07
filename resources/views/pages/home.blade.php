@@ -4,14 +4,13 @@
 @php
     use App\Models\Product;
 
-    $products = Product::where('is_featured', true)->take(4)->get();
-    $pricing = Product::where('is_available', true)->limit(6)->get();
-    $special = Product::where('is_special', true)->first();
+    $products = Product::where('is_featured', true)->where('is_available', true)->take(8)->get();
 
     $moments = App\Models\Moment::ordered()->get();
 
     $heroSettings = \App\Models\SiteSetting::getGroup('home_hero');
     $gallerySettings = \App\Models\SiteSetting::getGroup('home_gallery');
+    $locationSettings = \App\Models\SiteSetting::getGroup('home_location');
 @endphp
 
     {{-- Hero Section --}}
@@ -45,23 +44,21 @@
         </div>
     </section>
 
-    {{-- Product Section (Featured) --}}
-    <section id="menu" class="py-32 bg-[#FDFBF7]">
+    {{-- Best Seller Section --}}
+    <section id="bestseller" class="py-32 bg-[#FDFBF7]">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             <div class="text-center max-w-3xl mx-auto mb-20">
-                <h2 class="text-5xl font-serif mb-6">Featured Drinks</h2>
+                <h2 class="text-5xl font-serif mb-6">Best <span class="italic text-[#D4A373]">Seller</span></h2>
                 <div class="w-20 h-1 bg-[#D4A373] mx-auto mb-8"></div>
-                <p class="text-[#2D1B10]/60">Hand-crafted by our master baristas.</p>
+                <p class="text-[#2D1B10]/60">The most loved drinks by our customers.</p>
             </div>
 
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            @if($products->count() > 0)
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 @foreach($products as $product)
                     <div class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
                         <div class="h-64 overflow-hidden relative">
                             <img src="{{ $product->image }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="{{ $product->name }}">
-                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full font-bold text-sm">
-                                ${{ number_format($product->price, 2) }}
-                            </div>
                         </div>
                         <div class="p-8">
                             <h3 class="text-xl font-serif font-bold mb-3 group-hover:text-[#D4A373] transition-colors">{{ $product->name }}</h3>
@@ -70,47 +67,13 @@
                     </div>
                 @endforeach
             </div>
+            @else
+            <div class="text-center py-16">
+                <p class="text-[#2D1B10]/40 text-lg">Best sellers coming soon...</p>
+            </div>
+            @endif
         </div>
     </section>
-
-{{-- Best Sellers --}}
-    {{-- <section class="py-32 bg-[#2D1B10] text-[#FDFBF7]">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-20">
-                <div>
-                    <h2 class="text-5xl font-serif mb-12">Best <span class="text-[#D4A373]">Sellers</span></h2>
-                    <div class="space-y-8">
-                        @foreach($pricing as $item)
-                            <div class="flex justify-between items-end border-b border-white/10 pb-4 group cursor-default">
-                                <div>
-                                    <h4 class="text-xl font-medium group-hover:text-[#D4A373] transition-colors">{{ $item->name }}</h4>
-                                    <p class="text-xs text-white/40 uppercase tracking-widest mt-1">Premium Roast</p>
-                                </div>
-                                <div class="text-xl font-serif italic text-[#D4A373]">${{ number_format($item->price, 2) }}</div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-                <div class="flex items-center justify-center lg:pl-12">
-                    @if($special)
-                    <div class="text-center p-16 border border-white/10 rounded-3xl bg-white/5 backdrop-blur-sm">
-                        <h3 class="text-2xl font-serif mb-6 italic">Today's Special</h3>
-                        <p class="text-4xl font-serif mb-8 text-[#D4A373]">{{ $special->name }}</p>
-                        <p class="text-white/60 mb-10 leading-relaxed">{{ $special->description }}</p>
-                        <span class="text-5xl font-serif">${{ number_format($special->price, 2) }}</span>
-                    </div>
-                    @else
-                    <div class="text-center p-16 border border-white/10 rounded-3xl bg-white/5 backdrop-blur-sm">
-                        <h3 class="text-2xl font-serif mb-6 italic">Today's Special</h3>
-                        <p class="text-4xl font-serif mb-8 text-[#D4A373]">Caramel Macadamia Latte</p>
-                        <p class="text-white/60 mb-10 leading-relaxed">Topped with crushed roasted macadamia and house-made salted caramel.</p>
-                        <span class="text-5xl font-serif">$7.50</span>
-                    </div>
-                    @endif
-                </div>
-            </div>
-        </div>
-    </section> --}}
 
     {{-- Gallery Section (Instagram-style) --}}
     <section class="py-24 bg-[#2D1B10]">
@@ -143,29 +106,33 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div>
-                    <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">Visit Us</span>
-                    <h2 class="text-4xl md:text-5xl font-serif mb-6 leading-tight">Find Your <span class="italic text-[#D4A373]">Sanctuary.</span></h2>
+                    <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $locationSettings['badge'] ?? 'Visit Us' }}</span>
+                    <h2 class="text-4xl md:text-5xl font-serif mb-6 leading-tight">{{ $locationSettings['title'] ?? 'Find Your' }} <span class="italic text-[#D4A373]">{{ $locationSettings['subtitle'] ?? 'Sanctuary.' }}</span></h2>
                     <p class="text-[#2D1B10]/60 mb-8 text-lg">
-                        Located in the heart of Jepara, our café offers a warm atmosphere perfect for work, relaxation, or catching up with friends.
+                        {{ $locationSettings['description'] ?? 'Located in the heart of Jepara, our café offers a warm atmosphere perfect for work, relaxation, or catching up with friends.' }}
                     </p>
                     <div class="space-y-4 mb-10">
                         <div class="flex items-center gap-4">
                             <svg class="w-5 h-5 text-[#D4A373]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span class="text-[#2D1B10]/70">Jl. KH Achmad Fauzan No.17, Krasak, Bangsri</span>
+                            <span class="text-[#2D1B10]/70">{{ $locationSettings['address'] ?? 'Jl. KH Achmad Fauzan No.17, Krasak, Bangsri' }}</span>
                         </div>
                         <div class="flex items-center gap-4">
                             <svg class="w-5 h-5 text-[#D4A373]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span class="text-[#2D1B10]/70">Open Daily: 07:00 - 21:00 WIB</span>
+                            <span class="text-[#2D1B10]/70">{{ $locationSettings['hours'] ?? 'Open Daily: 07:00 - 21:00 WIB' }}</span>
                         </div>
                     </div>
                     <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 px-8 py-4 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#4A2C1C] transition-all">
-                        Get Directions
+                        {{ $locationSettings['cta_text'] ?? 'Get Directions' }}
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </a>
                 </div>
                 <div class="rounded-2xl overflow-hidden shadow-2xl h-80 lg:h-96">
+                    @php
+                        $mapsQuery = $locationSettings['maps_query'] ?? 'Krasak, Bangsri, Jepara, Central Java';
+                        $mapsUrl = 'https://maps.google.com/maps?q=' . urlencode($mapsQuery) . '&output=embed';
+                    @endphp
                     <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.016263254858!2d110.71162437368348!3d-6.540762993376128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7d18b2cf9b8a1f%3A0xd8d68ac63c1d6b8e!2sKrasak%2C%20Bangsri%2C%20Jepara%2C%20Central%20Java!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid" 
+                        src="{{ $mapsUrl }}" 
                         width="100%" 
                         height="100%" 
                         style="border:0; filter: grayscale(100%) saturate(0);" 
