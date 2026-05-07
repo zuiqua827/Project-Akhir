@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\SiteSetting;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class SiteSettingController extends Controller
 {
@@ -24,8 +25,15 @@ class SiteSettingController extends Controller
             'sub_description' => 'nullable|string',
             'cta_text' => 'nullable|string',
             'cta_link' => 'nullable|string',
-            'background_image' => 'nullable|string',
+            'background_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:4096',
         ]);
+
+        if ($request->hasFile('background_image')) {
+            $path = $request->file('background_image')->store('settings', 'public');
+            $data['background_image'] = Storage::url($path);
+        } else {
+            unset($data['background_image']); // Don't override with null if no file chosen
+        }
 
         foreach ($data as $key => $value) {
             SiteSetting::set('home_hero', $key, $value);
@@ -69,9 +77,23 @@ class SiteSettingController extends Controller
             'subtitle' => 'nullable|string',
             'description1' => 'nullable|string',
             'description2' => 'nullable|string',
-            'image1' => 'nullable|string',
-            'image2' => 'nullable|string',
+            'image1' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
+            'image2' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
         ]);
+
+        if ($request->hasFile('image1')) {
+            $path = $request->file('image1')->store('settings', 'public');
+            $heroData['image1'] = Storage::url($path);
+        } else {
+            unset($heroData['image1']);
+        }
+        
+        if ($request->hasFile('image2')) {
+            $path = $request->file('image2')->store('settings', 'public');
+            $heroData['image2'] = Storage::url($path);
+        } else {
+            unset($heroData['image2']);
+        }
 
         $statsData = $request->validate([
             'stat1_value' => 'nullable|string',

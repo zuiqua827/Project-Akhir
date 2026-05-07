@@ -19,7 +19,7 @@
             </div>
         @endif
 
-        <form action="{{ route('admin.products.store') }}" method="POST" class="bg-white rounded-2xl shadow-sm p-8">
+        <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data" class="bg-white rounded-2xl shadow-sm p-8">
             @csrf
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -42,9 +42,9 @@
                 </div>
 
                 <div class="lg:col-span-2">
-                    <label for="image" class="block text-sm font-semibold text-gray-700 mb-2">Image URL</label>
-                    <input type="url" id="image" name="image" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D4A373]/50 focus:border-[#D4A373]" placeholder="https://example.com/image.jpg">
-                    <p class="text-sm text-gray-500 mt-1">Enter a URL to an image or use a default placeholder.</p>
+                    <label for="image" class="block text-sm font-semibold text-gray-700 mb-2">Image Upload</label>
+                    <input type="file" id="image" name="image" accept="image/*" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D4A373]/50 focus:border-[#D4A373]">
+                    <p class="text-sm text-gray-500 mt-1">Upload a product image (JPEG, PNG, WEBP). If left empty, a default image will be used.</p>
                 </div>
 
                 <div>

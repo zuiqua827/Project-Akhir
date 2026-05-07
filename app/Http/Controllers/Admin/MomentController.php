@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Moment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class MomentController extends Controller
 {
@@ -32,14 +33,20 @@ class MomentController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'image' => 'required|url',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'caption' => 'required|string|max:255',
             'order' => 'nullable|integer|min:0',
             'is_featured' => 'boolean',
         ]);
 
+        $imagePath = '';
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('moments', 'public');
+            $imagePath = Storage::url($path);
+        }
+
         Moment::create([
-            'image' => $validated['image'],
+            'image' => $imagePath,
             'caption' => $validated['caption'],
             'order' => $validated['order'] ?? 0,
             'is_featured' => $request->has('is_featured'),
@@ -72,14 +79,20 @@ class MomentController extends Controller
     public function update(Request $request, Moment $moment)
     {
         $validated = $request->validate([
-            'image' => 'required|url',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'caption' => 'required|string|max:255',
             'order' => 'nullable|integer|min:0',
             'is_featured' => 'boolean',
         ]);
 
+        $imagePath = $moment->image;
+        if ($request->hasFile('image')) {
+            $path = $request->file('image')->store('moments', 'public');
+            $imagePath = Storage::url($path);
+        }
+
         $moment->update([
-            'image' => $validated['image'],
+            'image' => $imagePath,
             'caption' => $validated['caption'],
             'order' => $validated['order'] ?? $moment->order,
             'is_featured' => $request->has('is_featured'),

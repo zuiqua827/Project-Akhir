@@ -19,7 +19,7 @@
             </div>
         @endif
 
-        <form action="{{ route('admin.products.update', $product->id) }}" method="POST" class="bg-white rounded-2xl shadow-sm p-8">
+        <form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data" class="bg-white rounded-2xl shadow-sm p-8">
             @csrf
             @method('PUT')
 
@@ -43,8 +43,9 @@
                 </div>
 
                 <div class="lg:col-span-2">
-                    <label for="image" class="block text-sm font-semibold text-gray-700 mb-2">Image URL</label>
-                    <input type="url" id="image" name="image" value="{{ old('image', $product->image) }}" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D4A373]/50 focus:border-[#D4A373]" placeholder="https://example.com/image.jpg">
+                    <label for="image" class="block text-sm font-semibold text-gray-700 mb-2">Image Upload</label>
+                    <input type="file" id="image" name="image" accept="image/*" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D4A373]/50 focus:border-[#D4A373]">
+                    <p class="text-sm text-gray-500 mt-2">Current Image: <a href="{{ $product->image }}" target="_blank" class="text-blue-500 underline">View</a></p>
                 </div>
 
                 <div>
