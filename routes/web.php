@@ -53,6 +53,9 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
         Route::post('team', [\App\Http\Controllers\Admin\TeamMemberController::class, 'store'])->name('team.store');
         Route::put('team/{teamMember}', [\App\Http\Controllers\Admin\TeamMemberController::class, 'update'])->name('team.update');
         Route::delete('team/{teamMember}', [\App\Http\Controllers\Admin\TeamMemberController::class, 'destroy'])->name('team.destroy');
+
+        Route::get('footer', [\App\Http\Controllers\Admin\SiteSettingController::class, 'footer'])->name('footer');
+        Route::put('footer', [\App\Http\Controllers\Admin\SiteSettingController::class, 'updateFooter']);
     });
 });
 

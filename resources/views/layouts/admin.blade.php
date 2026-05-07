@@ -98,6 +98,11 @@
                                 <a href="{{ route('admin.settings.contact.info') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.contact.info') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}">Info & Hours</a>
                             </div>
                         </div>
+
+                        <!-- Footer -->
+                        <a href="{{ route('admin.settings.footer') }}" class="block py-2 text-sm font-medium {{ request()->routeIs('admin.settings.footer') ? 'text-[#D4A373] font-bold' : 'text-gray-600 hover:text-[#D4A373]' }}">
+                            🦶 Footer
+                        </a>
                     </div>
                 </div>
 

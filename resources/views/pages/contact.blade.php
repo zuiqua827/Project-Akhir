@@ -82,8 +82,12 @@
 {{-- Map Preview Card --}}
                     <div class="mt-8">
                         <div class="relative rounded-2xl overflow-hidden shadow-xl h-64">
+                            @php
+                                $contactMapsQuery = $contactInfo['maps_query'] ?? 'Krasak, Bangsri, Jepara, Central Java';
+                                $contactMapsUrl = 'https://maps.google.com/maps?q=' . urlencode($contactMapsQuery) . '&output=embed';
+                            @endphp
                             <iframe 
-                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.016263254858!2d110.71162437368348!3d-6.540762993376128!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7d18b2cf9b8a1f%3A0xd8d68ac63c1d6b8e!2sKrasak%2C%20Bangsri%2C%20Jepara%2C%20Central%20Java!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid" 
+                                src="{{ $contactMapsUrl }}" 
                                 width="100%" 
                                 height="100%" 
                                 style="border:0; filter: grayscale(100%) saturate(0);" 
@@ -94,7 +98,7 @@
                             <div class="absolute inset-0 bg-[#2D1B10]/10 pointer-events-none"></div>
                         </div>
                         <div class="mt-4">
-                            <a href="{{ $contactInfo['maps_url'] ?? '#' }}" target="_blank" class="inline-flex items-center gap-3 px-6 py-4 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#4A2C1C] transition-all shadow-lg">
+                            <a href="https://www.google.com/maps/search/{{ urlencode($contactMapsQuery) }}" target="_blank" class="inline-flex items-center gap-3 px-6 py-4 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#4A2C1C] transition-all shadow-lg">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                                 Get Directions
                             </a>

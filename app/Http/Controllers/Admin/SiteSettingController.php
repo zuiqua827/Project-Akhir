@@ -197,7 +197,7 @@ class SiteSettingController extends Controller
             'address' => 'nullable|string',
             'phone' => 'nullable|string',
             'email' => 'nullable|string',
-            'maps_url' => 'nullable|string',
+            'maps_query' => 'nullable|string',
         ]);
 
         foreach ($infoData as $key => $value) {
@@ -241,5 +241,33 @@ class SiteSettingController extends Controller
         }
 
         return back()->with('success', 'Best Seller products updated successfully.');
+    }
+
+    public function footer()
+    {
+        $settings = SiteSetting::getGroup('footer');
+        return view('admin.settings.footer', compact('settings'));
+    }
+
+    public function updateFooter(Request $request)
+    {
+        $data = $request->validate([
+            'brand_name' => 'nullable|string',
+            'brand_accent' => 'nullable|string',
+            'tagline' => 'nullable|string',
+            'instagram_url' => 'nullable|string',
+            'tiktok_url' => 'nullable|string',
+            'address' => 'nullable|string',
+            'email' => 'nullable|string',
+            'phone' => 'nullable|string',
+            'copyright' => 'nullable|string',
+            'bottom_text' => 'nullable|string',
+        ]);
+
+        foreach ($data as $key => $value) {
+            SiteSetting::set('footer', $key, $value);
+        }
+
+        return back()->with('success', 'Footer settings updated successfully.');
     }
 }
