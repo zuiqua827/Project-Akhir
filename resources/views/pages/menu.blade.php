@@ -2,56 +2,51 @@
 
 @section('content')
     @php
-        $categories = [
-            [
-                'name' => 'Signature Coffees',
-                'items' => [
-                    ['name' => 'Signature Espresso', 'price' => '$4.50', 'desc' => 'Rich, dark, and smooth with a caramel finish.', 'img' => 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&q=80&w=600'],
-                    ['name' => 'Velvet Latte', 'price' => '$5.50', 'desc' => 'Creamy steamed milk poured over double espresso.', 'img' => 'https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&q=80&w=600'],
-                    ['name' => 'Cloud Cappuccino', 'price' => '$5.00', 'desc' => 'Traditional balance of espresso, milk, and deep foam.', 'img' => 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?auto=format&fit=crop&q=80&w=600'],
-                    ['name' => 'Cold Brew Nitro', 'price' => '$6.00', 'desc' => 'Slow-steeped for 24 hours, infused with nitrogen.', 'img' => 'https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&q=80&w=600'],
-                ]
-            ],
-            [
-                'name' => 'Specialty Drinks',
-                'items' => [
-                    ['name' => 'Caramel Macadamia Latte', 'price' => '$7.50', 'desc' => 'House-made salted caramel with crushed roasted macadamia.', 'img' => 'https://images.unsplash.com/photo-1485808191679-5f86510681a2?auto=format&fit=crop&q=80&w=600'],
-                    ['name' => 'Matcha Latte', 'price' => '$5.50', 'desc' => 'Premium Japanese matcha blended with steamed milk.', 'img' => 'https://images.unsplash.com/photo-1515823064-d6e0c04616a7?auto=format&fit=crop&q=80&w=600'],
-                    ['name' => 'Mocha Blend', 'price' => '$6.00', 'desc' => 'Rich chocolate ganache meets bold espresso.', 'img' => 'https://images.unsplash.com/photo-1578314675249-a6910f80cc4e?auto=format&fit=crop&q=80&w=600'],
-                    ['name' => 'Flat White', 'price' => '$5.25', 'desc' => 'Smooth espresso with velvety microfoam.', 'img' => 'https://images.unsplash.com/photo-1570968915860-54d5c301fa9f?auto=format&fit=crop&q=80&w=600'],
-                ]
-            ],
-            [
-                'name' => 'Quick Selections',
-                'items' => [
-                    ['name' => 'Affogato', 'price' => '$7.00', 'desc' => 'Espresso poured over vanilla gelato.', 'img' => 'https://images.unsplash.com/photo-1594631252845-29fc4cc8cde9?auto=format&fit=crop&q=80&w=600'],
-                    ['name' => 'Macchiato', 'price' => '$4.00', 'desc' => 'Espresso with a splash of milk.', 'img' => 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&q=80&w=600'],
-                    ['name' => 'Americano', 'price' => '$3.50', 'desc' => 'Rich espresso diluted with hot water.', 'img' => 'https://images.unsplash.com/photo-1510707577719-ae7c16805a38?auto=format&fit=crop&q=80&w=600'],
-                    ['name' => 'Espresso', 'price' => '$3.00', 'desc' => 'Single or double shot of our signature blend.', 'img' => 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&q=80&w=600'],
-                ]
-            ],
-            [
-                'name' => 'Non-Coffee',
-                'items' => [
-                    ['name' => 'Artisan Tea', 'price' => '$4.50', 'desc' => 'Premium loose-leaf tea selection.', 'img' => 'https://images.unsplash.com/photo-1597318181409-cf64d0b5d8a2?auto=format&fit=crop&q=80&w=600'],
-                    ['name' => 'Hot Chocolate', 'price' => '$5.00', 'desc' => 'Belgian chocolate melted into steamed milk.', 'img' => 'https://images.unsplash.com/photo-1542993243-a7c68aaf5b48?auto=format&fit=crop&q=80&w=600'],
-                    ['name' => 'Chai Latte', 'price' => '$5.25', 'desc' => 'Spiced chai blended with milk.', 'img' => 'https://images.unsplash.com/photo-1542665189-3bf51f0a6241?auto=format&fit=crop&q=80&w=600'],
-                    ['name' => 'Fresh Juice', 'price' => '$6.00', 'desc' => 'Seasonal fruits, freshly pressed.', 'img' => 'https://images.unsplash.com/photo-1600271886742-f049cd451bba?auto=format&fit=crop&q=80&w=600'],
-                ]
-            ]
+        use App\Models\Product;
+
+        $categoryLabels = [
+            'signature' => 'Signature Coffees',
+            'specialty' => 'Specialty Drinks',
+            'quick' => 'Quick Selections',
+            'non-coffee' => 'Non-Coffee',
         ];
+
+        $products = Product::query()
+            ->where('is_available', true)
+            ->orderBy('category')
+            ->orderByDesc('is_featured')
+            ->get();
+
+        $categories = $products
+            ->groupBy('category')
+            ->map(function ($items, $category) use ($categoryLabels) {
+                return [
+                    'name' => $categoryLabels[$category] ?? str_replace('-', ' ', $category),
+                    'items' => $items->map(function ($product) {
+                        return [
+                            'name' => $product->name,
+                            'price' => '$' . number_format((float) $product->price, 2),
+                            'desc' => $product->description,
+                            'img' => $product->image,
+                        ];
+                    })->values(),
+                ];
+            })
+            ->values();
+
+        $heroSettings = \App\Models\SiteSetting::getGroup('menu_hero');
     @endphp
 
     {{-- Hero Section --}}
     <section class="relative pt-32 pb-20 bg-[#FDFBF7]">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             <div class="text-center">
-                <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">Est. 2024</span>
+                <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $heroSettings['badge'] ?? 'Est. 2024' }}</span>
                 <h1 class="text-5xl md:text-7xl font-serif leading-[1.1] mb-6 text-[#2D1B10]">
-                    Our Craft <span class="italic text-[#D4A373]">Menu.</span>
+                    {{ $heroSettings['title'] ?? 'Our Craft' }} <span class="italic text-[#D4A373]">{{ $heroSettings['subtitle'] ?? 'Menu.' }}</span>
                 </h1>
                 <p class="text-lg md:text-xl text-[#2D1B10]/70 max-w-2xl mx-auto leading-relaxed">
-                    Every cup is hand-crafted by our master baristas using precise temperatures and measurements for the ultimate flavor extraction.
+                    {{ $heroSettings['description'] ?? 'Every cup is hand-crafted by our master baristas using precise temperatures and measurements for the ultimate flavor extraction.' }}
                 </p>
             </div>
         </div>

@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
     </style>
@@ -34,6 +35,65 @@
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zm0 0v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zM2 4v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zM2 10v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zM2 16v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 3h20v2H2V3zM2 7h20v2H2V7zM2 11h20v2H2V11zM2 15h20v2H2V15zM2 19h20v2H2V19z"></path></svg>
                     Moments
                 </a>
+
+                {{-- Website Settings Dropdown --}}
+                <div x-data="{ open: {{ request()->routeIs('admin.settings.*') ? 'true' : 'false' }} }" class="mt-4 pt-4 border-t border-gray-200">
+                    <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-100">
+                        <div class="flex items-center gap-3">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            Website Settings
+                        </div>
+                        <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                    </button>
+
+                    <div x-show="open" x-collapse class="pl-11 pr-4 mt-2 space-y-1">
+                        <!-- Home Pages -->
+                        <div x-data="{ openHome: {{ request()->routeIs('admin.settings.home.*') ? 'true' : 'false' }} }">
+                            <button @click="openHome = !openHome" class="flex items-center justify-between w-full py-2 text-sm font-medium text-gray-600 hover:text-[#D4A373]">
+                                <span>🏠 Home</span>
+                                <svg class="w-3 h-3 transition-transform" :class="{ 'rotate-180': openHome }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div x-show="openHome" class="pl-4 mt-1 space-y-1 border-l-2 border-gray-100">
+                                <a href="{{ route('admin.settings.home.hero') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.home.hero') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}">Hero Section</a>
+                                <a href="{{ route('admin.settings.home.gallery') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.home.gallery') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}">Gallery Section</a>
+                            </div>
+                        </div>
+
+                        <!-- About Pages -->
+                        <div x-data="{ openAbout: {{ request()->routeIs('admin.settings.about.*') ? 'true' : 'false' }} }">
+                            <button @click="openAbout = !openAbout" class="flex items-center justify-between w-full py-2 text-sm font-medium text-gray-600 hover:text-[#D4A373]">
+                                <span>📖 About</span>
+                                <svg class="w-3 h-3 transition-transform" :class="{ 'rotate-180': openAbout }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div x-show="openAbout" class="pl-4 mt-1 space-y-1 border-l-2 border-gray-100">
+                                <a href="{{ route('admin.settings.about.hero') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.about.hero') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}">Hero & Stats</a>
+                            </div>
+                        </div>
+
+                        <!-- Menu Pages -->
+                        <div x-data="{ openMenu: {{ request()->routeIs('admin.settings.menu.*') ? 'true' : 'false' }} }">
+                            <button @click="openMenu = !openMenu" class="flex items-center justify-between w-full py-2 text-sm font-medium text-gray-600 hover:text-[#D4A373]">
+                                <span>🍽️ Menu</span>
+                                <svg class="w-3 h-3 transition-transform" :class="{ 'rotate-180': openMenu }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div x-show="openMenu" class="pl-4 mt-1 space-y-1 border-l-2 border-gray-100">
+                                <a href="{{ route('admin.settings.menu.hero') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.menu.hero') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}">Hero Section</a>
+                            </div>
+                        </div>
+
+                        <!-- Contact Pages -->
+                        <div x-data="{ openContact: {{ request()->routeIs('admin.settings.contact.*') ? 'true' : 'false' }} }">
+                            <button @click="openContact = !openContact" class="flex items-center justify-between w-full py-2 text-sm font-medium text-gray-600 hover:text-[#D4A373]">
+                                <span>📞 Contact</span>
+                                <svg class="w-3 h-3 transition-transform" :class="{ 'rotate-180': openContact }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                            </button>
+                            <div x-show="openContact" class="pl-4 mt-1 space-y-1 border-l-2 border-gray-100">
+                                <a href="{{ route('admin.settings.contact.hero') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.contact.hero') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}">Hero Section</a>
+                                <a href="{{ route('admin.settings.contact.info') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.contact.info') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}">Info & Hours</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <form method="POST" action="{{ route('logout') }}" class="mt-4 pt-4 border-t border-gray-200">
 

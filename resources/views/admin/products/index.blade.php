@@ -24,7 +24,6 @@
                             <th class="text-left text-sm font-semibold text-gray-600 px-6 py-4">Product</th>
                             <th class="text-left text-sm font-semibold text-gray-600 px-6 py-4">Category</th>
                             <th class="text-left text-sm font-semibold text-gray-600 px-6 py-4">Price</th>
-                            <th class="text-left text-sm font-semibold text-gray-600 px-6 py-4">Status</th>
                             <th class="text-right text-sm font-semibold text-gray-600 px-6 py-4">Actions</th>
                         </tr>
                     </thead>
@@ -49,20 +48,8 @@
                                     <span class="text-lg font-semibold text-gray-800">${{ number_format($product->price, 2) }}</span>
                                 </td>
                                 <td class="px-6 py-4">
-                                    <div class="flex flex-wrap gap-2">
-                                        @if($product->is_featured)
-                                            <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">Featured</span>
-                                        @endif
-                                        @if($product->is_special)
-                                            <span class="px-2 py-1 text-xs font-medium bg-purple-100 text-purple-700 rounded-full">Special</span>
-                                        @endif
-                                        @if(!$product->is_available)
-                                            <span class="px-2 py-1 text-xs font-medium bg-red-100 text-red-700 rounded-full">Unavailable</span>
-                                        @endif
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4">
                                     <div class="flex items-center justify-end gap-2">
+
                                         <a href="{{ route('admin.products.edit', $product->id) }}" class="p-2 text-gray-600 hover:text-[#D4A373] hover:bg-[#D4A373]/10 rounded-lg transition-colors">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                                         </a>

@@ -2,30 +2,24 @@
 
 @section('content')
 @php
-        $contactInfo = [
-            'address' => 'Jl. KH Achmad Fauzan No.17, Krasak, Bangsri, Kec. Bangsri, Kabupaten Jepara, Jawa Tengah 59415',
-            'phone' => '+62 812-3456-7890',
-            'email' => 'hello@cafe.com',
-            'mapsUrl' => 'https://www.google.com/maps/place/SMK+Negeri+1+Bangsri/@-6.5275824,110.7483335,17z/data=!3m1!4b1!4m6!3m5!1s0x2e71224fcb07076b:0xd0eadbcc365f1b0d!8m2!3d-6.5275877!4d110.7509084!16s%2Fg%2F1pzv_ytw7?hl=en&entry=ttu&g_ep=EgoyMDI2MDQyOC4wIKXMDSoASAFQAw%3D%3D',
-        ];
+        $contactInfo = \App\Models\SiteSetting::getGroup('contact_info');
         
-        $hours = [
-            ['day' => 'Senin - Jumat', 'time' => '07:00 WIB — 21:00 WIB'],
-            ['day' => 'Sabtu', 'time' => '08:00 WIB — 22:00 WIB'],
-            ['day' => 'Minggu', 'time' => '08:00 WIB — 20:00 WIB'],
-        ];
+        $hoursJson = \App\Models\SiteSetting::get('contact_hours', 'hours_json', '[]');
+        $hours = json_decode($hoursJson, true);
+
+        $heroSettings = \App\Models\SiteSetting::getGroup('contact_hero');
     @endphp
 
     {{-- Hero Section --}}
     <section class="relative pt-32 pb-20 bg-[#FDFBF7]">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             <div class="text-center">
-                <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">Get in Touch</span>
+                <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $heroSettings['badge'] ?? 'Get in Touch' }}</span>
                 <h1 class="text-5xl md:text-7xl font-serif leading-[1.1] mb-6 text-[#2D1B10]">
-                    Visit <span class="italic text-[#D4A373]">Us.</span>
+                    {{ $heroSettings['title'] ?? 'Visit' }} <span class="italic text-[#D4A373]">{{ $heroSettings['subtitle'] ?? 'Us.' }}</span>
                 </h1>
                 <p class="text-lg md:text-xl text-[#2D1B10]/70 max-w-2xl mx-auto leading-relaxed">
-                    We'd love to hear from you. Whether you have a question about our beans, want to book an event, or just want to say hello, our door is always open.
+                    {{ $heroSettings['description'] ?? 'We\'d love to hear from you. Whether you have a question about our beans, want to book an event, or just want to say hello, our door is always open.' }}
                 </p>
             </div>
         </div>
@@ -47,7 +41,7 @@
                             </div>
                             <h3 class="text-xl font-serif font-bold text-[#2D1B10]">Address</h3>
                         </div>
-                        <p class="text-[#2D1B10]/70 text-lg pl-16">{{ $contactInfo['address'] }}</p>
+                        <p class="text-[#2D1B10]/70 text-lg pl-16">{{ $contactInfo['address'] ?? '' }}</p>
                     </div>
 
                     {{-- Phone --}}
@@ -58,7 +52,7 @@
                             </div>
                             <h3 class="text-xl font-serif font-bold text-[#2D1B10]">Phone</h3>
                         </div>
-                        <p class="text-[#2D1B10]/70 text-lg pl-16">{{ $contactInfo['phone'] }}</p>
+                        <p class="text-[#2D1B10]/70 text-lg pl-16">{{ $contactInfo['phone'] ?? '' }}</p>
                     </div>
 
                     {{-- Email --}}
@@ -69,7 +63,7 @@
                             </div>
                             <h3 class="text-xl font-serif font-bold text-[#2D1B10]">Email</h3>
                         </div>
-                        <p class="text-[#2D1B10]/70 text-lg pl-16">{{ $contactInfo['email'] }}</p>
+                        <p class="text-[#2D1B10]/70 text-lg pl-16">{{ $contactInfo['email'] ?? '' }}</p>
                     </div>
 
                     {{-- Hours --}}
@@ -100,7 +94,7 @@
                             <div class="absolute inset-0 bg-[#2D1B10]/10 pointer-events-none"></div>
                         </div>
                         <div class="mt-4">
-                            <a href="{{ $contactInfo['mapsUrl'] }}" target="_blank" class="inline-flex items-center gap-3 px-6 py-4 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#4A2C1C] transition-all shadow-lg">
+                            <a href="{{ $contactInfo['maps_url'] ?? '#' }}" target="_blank" class="inline-flex items-center gap-3 px-6 py-4 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#4A2C1C] transition-all shadow-lg">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                                 Get Directions
                             </a>

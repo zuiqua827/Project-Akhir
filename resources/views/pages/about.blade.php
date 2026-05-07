@@ -15,6 +15,9 @@
         ['year' => 'Q3 2024', 'title' => 'Direct Trade', 'desc' => 'Established direct partnerships with coffee farmers in Sumatra and Java.'],
         ['year' => 'Q4 2024', 'title' => 'Recognition', 'desc' => 'Awarded Best Specialty Coffee Shop in Jakarta by local food critics.'],
     ];
+
+    $heroSettings = \App\Models\SiteSetting::getGroup('about_hero');
+    $stats = \App\Models\SiteSetting::getGroup('about_stats');
 @endphp
 
 {{-- Hero Section --}}
@@ -22,33 +25,33 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-12">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-                <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">our story</span>
+                <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $heroSettings['badge'] ?? 'our story' }}</span>
                 <h1 class="text-5xl md:text-7xl font-serif leading-[1.1] mb-8 text-[#2D1B10]">
-                    Beyond just <span class="italic text-[#D4A373]">Coffee.</span>
+                    {{ $heroSettings['title'] ?? 'Beyond just' }} <span class="italic text-[#D4A373]">{{ $heroSettings['subtitle'] ?? 'Coffee.' }}</span>
                 </h1>
                 <p class="text-lg text-[#2D1B10]/70 mb-6 leading-relaxed">
-                    At Café, we believe that coffee is a ritual, not just a drink. Our beans are ethically sourced from the highest altitudes and roasted in small batches to preserve their unique profiles.
+                    {{ $heroSettings['description1'] ?? 'At Café, we believe that coffee is a ritual, not just a drink. Our beans are ethically sourced from the highest altitudes and roasted in small batches to preserve their unique profiles.' }}
                 </p>
                 <p class="text-lg text-[#2D1B10]/70 mb-10 leading-relaxed">
-                    Whether you're seeking a quiet corner for reflection or a vibrant space for connection, our doors are open to provide a sanctuary of warmth and exceptional taste.
+                    {{ $heroSettings['description2'] ?? 'Whether you\'re seeking a quiet corner for reflection or a vibrant space for connection, our doors are open to provide a sanctuary of warmth and exceptional taste.' }}
                 </p>
                 <div class="grid grid-cols-2 gap-8 border-t border-[#2D1B10]/10 pt-10">
                     <div>
-                        <h4 class="font-serif text-4xl mb-2 text-[#D4A373]">100%</h4>
-                        <p class="text-xs uppercase tracking-widest text-[#2D1B10]/60 font-bold">Organic Beans</p>
+                        <h4 class="font-serif text-4xl mb-2 text-[#D4A373]">{{ $stats['stat1_value'] ?? '100%' }}</h4>
+                        <p class="text-xs uppercase tracking-widest text-[#2D1B10]/60 font-bold">{{ $stats['stat1_label'] ?? 'Organic Beans' }}</p>
                     </div>
                     <div>
-                        <h4 class="font-serif text-4xl mb-2 text-[#D4A373]">15+</h4>
-                        <p class="text-xs uppercase tracking-widest text-[#2D1B10]/60 font-bold">Countries Sourced</p>
+                        <h4 class="font-serif text-4xl mb-2 text-[#D4A373]">{{ $stats['stat2_value'] ?? '15+' }}</h4>
+                        <p class="text-xs uppercase tracking-widest text-[#2D1B10]/60 font-bold">{{ $stats['stat2_label'] ?? 'Countries Sourced' }}</p>
                     </div>
                 </div>
             </div>
             <div class="relative">
                 <div class="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
-                    <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover" alt="Brewing coffee">
+                    <img src="{{ $heroSettings['image1'] ?? 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=800' }}" class="w-full h-full object-cover" alt="Brewing coffee">
                 </div>
                 <div class="absolute -bottom-10 -left-10 hidden md:block w-72 aspect-square rounded-3xl overflow-hidden border-8 border-white shadow-2xl">
-                    <img src="https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&q=80&w=600" class="w-full h-full object-cover" alt="Coffee cup">
+                    <img src="{{ $heroSettings['image2'] ?? 'https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&q=80&w=600' }}" class="w-full h-full object-cover" alt="Coffee cup">
                 </div>
             </div>
         </div>

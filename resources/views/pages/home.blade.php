@@ -10,31 +10,32 @@
 
     $moments = App\Models\Moment::ordered()->get();
 
-
+    $heroSettings = \App\Models\SiteSetting::getGroup('home_hero');
+    $gallerySettings = \App\Models\SiteSetting::getGroup('home_gallery');
 @endphp
 
     {{-- Hero Section --}}
     <section id="home" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-gradient-to-r from-[#FDFBF7] via-[#FDFBF7]/80 to-transparent z-10"></div>
-            <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=2000" class="w-full h-full object-cover" alt="Cafe interior">
+            <img src="{{ $heroSettings['background_image'] ?? 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=2000' }}" class="w-full h-full object-cover" alt="Cafe interior">
         </div>
 
         <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-20">
             <div class="max-w-2xl">
-                <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">Est. 2024</span>
+                <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $heroSettings['badge'] ?? 'Est. 2024' }}</span>
                 <h1 class="text-6xl md:text-8xl font-serif leading-[1.1] mb-8 text-[#2D1B10]">
-                    Freshly Brewed <br><span class="italic text-[#D4A373]">For You.</span>
+                    {!! nl2br(e($heroSettings['title'] ?? 'Freshly Brewed')) !!} <br><span class="italic text-[#D4A373]">{{ $heroSettings['subtitle'] ?? 'For You.' }}</span>
                 </h1>
                 <p class="text-lg md:text-xl text-[#2D1B10]/70 mb-6 leading-relaxed max-w-lg">
-                    Experience the perfect balance of artisan roasting and soulful atmosphere in every single cup we serve.
+                    {{ $heroSettings['description'] ?? 'Experience the perfect balance of artisan roasting and soulful atmosphere in every single cup we serve.' }}
                 </p>
                 <p class="text-[#2D1B10]/50 mb-12 text-sm">
-                    Ethically sourced beans, roasted in small batches.
+                    {{ $heroSettings['sub_description'] ?? 'Ethically sourced beans, roasted in small batches.' }}
                 </p>
                 <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                     <a href="{{ route('menu') }}" class="px-10 py-5 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#4A2C1C] transition-all shadow-xl shadow-[#2D1B10]/20">
-                        Explore Menu
+                        {{ $heroSettings['cta_text'] ?? 'Explore Menu' }}
                     </a>
                     <a href="{{ route('about') }}" class="px-10 py-5 border border-[#2D1B10] text-[#2D1B10] rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#2D1B10] hover:text-white transition-all">
                         Our Story
@@ -115,8 +116,8 @@
     <section class="py-24 bg-[#2D1B10]">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             <div class="text-center mb-16" data-aos="fade-up">
-                <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">Our Moments</span>
-                <h2 class="text-4xl md:text-5xl font-serif text-[#FDFBF7]">Gallery</h2>
+                <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $gallerySettings['badge'] ?? 'Our Moments' }}</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-[#FDFBF7]">{{ $gallerySettings['title'] ?? 'Gallery' }}</h2>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 @forelse($moments as $index => $moment)
