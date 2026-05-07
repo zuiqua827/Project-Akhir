@@ -75,7 +75,7 @@
 
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Nama Tempat / Alamat di Google Maps</label>
-                <input type="text" name="maps_query" value="{{ $settings['maps_query'] ?? 'Krasak, Bangsri, Jepara, Central Java' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent" placeholder="e.g. Nikalua Coffee Jepara">
+                <input type="text" name="maps_query" value="{{ $settings['maps_query'] ?? 'Krasak, Bangsri, Jepara, Central Java' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent" placeholder="e.g. SMK N 1 BANGSRI">
                 <p class="text-sm text-gray-500 mt-1">Ketik nama tempat atau alamat lengkap. Peta akan otomatis menampilkan lokasi tersebut.</p>
 
                 @php
