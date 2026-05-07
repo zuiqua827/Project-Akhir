@@ -145,7 +145,7 @@
         </div>
     </section>
 
-    {{-- CTA Section --}}
+    <!-- {{-- CTA Section --}}
     <section class="py-32 bg-[#D4A373]">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <h2 class="text-5xl md:text-6xl font-serif text-[#2D1B10] mb-10">Ready to taste the difference?</h2>
@@ -154,5 +154,5 @@
                 View Menu
             </a>
         </div>
-    </section>
+    </section> -->
 @endsection
