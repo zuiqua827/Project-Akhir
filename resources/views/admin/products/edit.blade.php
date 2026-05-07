@@ -9,6 +9,16 @@
             <h1 class="text-2xl font-bold text-gray-800">Edit Product</h1>
         </div>
 
+        @if($errors->any())
+            <div class="bg-red-50 border border-red-200 text-red-700 px-6 py-4 rounded-xl mb-6">
+                <ul class="list-disc list-inside">
+                    @foreach($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
         <form action="{{ route('admin.products.update', $product->id) }}" method="POST" class="bg-white rounded-2xl shadow-sm p-8">
             @csrf
             @method('PUT')

@@ -28,9 +28,6 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'image' => 'nullable|string',
             'category' => 'required|string',
-            'is_featured' => 'boolean',
-            'is_special' => 'boolean',
-            'is_available' => 'boolean',
         ]);
 
         Product::create([
@@ -41,7 +38,7 @@ class ProductController extends Controller
             'category' => $validated['category'],
             'is_featured' => $request->has('is_featured'),
             'is_special' => $request->has('is_special'),
-            'is_available' => $request->has('is_available') ? true : true,
+            'is_available' => $request->has('is_available'),
         ]);
 
         return redirect()->route('admin.products.index')->with('success', 'Product created successfully!');
@@ -61,9 +58,6 @@ class ProductController extends Controller
             'description' => 'nullable|string',
             'image' => 'nullable|string',
             'category' => 'required|string',
-            'is_featured' => 'boolean',
-            'is_special' => 'boolean',
-            'is_available' => 'boolean',
         ]);
 
         $product->update([
