@@ -86,7 +86,7 @@
         </div>
     </section>
 
-    {{-- CTA Section --}}
+    <!-- {{-- CTA Section --}}
     <section class="py-24 bg-[#D4A373]">
         <div class="max-w-4xl mx-auto px-6 text-center">
             <h2 class="text-4xl md:text-5xl font-serif text-[#2D1B10] mb-6">Can't decide? Start with our special.</h2>
@@ -95,5 +95,5 @@
                 Caramel Macadamia Latte — $7.50
             </div>
         </div>
-    </section>
+    </section> -->
 @endsection

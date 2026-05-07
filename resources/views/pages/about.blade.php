@@ -3,10 +3,10 @@
 @section('content')
 @php
     $values = [
-        ['icon' => '☕', 'title' => 'Quality First', 'desc' => 'We source only the finest single-origin beans from ethical farms worldwide.'],
-        ['icon' => '🌱', 'title' => 'Sustainability', 'desc' => 'Every step of our process is designed to minimize environmental impact.'],
-        ['icon' => '❤️', 'title' => 'Community', 'desc' => 'We believe coffee is a catalyst for meaningful connections and conversations.'],
-        ['icon' => '✨', 'title' => 'Craftmanship', 'desc' => 'Our baristas are trained for months to perfect every cup they serve.'],
+        ['icon' => 'fa-solid fa-gem', 'title' => 'Quality First', 'desc' => 'We source only the finest single-origin beans from ethical farms worldwide.'],
+        ['icon' => 'fa-solid fa-leaf', 'title' => 'Sustainability', 'desc' => 'Every step of our process is designed to minimize environmental impact.'],
+        ['icon' => 'fa-solid fa-people-group', 'title' => 'Community', 'desc' => 'We believe coffee is a catalyst for meaningful connections and conversations.'],
+        ['icon' => 'fa-solid fa-wand-magic-sparkles', 'title' => 'Craftmanship', 'desc' => 'Our baristas are trained for months to perfect every cup they serve.'],
     ];
 
     $timeline = [
@@ -68,7 +68,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 @foreach($values as $value)
             <div class="text-center p-8 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[#D4A373]/30 transition-all duration-500">
-                <div class="text-5xl mb-6">{{ $value['icon'] }}</div>
+                <div class="text-4xl mb-6 text-[#D4A373]"><i class="{{ $value['icon'] }}"></i></div>
                 <h3 class="text-xl font-serif font-bold text-[#FDFBF7] mb-4">{{ $value['title'] }}</h3>
                 <p class="text-[#FDFBF7]/50 text-sm leading-relaxed">{{ $value['desc'] }}</p>
             </div>
@@ -144,7 +144,7 @@
     </div>
 </section>
 
-{{-- CTA Section --}}
+<!-- {{-- CTA Section --}}
 <section class="py-24 bg-[#D4A373]">
     <div class="max-w-4xl mx-auto px-6 text-center">
         <h2 class="text-4xl md:text-5xl font-serif text-[#2D1B10] mb-6">Come visit us today.</h2>
@@ -153,5 +153,5 @@
             Get Directions
         </a>
     </div>
-</section>
+</section> -->
 @endsection
