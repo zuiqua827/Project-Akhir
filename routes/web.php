@@ -1,13 +1,101 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\MomentController;
+use App\Http\Controllers\MenuController;
+use App\Models\SiteSetting;
 
 Route::view('/', 'pages.home')->name('home');
-Route::view('/menu', 'pages.menu')->name('menu');
+Route::get('/menu', [MenuController::class, 'index'])->name('menu');
+Route::get('/menu/{product}', [MenuController::class, 'show'])->name('menu.show');
 Route::view('/about', 'pages.about')->name('about');
 Route::view('/contact', 'pages.contact')->name('contact');
+Route::post('/contact', function (Request $request) {
+    $data = $request->validate([
+        'first_name' => 'nullable|string|max:100',
+        'last_name' => 'nullable|string|max:100',
+        'email' => 'nullable|email|max:255',
+        'reservation_date' => 'nullable|date|after_or_equal:today',
+        'reservation_time' => 'nullable|date_format:H:i',
+        'subject' => 'nullable|string|max:150',
+        'message' => 'nullable|string|max:2000',
+    ]);
+
+    $contactInfo = SiteSetting::getGroup('contact_info');
+    $reservationSettings = SiteSetting::getGroup('contact_reservation');
+    $reservationEnabled = ($reservationSettings['enabled'] ?? '1') === '1';
+
+    if (! $reservationEnabled) {
+        return redirect()->route('contact')->with('error', 'Form reservasi sedang dinonaktifkan oleh admin.');
+    }
+
+    $waAdminRaw = $reservationSettings['whatsapp_number'] ?? $contactInfo['whatsapp'] ?? $contactInfo['phone'] ?? '';
+    $waAdminNumber = preg_replace('/\D+/', '', $waAdminRaw);
+
+    if (str_starts_with($waAdminNumber, '0')) {
+        $waAdminNumber = '62' . substr($waAdminNumber, 1);
+    } elseif (str_starts_with($waAdminNumber, '8')) {
+        $waAdminNumber = '62' . $waAdminNumber;
+    }
+
+    if ($waAdminNumber === '') {
+        return redirect()->route('contact')->with('error', 'Nomor WhatsApp admin belum diatur.');
+    }
+
+    $templateOpening = trim((string) ($reservationSettings['template_opening'] ?? ''));
+    if ($templateOpening === '') {
+        $templateOpening = 'Halo Admin, saya ingin reservasi dengan detail berikut:';
+    }
+
+    $templateClosing = trim((string) ($reservationSettings['template_closing'] ?? ''));
+    if ($templateClosing === '') {
+        $templateClosing = 'Mohon info ketersediaannya. Terima kasih.';
+    }
+
+    $subjectOptions = json_decode($reservationSettings['subject_options_json'] ?? '[]', true);
+    if (!is_array($subjectOptions)) {
+        $subjectOptions = [];
+    }
+    $subjectOptions = array_values(array_filter(array_map('trim', $subjectOptions)));
+
+    $fullName = trim(($data['first_name'] ?? '') . ' ' . ($data['last_name'] ?? ''));
+    $subject = trim((string) ($data['subject'] ?? ''));
+    if (!empty($subjectOptions) && !in_array($subject, $subjectOptions, true)) {
+        $subject = '-';
+    }
+    $reservationDate = $data['reservation_date'] ?? '';
+    $reservationTime = $data['reservation_time'] ?? '';
+
+    if ($reservationDate !== '') {
+        $dateParts = explode('-', $reservationDate);
+        if (count($dateParts) === 3) {
+            $reservationDate = $dateParts[2] . '-' . $dateParts[1] . '-' . $dateParts[0];
+        }
+    }
+
+    if ($reservationTime !== '') {
+        $reservationTime .= ' WIB';
+    }
+
+    $waTemplate = implode("\n", [
+        $templateOpening,
+        '',
+        '- Nama: ' . ($fullName !== '' ? $fullName : '-'),
+        '- Email: ' . ($data['email'] ?? '-'),
+        '- Tanggal Reservasi: ' . ($reservationDate !== '' ? $reservationDate : '-'),
+        '- Waktu Reservasi: ' . ($reservationTime !== '' ? $reservationTime : '-'),
+        '- Subjek: ' . ($subject !== '' ? $subject : '-'),
+        '- Pesan: ' . ($data['message'] ?? '-'),
+        '',
+        $templateClosing,
+    ]);
+
+    $waUrl = 'https://wa.me/' . $waAdminNumber . '?text=' . urlencode($waTemplate);
+
+    return redirect()->away($waUrl);
+})->name('contact.reserve');
 
 // Admin Routes (protected)
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {

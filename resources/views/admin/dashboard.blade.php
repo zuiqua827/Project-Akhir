@@ -2,14 +2,14 @@
 
 @section('content')
     <div class="p-6 lg:p-8">
-        <h1 class="text-2xl font-bold text-gray-800 mb-8">Dashboard</h1>
+        <h1 class="text-2xl font-bold text-gray-800 mb-8">Dasbor</h1>
 
         {{-- Stats Cards --}}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
             <div class="bg-white rounded-2xl p-6 shadow-sm">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Total Products</p>
+                        <p class="text-sm text-gray-500 mb-1">Total Produk</p>
                         <p class="text-3xl font-bold text-gray-800">{{ \App\Models\Product::count() }}</p>
                     </div>
                     <div class="w-14 h-14 rounded-2xl bg-[#D4A373]/10 flex items-center justify-center">
@@ -21,7 +21,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Total Moments</p>
+                        <p class="text-sm text-gray-500 mb-1">Total Momen</p>
                         <p class="text-3xl font-bold text-gray-800">{{ \App\Models\Moment::count() }}</p>
                     </div>
                     <div class="w-14 h-14 rounded-2xl bg-indigo-50 flex items-center justify-center">
@@ -34,7 +34,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Featured</p>
+                        <p class="text-sm text-gray-500 mb-1">Unggulan</p>
                         <p class="text-3xl font-bold text-gray-800">{{ \App\Models\Product::where('is_featured', true)->count() }}</p>
                     </div>
                     <div class="w-14 h-14 rounded-2xl bg-blue-50 flex items-center justify-center">
@@ -46,7 +46,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Specials</p>
+                        <p class="text-sm text-gray-500 mb-1">Spesial</p>
                         <p class="text-3xl font-bold text-gray-800">{{ \App\Models\Product::where('is_special', true)->count() }}</p>
                     </div>
                     <div class="w-14 h-14 rounded-2xl bg-purple-50 flex items-center justify-center">
@@ -58,7 +58,7 @@
             <div class="bg-white rounded-2xl p-6 shadow-sm">
                 <div class="flex items-center justify-between">
                     <div>
-                        <p class="text-sm text-gray-500 mb-1">Available</p>
+                        <p class="text-sm text-gray-500 mb-1">Tersedia</p>
                         <p class="text-3xl font-bold text-gray-800">{{ \App\Models\Product::where('is_available', true)->count() }}</p>
                     </div>
                     <div class="w-14 h-14 rounded-2xl bg-green-50 flex items-center justify-center">
@@ -68,39 +68,39 @@
             </div>
         </div>
 
-        {{-- Quick Actions --}}
+        {{-- Aksi Cepat --}}
         <div class="bg-white rounded-2xl p-6 shadow-sm mb-8">
-            <h2 class="text-lg font-semibold text-gray-800 mb-6">Quick Actions</h2>
+            <h2 class="text-lg font-semibold text-gray-800 mb-6">Aksi Cepat</h2>
             <div class="flex flex-wrap gap-4">
                 <a href="{{ route('admin.products.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                    Add Product
+                    Tambah Produk
                 </a>
                 <a href="{{ route('admin.moments.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zm0 0v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zM2 4v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zM2 10v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zM2 16v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 3h20v2H2V3zM2 7h20v2H2V7zM2 11h20v2H2V11zM2 15h20v2H2V15zM2 19h20v2H2V19z"></path></svg>
-                    Add Moment
+                    Tambah Momen
                 </a>
                 <a href="{{ route('home') }}" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
-                    View Website
+                    Lihat Website
                 </a>
 
             </div>
         </div>
 
-        {{-- Recent Products --}}
+        {{-- Produk Terbaru --}}
         <div class="bg-white rounded-2xl p-6 shadow-sm mb-8">
             <div class="flex items-center justify-between mb-6">
-                <h2 class="text-lg font-semibold text-gray-800">Recent Products</h2>
-                <a href="{{ route('admin.products.index') }}" class="text-sm text-[#D4A373] hover:underline">View All</a>
+                <h2 class="text-lg font-semibold text-gray-800">Produk Terbaru</h2>
+                <a href="{{ route('admin.products.index') }}" class="text-sm text-[#D4A373] hover:underline">Lihat Semua</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead>
                         <tr class="border-b border-gray-200">
-                            <th class="text-left text-sm font-semibold text-gray-600 pb-4">Product</th>
-                            <th class="text-left text-sm font-semibold text-gray-600 pb-4">Category</th>
-                            <th class="text-left text-sm font-semibold text-gray-600 pb-4">Price</th>
+                            <th class="text-left text-sm font-semibold text-gray-600 pb-4">Produk</th>
+                            <th class="text-left text-sm font-semibold text-gray-600 pb-4">Kategori</th>
+                            <th class="text-left text-sm font-semibold text-gray-600 pb-4">Harga</th>
                             <th class="text-left text-sm font-semibold text-gray-600 pb-4">Status</th>
                         </tr>
                     </thead>
@@ -114,21 +114,21 @@
                                     </div>
                                 </td>
                                 <td class="py-4">
-                                    <span class="capitalize text-sm text-gray-600">{{ str_replace('-', ' ', $product->category) }}</span>
+                                    <span class="capitalize text-sm text-gray-600">{{ $product->category_label }}</span>
                                 </td>
                                 <td class="py-4">
-                                    <span class="font-medium text-gray-800">${{ number_format($product->price, 2) }}</span>
+                                    <span class="font-medium text-gray-800">{{ $product->formatted_price }}</span>
                                 </td>
                                 <td class="py-4">
                                     <div class="flex gap-2">
                                         @if($product->is_featured)
-                                            <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">Featured</span>
+                                            <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">Unggulan</span>
                                         @endif
                                         @if($product->is_special)
-                                            <span class="px-2 py-1 text-xs font-medium bg-purple-100 text-purple-700 rounded-full">Special</span>
+                                            <span class="px-2 py-1 text-xs font-medium bg-purple-100 text-purple-700 rounded-full">Spesial</span>
                                         @endif
                                         @if(!$product->is_available)
-                                            <span class="px-2 py-1 text-xs font-medium bg-red-100 text-red-700 rounded-full">Unavailable</span>
+                                            <span class="px-2 py-1 text-xs font-medium bg-red-100 text-red-700 rounded-full">Tidak Tersedia</span>
                                         @endif
                                     </div>
                                 </td>
@@ -139,19 +139,19 @@
             </div>
         </div>
 
-        {{-- Recent Moments --}}
+        {{-- Momen Terbaru --}}
         <div class="bg-white rounded-2xl p-6 shadow-sm">
             <div class="flex items-center justify-between mb-6">
-                <h2 class="text-lg font-semibold text-gray-800">Recent Moments</h2>
-                <a href="{{ route('admin.moments.index') }}" class="text-sm text-[#D4A373] hover:underline">View All</a>
+                <h2 class="text-lg font-semibold text-gray-800">Momen Terbaru</h2>
+                <a href="{{ route('admin.moments.index') }}" class="text-sm text-[#D4A373] hover:underline">Lihat Semua</a>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full">
                     <thead>
                         <tr class="border-b border-gray-200">
-                            <th class="text-left text-sm font-semibold text-gray-600 pb-4">Preview</th>
-                            <th class="text-left text-sm font-semibold text-gray-600 pb-4">Caption</th>
-                            <th class="text-left text-sm font-semibold text-gray-600 pb-4">Order</th>
+                            <th class="text-left text-sm font-semibold text-gray-600 pb-4">Pratinjau</th>
+                            <th class="text-left text-sm font-semibold text-gray-600 pb-4">Keterangan</th>
+                            <th class="text-left text-sm font-semibold text-gray-600 pb-4">Urutan</th>
                             <th class="text-right text-sm font-semibold text-gray-600 pb-4">Status</th>
                         </tr>
                     </thead>
@@ -169,14 +169,14 @@
                                 </td>
                                 <td class="py-4 text-right">
                                     @if($moment->is_featured)
-                                        <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">Featured</span>
+                                        <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">Unggulan</span>
                                     @endif
                                 </td>
                             </tr>
                         @empty
                             <tr>
                                 <td colspan="4" class="py-12 text-center text-gray-500 text-sm">
-                                    No moments yet
+                                    Belum ada momen
                                 </td>
                             </tr>
                         @endforelse

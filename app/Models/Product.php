@@ -9,6 +9,13 @@ class Product extends Model
 {
     use HasFactory;
 
+    public const CATEGORY_LABELS = [
+        'signature' => 'Kopi Signature',
+        'specialty' => 'Minuman Spesial',
+        'quick' => 'Pilihan Cepat',
+        'non-coffee' => 'Non-Kopi',
+    ];
+
     protected $fillable = [
         'name',
         'price',
@@ -26,6 +33,26 @@ class Product extends Model
         'is_special' => 'boolean',
         'is_available' => 'boolean',
     ];
+
+    public function getFormattedPriceAttribute(): string
+    {
+        return 'Rp ' . number_format((float) $this->price, 0, ',', '.');
+    }
+
+    public function getCategoryLabelAttribute(): string
+    {
+        return self::CATEGORY_LABELS[$this->category] ?? ucfirst(str_replace('-', ' ', $this->category));
+    }
+
+    public static function categoryOptions(): array
+    {
+        return array_keys(self::CATEGORY_LABELS);
+    }
+
+    public static function categoryLabels(): array
+    {
+        return self::CATEGORY_LABELS;
+    }
 
     public function scopeFeatured($query)
     {

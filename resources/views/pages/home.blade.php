@@ -17,27 +17,27 @@
     <section id="home" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-gradient-to-r from-[#FDFBF7] via-[#FDFBF7]/80 to-transparent z-10"></div>
-            <img src="{{ $heroSettings['background_image'] ?? 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=2000' }}" class="w-full h-full object-cover" alt="Cafe interior">
+            <img src="{{ $heroSettings['background_image'] ?? 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=2000' }}" class="w-full h-full object-cover" alt="Interior cafe">
         </div>
 
         <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-20">
             <div class="max-w-2xl">
                 <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $heroSettings['badge'] ?? 'Est. 2024' }}</span>
                 <h1 class="text-6xl md:text-8xl font-serif leading-[1.1] mb-8 text-[#2D1B10]">
-                    {!! nl2br(e($heroSettings['title'] ?? 'Freshly Brewed')) !!} <br><span class="italic text-[#D4A373]">{{ $heroSettings['subtitle'] ?? 'For You.' }}</span>
+                    {!! nl2br(e($heroSettings['title'] ?? 'Diseduh Segar')) !!} <br><span class="italic text-[#D4A373]">{{ $heroSettings['subtitle'] ?? 'Untukmu.' }}</span>
                 </h1>
                 <p class="text-lg md:text-xl text-[#2D1B10]/70 mb-6 leading-relaxed max-w-lg">
-                    {{ $heroSettings['description'] ?? 'Experience the perfect balance of artisan roasting and soulful atmosphere in every single cup we serve.' }}
+                    {{ $heroSettings['description'] ?? 'Nikmati keseimbangan sempurna antara teknik roasting artisan dan suasana hangat di setiap cangkir yang kami sajikan.' }}
                 </p>
                 <p class="text-[#2D1B10]/50 mb-12 text-sm">
-                    {{ $heroSettings['sub_description'] ?? 'Ethically sourced beans, roasted in small batches.' }}
+                    {{ $heroSettings['sub_description'] ?? 'Biji kopi pilihan dari sumber berkelanjutan, dipanggang dalam batch kecil.' }}
                 </p>
                 <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
                     <a href="{{ route('menu') }}" class="px-10 py-5 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#4A2C1C] transition-all shadow-xl shadow-[#2D1B10]/20">
-                        {{ $heroSettings['cta_text'] ?? 'Explore Menu' }}
+                        {{ $heroSettings['cta_text'] ?? 'Lihat Menu' }}
                     </a>
                     <a href="{{ route('about') }}" class="px-10 py-5 border border-[#2D1B10] text-[#2D1B10] rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#2D1B10] hover:text-white transition-all">
-                        Our Story
+                        Cerita Kami
                     </a>
                 </div>
             </div>
@@ -48,9 +48,9 @@
     <section id="bestseller" class="py-32 bg-[#FDFBF7]">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             <div class="text-center max-w-3xl mx-auto mb-20">
-                <h2 class="text-5xl font-serif mb-6">Best <span class="italic text-[#D4A373]">Seller</span></h2>
+                <h2 class="text-5xl font-serif mb-6">Produk <span class="italic text-[#D4A373]">Terlaris</span></h2>
                 <div class="w-20 h-1 bg-[#D4A373] mx-auto mb-8"></div>
-                <p class="text-[#2D1B10]/60">The most loved drinks by our customers.</p>
+                <p class="text-[#2D1B10]/60">Minuman favorit yang paling disukai pelanggan kami.</p>
             </div>
 
             @if($products->count() > 0)
@@ -69,7 +69,7 @@
             </div>
             @else
             <div class="text-center py-16">
-                <p class="text-[#2D1B10]/40 text-lg">Best sellers coming soon...</p>
+                <p class="text-[#2D1B10]/40 text-lg">Produk terlaris segera hadir...</p>
             </div>
             @endif
         </div>
@@ -79,8 +79,8 @@
     <section class="py-24 bg-[#2D1B10]">
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             <div class="text-center mb-16" data-aos="fade-up">
-                <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $gallerySettings['badge'] ?? 'Our Moments' }}</span>
-                <h2 class="text-4xl md:text-5xl font-serif text-[#FDFBF7]">{{ $gallerySettings['title'] ?? 'Gallery' }}</h2>
+                <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $gallerySettings['badge'] ?? 'Momen Kami' }}</span>
+                <h2 class="text-4xl md:text-5xl font-serif text-[#FDFBF7]">{{ $gallerySettings['title'] ?? 'Galeri' }}</h2>
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                 @forelse($moments as $index => $moment)
@@ -92,7 +92,7 @@
                     </div>
                 @empty
                     <div class="col-span-full text-center py-12 text-gray-500">
-                        <p>Gallery coming soon...</p>
+                        <p>Galeri segera hadir...</p>
                     </div>
                 @endforelse
             </div>
@@ -106,10 +106,10 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-12">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                 <div>
-                    <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $locationSettings['badge'] ?? 'Visit Us' }}</span>
-                    <h2 class="text-4xl md:text-5xl font-serif mb-6 leading-tight">{{ $locationSettings['title'] ?? 'Find Your' }} <span class="italic text-[#D4A373]">{{ $locationSettings['subtitle'] ?? 'Sanctuary.' }}</span></h2>
+                    <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $locationSettings['badge'] ?? 'Kunjungi Kami' }}</span>
+                    <h2 class="text-4xl md:text-5xl font-serif mb-6 leading-tight">{{ $locationSettings['title'] ?? 'Temukan' }} <span class="italic text-[#D4A373]">{{ $locationSettings['subtitle'] ?? 'Ruang Nyamanmu.' }}</span></h2>
                     <p class="text-[#2D1B10]/60 mb-8 text-lg">
-                        {{ $locationSettings['description'] ?? 'Located in the heart of Jepara, our café offers a warm atmosphere perfect for work, relaxation, or catching up with friends.' }}
+                        {{ $locationSettings['description'] ?? 'Berada di jantung Jepara, cafe kami menghadirkan suasana hangat yang cocok untuk bekerja, bersantai, atau berkumpul bersama teman.' }}
                     </p>
                     <div class="space-y-4 mb-10">
                         <div class="flex items-center gap-4">
@@ -118,17 +118,17 @@
                         </div>
                         <div class="flex items-center gap-4">
                             <svg class="w-5 h-5 text-[#D4A373]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span class="text-[#2D1B10]/70">{{ $locationSettings['hours'] ?? 'Open Daily: 07:00 - 21:00 WIB' }}</span>
+                            <span class="text-[#2D1B10]/70">{{ $locationSettings['hours'] ?? 'Buka Setiap Hari: 07:00 - 21:00 WIB' }}</span>
                         </div>
                     </div>
                     <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 px-8 py-4 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#4A2C1C] transition-all">
-                        {{ $locationSettings['cta_text'] ?? 'Get Directions' }}
+                        {{ $locationSettings['cta_text'] ?? 'Lihat Rute' }}
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </a>
                 </div>
                 <div class="rounded-2xl overflow-hidden shadow-2xl h-80 lg:h-96">
                     @php
-                        $mapsQuery = $locationSettings['maps_query'] ?? 'Krasak, Bangsri, Jepara, Central Java';
+                        $mapsQuery = $locationSettings['maps_query'] ?? 'Krasak, Bangsri, Jepara, Jawa Tengah';
                         $mapsUrl = 'https://maps.google.com/maps?q=' . urlencode($mapsQuery) . '&output=embed';
                     @endphp
                     <iframe 
@@ -148,10 +148,10 @@
     <!-- {{-- CTA Section --}}
     <section class="py-32 bg-[#D4A373]">
         <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-5xl md:text-6xl font-serif text-[#2D1B10] mb-10">Ready to taste the difference?</h2>
-            <p class="text-[#2D1B10] text-lg mb-12 opacity-80 uppercase tracking-widest font-bold">Join us for your perfect cup</p>
+            <h2 class="text-5xl md:text-6xl font-serif text-[#2D1B10] mb-10">Siap merasakan bedanya?</h2>
+            <p class="text-[#2D1B10] text-lg mb-12 opacity-80 uppercase tracking-widest font-bold">Temukan cangkir favoritmu bersama kami</p>
             <a href="{{ route('menu') }}" class="inline-block px-12 py-6 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-sm hover:bg-[#FDFBF7] hover:text-[#2D1B10] transition-all">
-                View Menu
+                Lihat Menu
             </a>
         </div>
     </section> -->

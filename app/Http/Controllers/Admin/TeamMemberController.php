@@ -37,7 +37,7 @@ class TeamMemberController extends Controller
             'order' => $validated['order'] ?? 0,
         ]);
 
-        return back()->with('success', 'Team member added successfully!');
+        return back()->with('success', 'Anggota tim berhasil ditambahkan.');
     }
 
     public function update(Request $request, TeamMember $teamMember)
@@ -62,12 +62,12 @@ class TeamMemberController extends Controller
             'order' => $validated['order'] ?? $teamMember->order,
         ]);
 
-        return back()->with('success', 'Team member updated successfully!');
+        return back()->with('success', 'Anggota tim berhasil diperbarui.');
     }
 
     public function destroy(TeamMember $teamMember)
     {
         $teamMember->delete();
-        return back()->with('success', 'Team member removed successfully!');
+        return back()->with('success', 'Anggota tim berhasil dihapus.');
     }
 }

@@ -3,20 +3,20 @@
         <div class="flex justify-between items-center h-20">
             <div class="flex-shrink-0 flex items-center">
                 <a href="{{ route('home') }}" class="text-2xl font-serif font-bold tracking-tighter text-[#2D1B10]">
-                ARA <span class="text-[#D4A373]">CAFÉ</span>
+                ARA <span class="text-[#D4A373]">CAFE</span>
                 </a>
             </div>
             
             <div class="hidden md:flex space-x-10 text-sm font-medium uppercase tracking-widest">
-                <a href="{{ route('home') }}" class="hover:text-[#D4A373] transition-colors {{ request()->routeIs('home') ? 'text-[#D4A373]' : '' }}">Home</a>
-                <a href="{{ route('about') }}" class="hover:text-[#D4A373] transition-colors {{ request()->routeIs('about') ? 'text-[#D4A373]' : '' }}">About</a>
+                <a href="{{ route('home') }}" class="hover:text-[#D4A373] transition-colors {{ request()->routeIs('home') ? 'text-[#D4A373]' : '' }}">Beranda</a>
+                <a href="{{ route('about') }}" class="hover:text-[#D4A373] transition-colors {{ request()->routeIs('about') ? 'text-[#D4A373]' : '' }}">Tentang</a>
                 <a href="{{ route('menu') }}" class="hover:text-[#D4A373] transition-colors {{ request()->routeIs('menu') ? 'text-[#D4A373]' : '' }}">Menu</a>
-                <a href="{{ route('contact') }}" class="hover:text-[#D4A373] transition-colors {{ request()->routeIs('contact') ? 'text-[#D4A373]' : '' }}">Contact</a>
+                <a href="{{ route('contact') }}" class="hover:text-[#D4A373] transition-colors {{ request()->routeIs('contact') ? 'text-[#D4A373]' : '' }}">Kontak</a>
             </div>
 
             <div class="hidden md:block">
                 <a href="{{ route('menu') }}" class="px-6 py-3 bg-[#2D1B10] text-white text-xs font-bold uppercase tracking-widest rounded-full hover:bg-[#4A2C1C] transition-all">
-                    Order Now
+                    Pesan Sekarang
                 </a>
             </div>
 
@@ -30,9 +30,9 @@
     </div>
 
     <div x-show="mobileMenuOpen" x-transition class="md:hidden bg-[#FDFBF7] border-b border-[#2D1B10]/5 px-6 py-8 space-y-4">
-        <a href="{{ route('home') }}" class="block text-lg font-serif">Home</a>
-        <a href="{{ route('about') }}" class="block text-lg font-serif">About</a>
+        <a href="{{ route('home') }}" class="block text-lg font-serif">Beranda</a>
+        <a href="{{ route('about') }}" class="block text-lg font-serif">Tentang</a>
         <a href="{{ route('menu') }}" class="block text-lg font-serif">Menu</a>
-        <a href="{{ route('contact') }}" class="block text-lg font-serif">Contact</a>
+        <a href="{{ route('contact') }}" class="block text-lg font-serif">Kontak</a>
     </div>
 </nav>

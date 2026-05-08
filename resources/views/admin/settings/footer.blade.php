@@ -4,8 +4,8 @@
 <div class="p-6 lg:p-8 max-w-4xl mx-auto">
     <div class="mb-8 flex items-center justify-between">
         <div>
-            <h1 class="text-2xl font-bold text-gray-800">🦶 Footer Settings</h1>
-            <p class="text-gray-500 mt-1">Kelola konten footer yang tampil di semua halaman website.</p>
+            <h1 class="text-2xl font-bold text-gray-800">Pengaturan Footer</h1>
+            <p class="text-gray-500 mt-1">Kelola konten footer yang tampil di seluruh halaman website.</p>
         </div>
     </div>
 
@@ -30,43 +30,43 @@
             @csrf
             @method('PUT')
 
-            <h3 class="text-lg font-semibold border-b pb-2">🏷️ Branding</h3>
+            <h3 class="text-lg font-semibold border-b pb-2">Identitas Merek</h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Brand Name</label>
-                    <input type="text" name="brand_name" value="{{ $settings['brand_name'] ?? 'Ara' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent" placeholder="e.g. Ara">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Nama Merek</label>
+                    <input type="text" name="brand_name" value="{{ $settings['brand_name'] ?? 'Ara' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent" placeholder="contoh: Ara">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Brand Accent (Warna Gold)</label>
-                    <input type="text" name="brand_accent" value="{{ $settings['brand_accent'] ?? 'CAFÉ' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent" placeholder="e.g. CAFÉ">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Aksen Merek (warna emas)</label>
+                    <input type="text" name="brand_accent" value="{{ $settings['brand_accent'] ?? 'CAFE' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent" placeholder="contoh: CAFE">
                 </div>
             </div>
 
             <div>
                 <label class="block text-sm font-medium text-gray-700 mb-2">Tagline / Deskripsi</label>
-                <textarea name="tagline" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent">{{ $settings['tagline'] ?? 'Crafting moments of clarity and warmth through the art of specialty coffee. Join us in our journey of flavor and community.' }}</textarea>
+                <textarea name="tagline" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent">{{ $settings['tagline'] ?? 'Meracik momen hangat dan penuh makna melalui seni kopi spesialti. Mari menikmati perjalanan rasa dan kebersamaan bersama kami.' }}</textarea>
             </div>
 
-            <h3 class="text-lg font-semibold border-b pb-2 pt-4">🔗 Social Media</h3>
+            <h3 class="text-lg font-semibold border-b pb-2 pt-4">Media Sosial</h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Instagram URL</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">URL Instagram</label>
                     <input type="text" name="instagram_url" value="{{ $settings['instagram_url'] ?? '#' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent" placeholder="https://instagram.com/...">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">TikTok URL</label>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">URL TikTok</label>
                     <input type="text" name="tiktok_url" value="{{ $settings['tiktok_url'] ?? '#' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent" placeholder="https://tiktok.com/@...">
                 </div>
             </div>
 
-            <h3 class="text-lg font-semibold border-b pb-2 pt-4">📌 Address & Contact</h3>
+            <h3 class="text-lg font-semibold border-b pb-2 pt-4">Alamat dan Kontak</h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Alamat</label>
-                    <textarea name="address" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent">{{ $settings['address'] ?? "123 Roaster Avenue\nCoffee District, NY 10012" }}</textarea>
+                    <textarea name="address" rows="2" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent">{{ $settings['address'] ?? "Jl. KH Achmad Fauzan No.17\nKrasak, Bangsri, Jepara" }}</textarea>
                     <p class="text-xs text-gray-500 mt-1">Gunakan enter untuk baris baru.</p>
                 </div>
                 <div class="space-y-4">
@@ -75,28 +75,28 @@
                         <input type="text" name="email" value="{{ $settings['email'] ?? 'hello@cafe.com' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent" placeholder="hello@cafe.com">
                     </div>
                     <div>
-                        <label class="block text-sm font-medium text-gray-700 mb-2">Phone</label>
-                        <input type="text" name="phone" value="{{ $settings['phone'] ?? '+1 (555) 000-8888' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent" placeholder="+62 812 3456 7890">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Telepon</label>
+                        <input type="text" name="phone" value="{{ $settings['phone'] ?? '+62 822-2300-5860' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent" placeholder="+62 822-2300-5860">
                     </div>
                 </div>
             </div>
 
-            <h3 class="text-lg font-semibold border-b pb-2 pt-4">📄 Copyright</h3>
+            <h3 class="text-lg font-semibold border-b pb-2 pt-4">Hak Cipta</h3>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Copyright Text</label>
-                    <input type="text" name="copyright" value="{{ $settings['copyright'] ?? '© 2024 Café Collective. All rights reserved.' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Teks Hak Cipta</label>
+                    <input type="text" name="copyright" value="{{ $settings['copyright'] ?? 'Hak Cipta 2024 Ara Cafe. Seluruh hak cipta dilindungi.' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Bottom Tagline</label>
-                    <input type="text" name="bottom_text" value="{{ $settings['bottom_text'] ?? 'Built with Passion and Caffeine.' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Teks Bagian Bawah</label>
+                    <input type="text" name="bottom_text" value="{{ $settings['bottom_text'] ?? 'Dibuat dengan semangat dan secangkir kafein.' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent">
                 </div>
             </div>
 
             <div class="pt-4 border-t border-gray-100 flex justify-end">
                 <button type="submit" class="px-6 py-2 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
-                    Save Changes
+                    Simpan Perubahan
                 </button>
             </div>
         </form>

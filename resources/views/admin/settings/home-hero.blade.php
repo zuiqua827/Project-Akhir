@@ -4,8 +4,8 @@
 <div class="p-6 lg:p-8 max-w-4xl mx-auto">
     <div class="mb-8 flex items-center justify-between">
         <div>
-            <h1 class="text-2xl font-bold text-gray-800">Home Hero Settings</h1>
-            <p class="text-gray-500 mt-1">Configure the main hero section on the homepage.</p>
+            <h1 class="text-2xl font-bold text-gray-800">Pengaturan Hero Beranda</h1>
+            <p class="text-gray-500 mt-1">Atur bagian hero utama di halaman beranda.</p>
         </div>
     </div>
 
@@ -32,43 +32,43 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Badge Text</label>
-                    <input type="text" name="badge" value="{{ $settings['badge'] ?? '' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent" placeholder="e.g. Est. 2024">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Teks Badge</label>
+                    <input type="text" name="badge" value="{{ $settings['badge'] ?? '' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent" placeholder="contoh: Est. 2024">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">CTA Button Text</label>
-                    <input type="text" name="cta_text" value="{{ $settings['cta_text'] ?? '' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent" placeholder="e.g. Explore Menu">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Teks Tombol CTA</label>
+                    <input type="text" name="cta_text" value="{{ $settings['cta_text'] ?? '' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent" placeholder="contoh: Lihat Menu">
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Main Title</label>
-                    <input type="text" name="title" value="{{ $settings['title'] ?? '' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent" placeholder="e.g. Freshly Brewed">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Judul Utama</label>
+                    <input type="text" name="title" value="{{ $settings['title'] ?? '' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent" placeholder="contoh: Diseduh Segar">
                 </div>
                 <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Accent Subtitle (Italic)</label>
-                    <input type="text" name="subtitle" value="{{ $settings['subtitle'] ?? '' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent" placeholder="e.g. For You.">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Subjudul Aksen (Miring)</label>
+                    <input type="text" name="subtitle" value="{{ $settings['subtitle'] ?? '' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent" placeholder="contoh: Untukmu.">
                 </div>
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Main Description</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Deskripsi Utama</label>
                 <textarea name="description" rows="3" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent">{{ $settings['description'] ?? '' }}</textarea>
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Sub Description (Smaller text)</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Subdeskripsi (teks lebih kecil)</label>
                 <input type="text" name="sub_description" value="{{ $settings['sub_description'] ?? '' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent">
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Background Image</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Gambar Latar</label>
                 <input type="file" name="background_image" accept="image/*" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D4A373]/50 focus:border-[#D4A373]">
-                <p class="text-sm text-gray-500 mt-1">Upload a new background image (JPEG, PNG, WEBP, max 4MB). Leave empty to keep current.</p>
+                <p class="text-sm text-gray-500 mt-1">Unggah gambar latar baru (JPEG, PNG, WEBP, maks 4MB). Kosongkan untuk mempertahankan gambar saat ini.</p>
                 @if(!empty($settings['background_image']))
                     <div class="mt-4 rounded-xl overflow-hidden h-40 relative">
-                        <p class="text-xs text-gray-400 mb-2">Current Image:</p>
+                        <p class="text-xs text-gray-400 mb-2">Gambar Saat Ini:</p>
                         <img src="{{ $settings['background_image'] }}" class="w-full h-full object-cover rounded-xl">
                     </div>
                 @endif
@@ -76,7 +76,7 @@
 
             <div class="pt-4 border-t border-gray-100 flex justify-end">
                 <button type="submit" class="px-6 py-2 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
-                    Save Changes
+                    Simpan Perubahan
                 </button>
             </div>
         </form>

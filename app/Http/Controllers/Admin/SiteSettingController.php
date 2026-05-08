@@ -39,7 +39,7 @@ class SiteSettingController extends Controller
             SiteSetting::set('home_hero', $key, $value);
         }
 
-        return back()->with('success', 'Home Hero settings updated successfully.');
+        return back()->with('success', 'Pengaturan hero beranda berhasil diperbarui.');
     }
 
     public function homeGallery()
@@ -59,7 +59,7 @@ class SiteSettingController extends Controller
             SiteSetting::set('home_gallery', $key, $value);
         }
 
-        return back()->with('success', 'Home Gallery settings updated successfully.');
+        return back()->with('success', 'Pengaturan galeri beranda berhasil diperbarui.');
     }
 
     public function homeLocation()
@@ -85,7 +85,7 @@ class SiteSettingController extends Controller
             SiteSetting::set('home_location', $key, $value);
         }
 
-        return back()->with('success', 'Location settings updated successfully.');
+        return back()->with('success', 'Pengaturan lokasi berhasil diperbarui.');
     }
 
     public function aboutHero()
@@ -136,7 +136,7 @@ class SiteSettingController extends Controller
             SiteSetting::set('about_stats', $key, $value);
         }
 
-        return back()->with('success', 'About Hero settings updated successfully.');
+        return back()->with('success', 'Pengaturan hero halaman tentang berhasil diperbarui.');
     }
 
     public function menuHero()
@@ -158,7 +158,7 @@ class SiteSettingController extends Controller
             SiteSetting::set('menu_hero', $key, $value);
         }
 
-        return back()->with('success', 'Menu Hero settings updated successfully.');
+        return back()->with('success', 'Pengaturan hero menu berhasil diperbarui.');
     }
 
     public function contactHero()
@@ -180,28 +180,49 @@ class SiteSettingController extends Controller
             SiteSetting::set('contact_hero', $key, $value);
         }
 
-        return back()->with('success', 'Contact Hero settings updated successfully.');
+        return back()->with('success', 'Pengaturan hero kontak berhasil diperbarui.');
     }
 
     public function contactInfo()
     {
         $settings = SiteSetting::getGroup('contact_info');
+        $reservationSettings = SiteSetting::getGroup('contact_reservation');
         $hoursJson = SiteSetting::get('contact_hours', 'hours_json', '[]');
         $hours = json_decode($hoursJson, true);
-        return view('admin.settings.contact-info', compact('settings', 'hours'));
+
+        $reservationSubjectOptions = json_decode($reservationSettings['subject_options_json'] ?? '[]', true);
+        if (!is_array($reservationSubjectOptions) || empty($reservationSubjectOptions)) {
+            $reservationSubjectOptions = [
+                'Pertanyaan Umum',
+                'Masukan',
+                'Pemesanan Acara',
+                'Kemitraan',
+            ];
+        }
+        $reservationSubjectOptionsText = implode("\n", $reservationSubjectOptions);
+
+        return view('admin.settings.contact-info', compact('settings', 'hours', 'reservationSettings', 'reservationSubjectOptionsText'));
     }
 
     public function updateContactInfo(Request $request)
     {
-        $infoData = $request->validate([
+        $data = $request->validate([
             'address' => 'nullable|string',
             'phone' => 'nullable|string',
             'email' => 'nullable|string',
             'maps_query' => 'nullable|string',
+            'reservation_enabled' => 'nullable|in:0,1',
+            'reservation_whatsapp' => 'nullable|string|max:40',
+            'reservation_title' => 'nullable|string|max:150',
+            'reservation_description' => 'nullable|string|max:500',
+            'reservation_button_text' => 'nullable|string|max:80',
+            'reservation_template_opening' => 'nullable|string|max:500',
+            'reservation_template_closing' => 'nullable|string|max:500',
+            'reservation_subject_options' => 'nullable|string|max:4000',
         ]);
 
-        foreach ($infoData as $key => $value) {
-            SiteSetting::set('contact_info', $key, $value);
+        foreach (['address', 'phone', 'email', 'maps_query'] as $key) {
+            SiteSetting::set('contact_info', $key, $data[$key] ?? null);
         }
 
         // Handle hours
@@ -219,7 +240,27 @@ class SiteSettingController extends Controller
         
         SiteSetting::set('contact_hours', 'hours_json', json_encode($hours));
 
-        return back()->with('success', 'Contact Info & Hours updated successfully.');
+        $subjectLines = preg_split('/\r\n|\r|\n/', (string) ($data['reservation_subject_options'] ?? ''));
+        $subjectOptions = array_values(array_unique(array_filter(array_map('trim', $subjectLines))));
+        if (empty($subjectOptions)) {
+            $subjectOptions = [
+                'Pertanyaan Umum',
+                'Masukan',
+                'Pemesanan Acara',
+                'Kemitraan',
+            ];
+        }
+
+        SiteSetting::set('contact_reservation', 'enabled', $data['reservation_enabled'] ?? '0');
+        SiteSetting::set('contact_reservation', 'whatsapp_number', $data['reservation_whatsapp'] ?? '');
+        SiteSetting::set('contact_reservation', 'title', $data['reservation_title'] ?? '');
+        SiteSetting::set('contact_reservation', 'description', $data['reservation_description'] ?? '');
+        SiteSetting::set('contact_reservation', 'button_text', $data['reservation_button_text'] ?? '');
+        SiteSetting::set('contact_reservation', 'template_opening', $data['reservation_template_opening'] ?? '');
+        SiteSetting::set('contact_reservation', 'template_closing', $data['reservation_template_closing'] ?? '');
+        SiteSetting::set('contact_reservation', 'subject_options_json', json_encode($subjectOptions, JSON_UNESCAPED_UNICODE));
+
+        return back()->with('success', 'Info kontak, jam operasional, dan pengaturan reservasi berhasil diperbarui.');
     }
 
     public function bestSeller()
@@ -240,7 +281,7 @@ class SiteSettingController extends Controller
             \App\Models\Product::whereIn('id', $bestSellerIds)->update(['is_featured' => true]);
         }
 
-        return back()->with('success', 'Best Seller products updated successfully.');
+        return back()->with('success', 'Produk terlaris berhasil diperbarui.');
     }
 
     public function footer()
@@ -268,6 +309,6 @@ class SiteSettingController extends Controller
             SiteSetting::set('footer', $key, $value);
         }
 
-        return back()->with('success', 'Footer settings updated successfully.');
+        return back()->with('success', 'Pengaturan footer berhasil diperbarui.');
     }
 }

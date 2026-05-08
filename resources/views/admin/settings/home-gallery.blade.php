@@ -4,8 +4,8 @@
 <div class="p-6 lg:p-8 max-w-4xl mx-auto">
     <div class="mb-8 flex items-center justify-between">
         <div>
-            <h1 class="text-2xl font-bold text-gray-800">Home Gallery Settings</h1>
-            <p class="text-gray-500 mt-1">Configure the gallery section heading on the homepage.</p>
+            <h1 class="text-2xl font-bold text-gray-800">Pengaturan Galeri Beranda</h1>
+            <p class="text-gray-500 mt-1">Atur judul bagian galeri pada halaman beranda.</p>
         </div>
     </div>
 
@@ -21,18 +21,18 @@
             @method('PUT')
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Badge Text</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Teks Badge</label>
                 <input type="text" name="badge" value="{{ $settings['badge'] ?? '' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent">
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2">Section Title</label>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Judul Bagian</label>
                 <input type="text" name="title" value="{{ $settings['title'] ?? '' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent">
             </div>
 
             <div class="pt-4 border-t border-gray-100 flex justify-end">
                 <button type="submit" class="px-6 py-2 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
-                    Save Changes
+                    Simpan Perubahan
                 </button>
             </div>
         </form>

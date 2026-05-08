@@ -17,8 +17,10 @@ class ProductController extends Controller
 
     public function create()
     {
-        $categories = ['signature', 'specialty', 'quick', 'non-coffee'];
-        return view('admin.products.create', compact('categories'));
+        $categories = Product::categoryOptions();
+        $categoryLabels = Product::categoryLabels();
+
+        return view('admin.products.create', compact('categories', 'categoryLabels'));
     }
 
     public function store(Request $request)
@@ -48,13 +50,15 @@ class ProductController extends Controller
             'is_available' => $request->has('is_available'),
         ]);
 
-        return redirect()->route('admin.products.index')->with('success', 'Product created successfully!');
+        return redirect()->route('admin.products.index')->with('success', 'Produk berhasil ditambahkan.');
     }
 
     public function edit(Product $product)
     {
-        $categories = ['signature', 'specialty', 'quick', 'non-coffee'];
-        return view('admin.products.edit', compact('product', 'categories'));
+        $categories = Product::categoryOptions();
+        $categoryLabels = Product::categoryLabels();
+
+        return view('admin.products.edit', compact('product', 'categories', 'categoryLabels'));
     }
 
     public function update(Request $request, Product $product)
@@ -85,12 +89,12 @@ class ProductController extends Controller
             'is_available' => $request->has('is_available'),
         ]);
 
-        return redirect()->route('admin.products.index')->with('success', 'Product updated successfully!');
+        return redirect()->route('admin.products.index')->with('success', 'Produk berhasil diperbarui.');
     }
 
     public function destroy(Product $product)
     {
         $product->delete();
-        return redirect()->route('admin.products.index')->with('success', 'Product deleted successfully!');
+        return redirect()->route('admin.products.index')->with('success', 'Produk berhasil dihapus.');
     }
 }

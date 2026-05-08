@@ -3,17 +3,17 @@
 @section('content')
 @php
     $values = [
-        ['icon' => 'fa-solid fa-gem', 'title' => 'Quality First', 'desc' => 'We source only the finest single-origin beans from ethical farms worldwide.'],
-        ['icon' => 'fa-solid fa-leaf', 'title' => 'Sustainability', 'desc' => 'Every step of our process is designed to minimize environmental impact.'],
-        ['icon' => 'fa-solid fa-people-group', 'title' => 'Community', 'desc' => 'We believe coffee is a catalyst for meaningful connections and conversations.'],
-        ['icon' => 'fa-solid fa-wand-magic-sparkles', 'title' => 'Craftmanship', 'desc' => 'Our baristas are trained for months to perfect every cup they serve.'],
+        ['icon' => 'fa-solid fa-gem', 'title' => 'Kualitas Utama', 'desc' => 'Kami hanya memilih biji single-origin terbaik dari kebun etis di berbagai daerah.'],
+        ['icon' => 'fa-solid fa-leaf', 'title' => 'Keberlanjutan', 'desc' => 'Setiap tahap proses kami dirancang untuk meminimalkan dampak lingkungan.'],
+        ['icon' => 'fa-solid fa-people-group', 'title' => 'Komunitas', 'desc' => 'Kami percaya kopi adalah jembatan untuk koneksi dan percakapan yang bermakna.'],
+        ['icon' => 'fa-solid fa-wand-magic-sparkles', 'title' => 'Keahlian', 'desc' => 'Barista kami dilatih berbulan-bulan untuk menyempurnakan setiap cangkir yang disajikan.'],
     ];
 
     $timeline = [
-        ['year' => '2024', 'title' => 'A New Beginning', 'desc' => 'Café opens its doors, bringing specialty coffee to the heart of Jakarta.'],
-        ['year' => 'Q2 2024', 'title' => 'Growing Family', 'desc' => 'We launch our loyalty program and welcome over 10,000 happy customers.'],
-        ['year' => 'Q3 2024', 'title' => 'Direct Trade', 'desc' => 'Established direct partnerships with coffee farmers in Sumatra and Java.'],
-        ['year' => 'Q4 2024', 'title' => 'Recognition', 'desc' => 'Awarded Best Specialty Coffee Shop in Jakarta by local food critics.'],
+        ['year' => '2024', 'title' => 'Awal Baru', 'desc' => 'Ara Cafe membuka pintu untuk menghadirkan kopi spesialti ke tengah kota Jakarta.'],
+        ['year' => 'Q2 2024', 'title' => 'Keluarga yang Bertumbuh', 'desc' => 'Kami meluncurkan program loyalitas dan menyambut lebih dari 10.000 pelanggan.'],
+        ['year' => 'Q3 2024', 'title' => 'Kemitraan Langsung', 'desc' => 'Kami menjalin kemitraan langsung dengan petani kopi di Sumatra dan Jawa.'],
+        ['year' => 'Q4 2024', 'title' => 'Pengakuan', 'desc' => 'Dianugerahi sebagai kedai kopi spesialti terbaik di Jakarta oleh kritikus kuliner lokal.'],
     ];
 
     $heroSettings = \App\Models\SiteSetting::getGroup('about_hero');
@@ -25,33 +25,33 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-12">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-                <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $heroSettings['badge'] ?? 'our story' }}</span>
+                <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $heroSettings['badge'] ?? 'cerita kami' }}</span>
                 <h1 class="text-5xl md:text-7xl font-serif leading-[1.1] mb-8 text-[#2D1B10]">
-                    {{ $heroSettings['title'] ?? 'Beyond just' }} <span class="italic text-[#D4A373]">{{ $heroSettings['subtitle'] ?? 'Coffee.' }}</span>
+                    {{ $heroSettings['title'] ?? 'Lebih dari sekadar' }} <span class="italic text-[#D4A373]">{{ $heroSettings['subtitle'] ?? 'Kopi.' }}</span>
                 </h1>
                 <p class="text-lg text-[#2D1B10]/70 mb-6 leading-relaxed">
-                    {{ $heroSettings['description1'] ?? 'At Café, we believe that coffee is a ritual, not just a drink. Our beans are ethically sourced from the highest altitudes and roasted in small batches to preserve their unique profiles.' }}
+                    {{ $heroSettings['description1'] ?? 'Di Ara Cafe, kami percaya kopi adalah sebuah ritual, bukan sekadar minuman. Biji kopi kami dipilih secara etis dari dataran tinggi terbaik dan dipanggang dalam batch kecil untuk menjaga karakter rasanya.' }}
                 </p>
                 <p class="text-lg text-[#2D1B10]/70 mb-10 leading-relaxed">
-                    {{ $heroSettings['description2'] ?? 'Whether you\'re seeking a quiet corner for reflection or a vibrant space for connection, our doors are open to provide a sanctuary of warmth and exceptional taste.' }}
+                    {{ $heroSettings['description2'] ?? 'Baik saat kamu mencari sudut tenang untuk merenung maupun ruang hangat untuk terhubung, pintu kami selalu terbuka untuk menghadirkan rasa dan pengalaman terbaik.' }}
                 </p>
                 <div class="grid grid-cols-2 gap-8 border-t border-[#2D1B10]/10 pt-10">
                     <div>
                         <h4 class="font-serif text-4xl mb-2 text-[#D4A373]">{{ $stats['stat1_value'] ?? '100%' }}</h4>
-                        <p class="text-xs uppercase tracking-widest text-[#2D1B10]/60 font-bold">{{ $stats['stat1_label'] ?? 'Organic Beans' }}</p>
+                        <p class="text-xs uppercase tracking-widest text-[#2D1B10]/60 font-bold">{{ $stats['stat1_label'] ?? 'Biji Organik' }}</p>
                     </div>
                     <div>
                         <h4 class="font-serif text-4xl mb-2 text-[#D4A373]">{{ $stats['stat2_value'] ?? '15+' }}</h4>
-                        <p class="text-xs uppercase tracking-widest text-[#2D1B10]/60 font-bold">{{ $stats['stat2_label'] ?? 'Countries Sourced' }}</p>
+                        <p class="text-xs uppercase tracking-widest text-[#2D1B10]/60 font-bold">{{ $stats['stat2_label'] ?? 'Asal Negara' }}</p>
                     </div>
                 </div>
             </div>
             <div class="relative">
                 <div class="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
-                    <img src="{{ $heroSettings['image1'] ?? 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=800' }}" class="w-full h-full object-cover" alt="Brewing coffee">
+                    <img src="{{ $heroSettings['image1'] ?? 'https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&q=80&w=800' }}" class="w-full h-full object-cover" alt="Meracik kopi">
                 </div>
                 <div class="absolute -bottom-10 -left-10 hidden md:block w-72 aspect-square rounded-3xl overflow-hidden border-8 border-white shadow-2xl">
-                    <img src="{{ $heroSettings['image2'] ?? 'https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&q=80&w=600' }}" class="w-full h-full object-cover" alt="Coffee cup">
+                    <img src="{{ $heroSettings['image2'] ?? 'https://images.unsplash.com/photo-1507133750040-4a8f57021571?auto=format&fit=crop&q=80&w=600' }}" class="w-full h-full object-cover" alt="Cangkir kopi">
                 </div>
             </div>
         </div>
@@ -62,8 +62,8 @@
 <section class="py-24 bg-[#2D1B10]">
     <div class="max-w-7xl mx-auto px-6 lg:px-12">
         <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-serif text-[#FDFBF7] mb-6">What Drives Us</h2>
-            <p class="text-[#FDFBF7]/60 max-w-2xl mx-auto">Our principles guide every decision we make, from bean to cup.</p>
+            <h2 class="text-4xl md:text-5xl font-serif text-[#FDFBF7] mb-6">Yang Menggerakkan Kami</h2>
+            <p class="text-[#FDFBF7]/60 max-w-2xl mx-auto">Prinsip kami memandu setiap keputusan, dari biji hingga tersaji di cangkir.</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 @foreach($values as $value)
@@ -81,8 +81,8 @@
 <section class="py-24 bg-white">
     <div class="max-w-7xl mx-auto px-6 lg:px-12">
         <div class="text-center mb-16">
-            <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">our journey</span>
-            <h2 class="text-4xl md:text-5xl font-serif text-[#2D1B10]">The Story</h2>
+            <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">perjalanan kami</span>
+            <h2 class="text-4xl md:text-5xl font-serif text-[#2D1B10]">Perjalanan Kami</h2>
         </div>
         <div class="relative">
             {{-- Timeline Line --}}
@@ -116,9 +116,9 @@
 <section class="py-24 bg-[#FDFBF7]">
     <div class="max-w-7xl mx-auto px-6 lg:px-12">
         <div class="text-center mb-16">
-            <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">our people</span>
-            <h2 class="text-4xl md:text-5xl font-serif text-[#2D1B10] mb-6">Meet the Team</h2>
-            <p class="text-[#2D1B10]/60 max-w-2xl mx-auto">The passionate minds behind every perfect cup.</p>
+            <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">orang-orang kami</span>
+            <h2 class="text-4xl md:text-5xl font-serif text-[#2D1B10] mb-6">Kenali Tim Kami</h2>
+            <p class="text-[#2D1B10]/60 max-w-2xl mx-auto">Orang-orang penuh semangat di balik setiap cangkir terbaik.</p>
         </div>
         @if($teamMembers->count() > 0)
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -128,7 +128,7 @@
                     @if($member->image)
                         <img src="{{ $member->image }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="{{ $member->name }}">
                     @else
-                        <div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 text-6xl">👤</div>
+                        <div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 text-6xl"><i class="fa-solid fa-user"></i></div>
                     @endif
                 </div>
                 <h3 class="text-xl font-serif font-bold text-[#2D1B10] mb-1">{{ $member->name }}</h3>
@@ -138,7 +138,7 @@
         </div>
         @else
         <div class="text-center py-12">
-            <p class="text-[#2D1B10]/40 text-lg">Team members coming soon...</p>
+            <p class="text-[#2D1B10]/40 text-lg">Anggota tim segera hadir...</p>
         </div>
         @endif
     </div>
@@ -147,10 +147,10 @@
 <!-- {{-- CTA Section --}}
 <section class="py-24 bg-[#D4A373]">
     <div class="max-w-4xl mx-auto px-6 text-center">
-        <h2 class="text-4xl md:text-5xl font-serif text-[#2D1B10] mb-6">Come visit us today.</h2>
-        <p class="text-[#2D1B10] text-lg mb-10 opacity-80">Experience the difference in person.</p>
+        <h2 class="text-4xl md:text-5xl font-serif text-[#2D1B10] mb-6">Kunjungi kami hari ini.</h2>
+        <p class="text-[#2D1B10] text-lg mb-10 opacity-80">Rasakan bedanya secara langsung.</p>
         <a href="{{ route('contact') }}" class="inline-block px-12 py-5 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-sm hover:bg-[#FDFBF7] hover:text-[#2D1B10] transition-all">
-            Get Directions
+            Lihat Rute
         </a>
     </div>
 </section> -->

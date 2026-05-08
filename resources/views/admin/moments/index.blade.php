@@ -3,10 +3,10 @@
 @section('content')
     <div class="p-6 lg:p-8">
         <div class="flex items-center justify-between mb-8">
-            <h1 class="text-2xl font-bold text-gray-800">Moments Gallery</h1>
+            <h1 class="text-2xl font-bold text-gray-800">Galeri Momen</h1>
             <a href="{{ route('admin.moments.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
-                Add Moment
+                Tambah Momen
             </a>
         </div>
 
@@ -21,11 +21,11 @@
                 <table class="w-full">
                     <thead class="bg-gray-50 border-b border-gray-200">
                         <tr>
-                            <th class="text-left text-sm font-semibold text-gray-600 px-6 py-4">Preview</th>
-                            <th class="text-left text-sm font-semibold text-gray-600 px-6 py-4">Caption</th>
-                            <th class="text-left text-sm font-semibold text-gray-600 px-6 py-4">Order</th>
+                            <th class="text-left text-sm font-semibold text-gray-600 px-6 py-4">Pratinjau</th>
+                            <th class="text-left text-sm font-semibold text-gray-600 px-6 py-4">Keterangan</th>
+                            <th class="text-left text-sm font-semibold text-gray-600 px-6 py-4">Urutan</th>
                             <th class="text-left text-sm font-semibold text-gray-600 px-6 py-4">Status</th>
-                            <th class="text-right text-sm font-semibold text-gray-600 px-6 py-4">Actions</th>
+                            <th class="text-right text-sm font-semibold text-gray-600 px-6 py-4">Aksi</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
@@ -42,9 +42,9 @@
                                 </td>
                                 <td class="px-6 py-4">
                                     @if($moment->is_featured)
-                                        <span class="px-3 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">Featured</span>
+                                        <span class="px-3 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">Unggulan</span>
                                     @else
-                                        <span class="px-3 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">Normal</span>
+                                        <span class="px-3 py-1 text-xs font-medium bg-gray-100 text-gray-700 rounded-full">Biasa</span>
                                     @endif
                                 </td>
                                 <td class="px-6 py-4">
@@ -52,7 +52,7 @@
                                         <a href="{{ route('admin.moments.edit', $moment) }}" class="p-2 text-gray-600 hover:text-[#D4A373] hover:bg-[#D4A373]/10 rounded-lg transition-colors">
                                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
                                         </a>
-                                        <form action="{{ route('admin.moments.destroy', $moment) }}" method="POST" class="inline" onsubmit="return confirm('Are you sure?')">
+                                        <form action="{{ route('admin.moments.destroy', $moment) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus?')">
                                             @csrf
                                             @method('DELETE')
                                             <button type="submit" class="p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors">
@@ -68,7 +68,7 @@
                                     <svg class="w-16 h-16 mx-auto mb-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                     </svg>
-                                    <p>No moments yet. <a href="{{ route('admin.moments.create') }}" class="text-[#D4A373] hover:underline font-medium">Add your first moment!</a></p>
+                                    <p>Belum ada momen. <a href="{{ route('admin.moments.create') }}" class="text-[#D4A373] hover:underline font-medium">Tambahkan momen pertamamu!</a></p>
                                 </td>
                             </tr>
                         @endforelse

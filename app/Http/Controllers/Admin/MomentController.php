@@ -52,7 +52,7 @@ class MomentController extends Controller
             'is_featured' => $request->has('is_featured'),
         ]);
 
-        return redirect()->route('admin.moments.index')->with('success', 'Moment created successfully!');
+        return redirect()->route('admin.moments.index')->with('success', 'Momen berhasil ditambahkan.');
     }
 
 
@@ -98,7 +98,7 @@ class MomentController extends Controller
             'is_featured' => $request->has('is_featured'),
         ]);
 
-        return redirect()->route('admin.moments.index')->with('success', 'Moment updated successfully!');
+        return redirect()->route('admin.moments.index')->with('success', 'Momen berhasil diperbarui.');
     }
 
 
@@ -108,7 +108,7 @@ class MomentController extends Controller
     public function destroy(Moment $moment)
     {
         $moment->delete();
-        return redirect()->route('admin.moments.index')->with('success', 'Moment deleted successfully!');
+        return redirect()->route('admin.moments.index')->with('success', 'Momen berhasil dihapus.');
     }
 
 }
