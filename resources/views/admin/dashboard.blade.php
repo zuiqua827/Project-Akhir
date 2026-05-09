@@ -1,8 +1,8 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="p-6 lg:p-8">
-        <h1 class="text-2xl font-bold text-gray-800 mb-8">Dasbor</h1>
+    <div class="p-4 sm:p-6 lg:p-8">
+        <h1 class="text-xl sm:text-2xl font-bold text-gray-800 mb-8">Dasbor</h1>
 
         {{-- Stats Cards --}}
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
@@ -71,16 +71,16 @@
         {{-- Aksi Cepat --}}
         <div class="bg-white rounded-2xl p-6 shadow-sm mb-8">
             <h2 class="text-lg font-semibold text-gray-800 mb-6">Aksi Cepat</h2>
-            <div class="flex flex-wrap gap-4">
-                <a href="{{ route('admin.products.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
+            <div class="flex flex-col sm:flex-row sm:flex-wrap gap-3 sm:gap-4">
+                <a href="{{ route('admin.products.create') }}" class="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-6 py-3 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                     Tambah Produk
                 </a>
-                <a href="{{ route('admin.moments.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 transition-colors">
+                <a href="{{ route('admin.moments.create') }}" class="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-6 py-3 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zm0 0v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zM2 4v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zM2 10v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1zM2 16v1a1 1 0 01-1 1H1a1 1 0 01-1-1v-1a1 1 0 011-1h1a1 1 0 011 1z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2 3h20v2H2V3zM2 7h20v2H2V7zM2 11h20v2H2V11zM2 15h20v2H2V15zM2 19h20v2H2V19z"></path></svg>
                     Tambah Momen
                 </a>
-                <a href="{{ route('home') }}" target="_blank" class="inline-flex items-center gap-2 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors">
+                <a href="{{ route('home') }}" target="_blank" class="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                     Lihat Website
                 </a>
@@ -90,12 +90,12 @@
 
         {{-- Produk Terbaru --}}
         <div class="bg-white rounded-2xl p-6 shadow-sm mb-8">
-            <div class="flex items-center justify-between mb-6">
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-6">
                 <h2 class="text-lg font-semibold text-gray-800">Produk Terbaru</h2>
                 <a href="{{ route('admin.products.index') }}" class="text-sm text-[#D4A373] hover:underline">Lihat Semua</a>
             </div>
             <div class="overflow-x-auto">
-                <table class="w-full">
+                <table class="w-full min-w-[700px]">
                     <thead>
                         <tr class="border-b border-gray-200">
                             <th class="text-left text-sm font-semibold text-gray-600 pb-4">Produk</th>
@@ -141,12 +141,12 @@
 
         {{-- Momen Terbaru --}}
         <div class="bg-white rounded-2xl p-6 shadow-sm">
-            <div class="flex items-center justify-between mb-6">
+            <div class="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-6">
                 <h2 class="text-lg font-semibold text-gray-800">Momen Terbaru</h2>
                 <a href="{{ route('admin.moments.index') }}" class="text-sm text-[#D4A373] hover:underline">Lihat Semua</a>
             </div>
             <div class="overflow-x-auto">
-                <table class="w-full">
+                <table class="w-full min-w-[700px]">
                     <thead>
                         <tr class="border-b border-gray-200">
                             <th class="text-left text-sm font-semibold text-gray-600 pb-4">Pratinjau</th>

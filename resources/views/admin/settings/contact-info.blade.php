@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="p-6 lg:p-8 max-w-4xl mx-auto">
-    <div class="mb-8 flex items-center justify-between">
+<div class="p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto">
+    <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-            <h1 class="text-2xl font-bold text-gray-800">Info Kontak & Jam Operasional</h1>
+            <h1 class="text-xl sm:text-2xl font-bold text-gray-800">Info Kontak & Jam Operasional</h1>
             <p class="text-gray-500 mt-1">Atur alamat, detail kontak, dan jam operasional.</p>
         </div>
     </div>
@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <div class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-gray-100">
+    <div class="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-sm border border-gray-100">
         <form action="{{ route('admin.settings.contact.info') }}" method="POST" class="space-y-6">
             @csrf
             @method('PUT')
@@ -107,14 +107,14 @@
 
             <div x-data="hoursManager()">
                 <template x-for="(hour, index) in hours" :key="index">
-                    <div class="flex items-center gap-4 mb-4">
+                    <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 mb-4">
                         <div class="flex-1">
                             <input type="text" x-model="hour.day" :name="`days[${index}]`" placeholder="contoh: Senin - Jumat" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent">
                         </div>
                         <div class="flex-1">
                             <input type="text" x-model="hour.time" :name="`times[${index}]`" placeholder="contoh: 07:00 WIB - 21:00 WIB" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent">
                         </div>
-                        <button type="button" @click="removeHour(index)" class="p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors">
+                        <button type="button" @click="removeHour(index)" class="self-start sm:self-auto p-2 text-red-500 hover:bg-red-50 rounded-lg transition-colors">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
                         </button>
                     </div>
@@ -127,7 +127,7 @@
             </div>
 
             <div class="pt-4 border-t border-gray-100 flex justify-end">
-                <button type="submit" class="px-6 py-2 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
+                <button type="submit" class="w-full sm:w-auto px-6 py-2 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
                     Simpan Perubahan
                 </button>
             </div>

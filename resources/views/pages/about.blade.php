@@ -21,27 +21,27 @@
 @endphp
 
 {{-- Hero Section --}}
-<section class="relative pt-32 pb-20 bg-[#FDFBF7]">
-    <div class="max-w-7xl mx-auto px-6 lg:px-12">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+<section class="relative pt-24 sm:pt-28 md:pt-32 pb-14 sm:pb-16 md:pb-20 bg-[#FDFBF7]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
             <div>
                 <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $heroSettings['badge'] ?? 'cerita kami' }}</span>
-                <h1 class="text-5xl md:text-7xl font-serif leading-[1.1] mb-8 text-[#2D1B10]">
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-serif leading-[1.1] mb-6 sm:mb-8 text-[#2D1B10]">
                     {{ $heroSettings['title'] ?? 'Lebih dari sekadar' }} <span class="italic text-[#D4A373]">{{ $heroSettings['subtitle'] ?? 'Kopi.' }}</span>
                 </h1>
-                <p class="text-lg text-[#2D1B10]/70 mb-6 leading-relaxed">
+                <p class="text-base md:text-lg text-[#2D1B10]/70 mb-5 sm:mb-6 leading-relaxed">
                     {{ $heroSettings['description1'] ?? 'Di Ara Cafe, kami percaya kopi adalah sebuah ritual, bukan sekadar minuman. Biji kopi kami dipilih secara etis dari dataran tinggi terbaik dan dipanggang dalam batch kecil untuk menjaga karakter rasanya.' }}
                 </p>
-                <p class="text-lg text-[#2D1B10]/70 mb-10 leading-relaxed">
+                <p class="text-base md:text-lg text-[#2D1B10]/70 mb-8 sm:mb-10 leading-relaxed">
                     {{ $heroSettings['description2'] ?? 'Baik saat kamu mencari sudut tenang untuk merenung maupun ruang hangat untuk terhubung, pintu kami selalu terbuka untuk menghadirkan rasa dan pengalaman terbaik.' }}
                 </p>
-                <div class="grid grid-cols-2 gap-8 border-t border-[#2D1B10]/10 pt-10">
+                <div class="grid grid-cols-2 gap-4 sm:gap-8 border-t border-[#2D1B10]/10 pt-8 sm:pt-10">
                     <div>
-                        <h4 class="font-serif text-4xl mb-2 text-[#D4A373]">{{ $stats['stat1_value'] ?? '100%' }}</h4>
+                        <h4 class="font-serif text-3xl sm:text-4xl mb-2 text-[#D4A373]">{{ $stats['stat1_value'] ?? '100%' }}</h4>
                         <p class="text-xs uppercase tracking-widest text-[#2D1B10]/60 font-bold">{{ $stats['stat1_label'] ?? 'Biji Organik' }}</p>
                     </div>
                     <div>
-                        <h4 class="font-serif text-4xl mb-2 text-[#D4A373]">{{ $stats['stat2_value'] ?? '15+' }}</h4>
+                        <h4 class="font-serif text-3xl sm:text-4xl mb-2 text-[#D4A373]">{{ $stats['stat2_value'] ?? '15+' }}</h4>
                         <p class="text-xs uppercase tracking-widest text-[#2D1B10]/60 font-bold">{{ $stats['stat2_label'] ?? 'Asal Negara' }}</p>
                     </div>
                 </div>
@@ -59,15 +59,15 @@
 </section>
 
 {{-- Values Section --}}
-<section class="py-24 bg-[#2D1B10]">
-    <div class="max-w-7xl mx-auto px-6 lg:px-12">
-        <div class="text-center mb-16">
-            <h2 class="text-4xl md:text-5xl font-serif text-[#FDFBF7] mb-6">Yang Menggerakkan Kami</h2>
+<section class="py-16 sm:py-20 md:py-24 bg-[#2D1B10]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+        <div class="text-center mb-12 sm:mb-14 md:mb-16">
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif text-[#FDFBF7] mb-6">Yang Menggerakkan Kami</h2>
             <p class="text-[#FDFBF7]/60 max-w-2xl mx-auto">Prinsip kami memandu setiap keputusan, dari biji hingga tersaji di cangkir.</p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 @foreach($values as $value)
-            <div class="text-center p-8 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[#D4A373]/30 transition-all duration-500">
+            <div class="text-center p-6 sm:p-8 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[#D4A373]/30 transition-all duration-500">
                 <div class="text-4xl mb-6 text-[#D4A373]"><i class="{{ $value['icon'] }}"></i></div>
                 <h3 class="text-xl font-serif font-bold text-[#FDFBF7] mb-4">{{ $value['title'] }}</h3>
                 <p class="text-[#FDFBF7]/50 text-sm leading-relaxed">{{ $value['desc'] }}</p>
@@ -78,11 +78,11 @@
 </section>
 
 {{-- Story Timeline --}}
-<section class="py-24 bg-white">
-    <div class="max-w-7xl mx-auto px-6 lg:px-12">
-        <div class="text-center mb-16">
+<section class="py-16 sm:py-20 md:py-24 bg-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+        <div class="text-center mb-12 sm:mb-14 md:mb-16">
             <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">perjalanan kami</span>
-            <h2 class="text-4xl md:text-5xl font-serif text-[#2D1B10]">Perjalanan Kami</h2>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif text-[#2D1B10]">Perjalanan Kami</h2>
         </div>
         <div class="relative">
             {{-- Timeline Line --}}
@@ -93,11 +93,11 @@
                 <div class="relative grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-center">
                     <div class="{{ $index % 2 === 0 ? 'md:text-right md:pr-16' : 'md:order-2 md:pl-16' }}">
                         <div class="inline-block">
-                            <span class="text-6xl font-serif text-[#D4A373]/20 font-bold">{{ $item['year'] }}</span>
+                            <span class="text-4xl sm:text-5xl md:text-6xl font-serif text-[#D4A373]/20 font-bold">{{ $item['year'] }}</span>
                         </div>
                     </div>
                     <div class="{{ $index % 2 === 0 ? 'md:order-2 md:pl-16' : 'md:text-right md:pr-16' }}">
-                        <h3 class="text-2xl font-serif font-bold text-[#2D1B10] mb-3">{{ $item['title'] }}</h3>
+                        <h3 class="text-xl sm:text-2xl font-serif font-bold text-[#2D1B10] mb-3">{{ $item['title'] }}</h3>
                         <p class="text-[#2D1B10]/60 leading-relaxed">{{ $item['desc'] }}</p>
                     </div>
                     {{-- Timeline Dot --}}
@@ -113,11 +113,11 @@
 @php
     $teamMembers = \App\Models\TeamMember::ordered()->get();
 @endphp
-<section class="py-24 bg-[#FDFBF7]">
-    <div class="max-w-7xl mx-auto px-6 lg:px-12">
-        <div class="text-center mb-16">
+<section class="py-16 sm:py-20 md:py-24 bg-[#FDFBF7]">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+        <div class="text-center mb-12 sm:mb-14 md:mb-16">
             <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">orang-orang kami</span>
-            <h2 class="text-4xl md:text-5xl font-serif text-[#2D1B10] mb-6">Kenali Tim Kami</h2>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif text-[#2D1B10] mb-6">Kenali Tim Kami</h2>
             <p class="text-[#2D1B10]/60 max-w-2xl mx-auto">Orang-orang penuh semangat di balik setiap cangkir terbaik.</p>
         </div>
         @if($teamMembers->count() > 0)

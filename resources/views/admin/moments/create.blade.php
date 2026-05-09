@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="p-6 lg:p-8">
-        <div class="flex items-center gap-4 mb-8">
+    <div class="p-4 sm:p-6 lg:p-8">
+        <div class="flex items-center gap-3 sm:gap-4 mb-8">
             <a href="{{ route('admin.moments.index') }}" class="p-2 hover:bg-gray-100 rounded-lg transition-colors">
                 <svg class="w-5 h-5 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
             </a>
-            <h1 class="text-2xl font-bold text-gray-800">Tambah Momen</h1>
+            <h1 class="text-xl sm:text-2xl font-bold text-gray-800">Tambah Momen</h1>
         </div>
 
         @if($errors->any())
@@ -19,7 +19,7 @@
             </div>
         @endif
 
-        <form action="{{ route('admin.moments.store') }}" method="POST" enctype="multipart/form-data" class="bg-white rounded-2xl shadow-sm p-8">
+        <form action="{{ route('admin.moments.store') }}" method="POST" enctype="multipart/form-data" class="bg-white rounded-2xl shadow-sm p-5 sm:p-6 lg:p-8">
             @csrf
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -53,11 +53,11 @@
                 </div>
             </div>
 
-            <div class="flex items-center justify-end gap-4 mt-8 pt-6 border-t border-gray-200">
-                <a href="{{ route('admin.moments.index') }}" class="px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors">
+            <div class="flex flex-col-reverse sm:flex-row sm:items-center justify-end gap-3 sm:gap-4 mt-8 pt-6 border-t border-gray-200">
+                <a href="{{ route('admin.moments.index') }}" class="w-full sm:w-auto text-center px-6 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors">
                     Batal
                 </a>
-                <button type="submit" class="px-8 py-3 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
+                <button type="submit" class="w-full sm:w-auto px-8 py-3 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
                     Tambah Momen
                 </button>
             </div>

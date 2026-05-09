@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="p-6 lg:p-8 max-w-4xl mx-auto">
-    <div class="mb-8 flex items-center justify-between">
+<div class="p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto">
+    <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-            <h1 class="text-2xl font-bold text-gray-800">Pengaturan Hero Kontak</h1>
+            <h1 class="text-xl sm:text-2xl font-bold text-gray-800">Pengaturan Hero Kontak</h1>
             <p class="text-gray-500 mt-1">Atur bagian hero utama pada halaman kontak.</p>
         </div>
     </div>
@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <div class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-gray-100">
+    <div class="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-sm border border-gray-100">
         <form action="{{ route('admin.settings.contact.hero') }}" method="POST" class="space-y-6">
             @csrf
             @method('PUT')
@@ -42,7 +42,7 @@
             </div>
 
             <div class="pt-4 border-t border-gray-100 flex justify-end">
-                <button type="submit" class="px-6 py-2 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
+                <button type="submit" class="w-full sm:w-auto px-6 py-2 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
                     Simpan Perubahan
                 </button>
             </div>

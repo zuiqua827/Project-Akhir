@@ -14,29 +14,29 @@
 @endphp
 
     {{-- Hero Section --}}
-    <section id="home" class="relative min-h-screen flex items-center pt-20 overflow-hidden">
+    <section id="home" class="relative min-h-[85vh] md:min-h-screen flex items-center pt-20 overflow-hidden">
         <div class="absolute inset-0 z-0">
             <div class="absolute inset-0 bg-gradient-to-r from-[#FDFBF7] via-[#FDFBF7]/80 to-transparent z-10"></div>
             <img src="{{ $heroSettings['background_image'] ?? 'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=2000' }}" class="w-full h-full object-cover" alt="Interior cafe">
         </div>
 
-        <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-20 w-full">
             <div class="max-w-2xl">
                 <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $heroSettings['badge'] ?? 'Est. 2024' }}</span>
-                <h1 class="text-6xl md:text-8xl font-serif leading-[1.1] mb-8 text-[#2D1B10]">
+                <h1 class="text-4xl sm:text-5xl md:text-8xl font-serif leading-[1.1] mb-6 sm:mb-8 text-[#2D1B10]">
                     {!! nl2br(e($heroSettings['title'] ?? 'Diseduh Segar')) !!} <br><span class="italic text-[#D4A373]">{{ $heroSettings['subtitle'] ?? 'Untukmu.' }}</span>
                 </h1>
-                <p class="text-lg md:text-xl text-[#2D1B10]/70 mb-6 leading-relaxed max-w-lg">
+                <p class="text-base sm:text-lg md:text-xl text-[#2D1B10]/70 mb-5 sm:mb-6 leading-relaxed max-w-lg">
                     {{ $heroSettings['description'] ?? 'Nikmati keseimbangan sempurna antara teknik roasting artisan dan suasana hangat di setiap cangkir yang kami sajikan.' }}
                 </p>
-                <p class="text-[#2D1B10]/50 mb-12 text-sm">
+                <p class="text-[#2D1B10]/50 mb-8 sm:mb-12 text-sm leading-relaxed">
                     {{ $heroSettings['sub_description'] ?? 'Biji kopi pilihan dari sumber berkelanjutan, dipanggang dalam batch kecil.' }}
                 </p>
-                <div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-6">
-                    <a href="{{ route('menu') }}" class="px-10 py-5 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#4A2C1C] transition-all shadow-xl shadow-[#2D1B10]/20">
+                <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-6">
+                    <a href="{{ route('menu') }}" class="w-full sm:w-auto text-center px-8 sm:px-10 py-4 sm:py-5 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#4A2C1C] transition-all shadow-xl shadow-[#2D1B10]/20">
                         {{ $heroSettings['cta_text'] ?? 'Lihat Menu' }}
                     </a>
-                    <a href="{{ route('about') }}" class="px-10 py-5 border border-[#2D1B10] text-[#2D1B10] rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#2D1B10] hover:text-white transition-all">
+                    <a href="{{ route('about') }}" class="w-full sm:w-auto text-center px-8 sm:px-10 py-4 sm:py-5 border border-[#2D1B10] text-[#2D1B10] rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#2D1B10] hover:text-white transition-all">
                         Cerita Kami
                     </a>
                 </div>
@@ -45,10 +45,10 @@
     </section>
 
     {{-- Best Seller Section --}}
-    <section id="bestseller" class="py-32 bg-[#FDFBF7]">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12">
-            <div class="text-center max-w-3xl mx-auto mb-20">
-                <h2 class="text-5xl font-serif mb-6">Produk <span class="italic text-[#D4A373]">Terlaris</span></h2>
+    <section id="bestseller" class="py-16 sm:py-20 md:py-24 lg:py-32 bg-[#FDFBF7]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16 md:mb-20">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif mb-5 sm:mb-6">Produk <span class="italic text-[#D4A373]">Terlaris</span></h2>
                 <div class="w-20 h-1 bg-[#D4A373] mx-auto mb-8"></div>
                 <p class="text-[#2D1B10]/60">Minuman favorit yang paling disukai pelanggan kami.</p>
             </div>
@@ -57,10 +57,10 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 @foreach($products as $product)
                     <div class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
-                        <div class="h-64 overflow-hidden relative">
+                        <div class="h-56 sm:h-60 md:h-64 overflow-hidden relative">
                             <img src="{{ $product->image }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="{{ $product->name }}">
                         </div>
-                        <div class="p-8">
+                        <div class="p-6 sm:p-7 md:p-8">
                             <h3 class="text-xl font-serif font-bold mb-3 group-hover:text-[#D4A373] transition-colors">{{ $product->name }}</h3>
                             <p class="text-[#2D1B10]/50 text-sm leading-relaxed">{{ $product->description }}</p>
                         </div>
@@ -76,13 +76,13 @@
     </section>
 
     {{-- Gallery Section (Instagram-style) --}}
-    <section class="py-24 bg-[#2D1B10]">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12">
-            <div class="text-center mb-16" data-aos="fade-up">
+    <section class="py-16 sm:py-20 md:py-24 bg-[#2D1B10]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="text-center mb-12 sm:mb-14 md:mb-16" data-aos="fade-up">
                 <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $gallerySettings['badge'] ?? 'Momen Kami' }}</span>
-                <h2 class="text-4xl md:text-5xl font-serif text-[#FDFBF7]">{{ $gallerySettings['title'] ?? 'Galeri' }}</h2>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif text-[#FDFBF7]">{{ $gallerySettings['title'] ?? 'Galeri' }}</h2>
             </div>
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
                 @forelse($moments as $index => $moment)
                     <div class="group relative aspect-square overflow-hidden rounded-2xl" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
                         <img src="{{ $moment->image }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="{{ $moment->caption }}">
@@ -102,16 +102,16 @@
 
 
     {{-- Location --}}
-    <section id="location" class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+    <section id="location" class="py-16 sm:py-20 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
                 <div>
                     <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $locationSettings['badge'] ?? 'Kunjungi Kami' }}</span>
-                    <h2 class="text-4xl md:text-5xl font-serif mb-6 leading-tight">{{ $locationSettings['title'] ?? 'Temukan' }} <span class="italic text-[#D4A373]">{{ $locationSettings['subtitle'] ?? 'Ruang Nyamanmu.' }}</span></h2>
-                    <p class="text-[#2D1B10]/60 mb-8 text-lg">
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif mb-5 sm:mb-6 leading-tight">{{ $locationSettings['title'] ?? 'Temukan' }} <span class="italic text-[#D4A373]">{{ $locationSettings['subtitle'] ?? 'Ruang Nyamanmu.' }}</span></h2>
+                    <p class="text-[#2D1B10]/60 mb-7 sm:mb-8 text-base sm:text-lg">
                         {{ $locationSettings['description'] ?? 'Berada di jantung Jepara, cafe kami menghadirkan suasana hangat yang cocok untuk bekerja, bersantai, atau berkumpul bersama teman.' }}
                     </p>
-                    <div class="space-y-4 mb-10">
+                    <div class="space-y-4 mb-8 sm:mb-10">
                         <div class="flex items-center gap-4">
                             <svg class="w-5 h-5 text-[#D4A373]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                             <span class="text-[#2D1B10]/70">{{ $locationSettings['address'] ?? 'Jl. KH Achmad Fauzan No.17, Krasak, Bangsri' }}</span>
@@ -121,12 +121,12 @@
                             <span class="text-[#2D1B10]/70">{{ $locationSettings['hours'] ?? 'Buka Setiap Hari: 07:00 - 21:00 WIB' }}</span>
                         </div>
                     </div>
-                    <a href="{{ route('contact') }}" class="inline-flex items-center gap-2 px-8 py-4 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#4A2C1C] transition-all">
+                    <a href="{{ route('contact') }}" class="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-8 py-4 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#4A2C1C] transition-all">
                         {{ $locationSettings['cta_text'] ?? 'Lihat Rute' }}
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </a>
                 </div>
-                <div class="rounded-2xl overflow-hidden shadow-2xl h-80 lg:h-96">
+                <div class="rounded-2xl overflow-hidden shadow-2xl h-72 sm:h-80 lg:h-96">
                     @php
                         $mapsQuery = $locationSettings['maps_query'] ?? 'Krasak, Bangsri, Jepara, Jawa Tengah';
                         $mapsUrl = 'https://maps.google.com/maps?q=' . urlencode($mapsQuery) . '&output=embed';

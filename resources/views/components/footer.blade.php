@@ -1,8 +1,8 @@
 @php
     $footerSettings = \App\Models\SiteSetting::getGroup('footer');
 @endphp
-<footer class="bg-[#2D1B10] text-[#FDFBF7] py-20">
-    <div class="max-w-7xl mx-auto px-6 lg:px-12 grid grid-cols-1 md:grid-cols-4 gap-12">
+<footer class="bg-[#2D1B10] text-[#FDFBF7] py-14 md:py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-12">
         <div class="col-span-1 md:col-span-2">
             <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#D4A373] mb-6">Ara Cafe</p>
             <p class="text-[#FDFBF7]/60 max-w-sm mb-8 leading-relaxed">
@@ -31,8 +31,8 @@
             </p>
         </div>
     </div>
-    <div class="max-w-7xl mx-auto px-6 lg:px-12 mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between text-[10px] uppercase tracking-widest text-[#FDFBF7]/40">
-         <p>{{ $footerSettings['copyright'] ?? 'Hak Cipta 2024 Ara Cafe. Seluruh hak cipta dilindungi.' }}</p>
-        <p>{{ $footerSettings['bottom_text'] ?? 'Dibuat dengan semangat dan secangkir kafein.' }}</p>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 mt-12 md:mt-20 pt-8 border-t border-white/5 flex flex-col gap-2 md:gap-0 md:flex-row justify-between text-[10px] uppercase tracking-widest text-[#FDFBF7]/40">
+         <p class="leading-relaxed">{{ $footerSettings['copyright'] ?? 'Hak Cipta 2024 Ara Cafe. Seluruh hak cipta dilindungi.' }}</p>
+        <p class="leading-relaxed">{{ $footerSettings['bottom_text'] ?? 'Dibuat dengan semangat dan secangkir kafein.' }}</p>
     </div>
 </footer>

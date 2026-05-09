@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="p-6 lg:p-8 max-w-4xl mx-auto">
-    <div class="mb-8 flex items-center justify-between">
+<div class="p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto">
+    <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-            <h1 class="text-2xl font-bold text-gray-800">Pengaturan Produk Terlaris</h1>
+            <h1 class="text-xl sm:text-2xl font-bold text-gray-800">Pengaturan Produk Terlaris</h1>
             <p class="text-gray-500 mt-1">Centang produk yang ingin ditampilkan sebagai Terlaris di halaman utama.</p>
         </div>
     </div>
@@ -15,7 +15,7 @@
         </div>
     @endif
 
-    <div class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-gray-100">
+    <div class="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-sm border border-gray-100">
         <form action="{{ route('admin.settings.best-seller') }}" method="POST">
             @csrf
             @method('PUT')
@@ -29,7 +29,7 @@
             @if($products->count() > 0)
                 <div class="space-y-3">
                     @foreach($products as $product)
-                        <label class="flex items-center gap-4 p-4 rounded-xl border border-gray-100 hover:border-[#D4A373] hover:bg-[#D4A373]/5 transition-all cursor-pointer group">
+                        <label class="flex items-start sm:items-center gap-4 p-4 rounded-xl border border-gray-100 hover:border-[#D4A373] hover:bg-[#D4A373]/5 transition-all cursor-pointer group">
                             <input
                                 type="checkbox"
                                 name="best_sellers[]"
@@ -37,7 +37,7 @@
                                 {{ $product->is_featured ? 'checked' : '' }}
                                 class="w-5 h-5 rounded border-gray-300 text-[#D4A373] focus:ring-[#D4A373]"
                             >
-                            <div class="flex items-center gap-4 flex-1">
+                            <div class="flex flex-wrap sm:flex-nowrap items-center gap-4 flex-1">
                                 <img src="{{ $product->image }}" alt="{{ $product->name }}" class="w-14 h-14 rounded-xl object-cover shadow-sm">
                                 <div class="flex-1">
                                     <h4 class="font-semibold text-gray-800 group-hover:text-[#D4A373] transition-colors">{{ $product->name }}</h4>
@@ -53,11 +53,11 @@
                     @endforeach
                 </div>
 
-                <div class="mt-6 flex items-center justify-between pt-6 border-t border-gray-100">
+                <div class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between pt-6 border-t border-gray-100">
                     <p class="text-sm text-gray-500">
                         <span class="font-semibold text-[#D4A373]">{{ $products->where('is_featured', true)->count() }}</span> produk dipilih sebagai Terlaris
                     </p>
-                    <button type="submit" class="px-6 py-2 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
+                    <button type="submit" class="w-full sm:w-auto px-6 py-2 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
                         Simpan Perubahan
                     </button>
                 </div>

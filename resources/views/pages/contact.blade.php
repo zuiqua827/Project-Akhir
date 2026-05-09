@@ -37,14 +37,14 @@
     @endphp
 
     {{-- Hero Section --}}
-    <section class="relative pt-32 pb-20 bg-[#FDFBF7]">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12">
+    <section class="relative pt-24 sm:pt-28 md:pt-32 pb-14 sm:pb-16 md:pb-20 bg-[#FDFBF7]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="text-center">
                 <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $heroSettings['badge'] ?? 'Hubungi Kami' }}</span>
-                <h1 class="text-5xl md:text-7xl font-serif leading-[1.1] mb-6 text-[#2D1B10]">
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-serif leading-[1.1] mb-5 sm:mb-6 text-[#2D1B10]">
                     {{ $heroSettings['title'] ?? 'Kunjungi' }} <span class="italic text-[#D4A373]">{{ $heroSettings['subtitle'] ?? 'Kami.' }}</span>
                 </h1>
-                <p class="text-lg md:text-xl text-[#2D1B10]/70 max-w-2xl mx-auto leading-relaxed">
+                <p class="text-base sm:text-lg md:text-xl text-[#2D1B10]/70 max-w-2xl mx-auto leading-relaxed">
                     {{ $heroSettings['description'] ?? 'Kami senang mendengar dari Anda. Jika Anda punya pertanyaan tentang kopi kami, ingin memesan acara, atau sekadar menyapa, pintu kami selalu terbuka.' }}
                 </p>
             </div>
@@ -52,12 +52,12 @@
     </section>
 
     {{-- Contact Info & Form Section --}}
-    <section class="py-24 bg-white">
-        <div class="max-w-7xl mx-auto px-6 lg:px-12">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+    <section class="py-16 sm:py-20 md:py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 md:gap-16">
                 {{-- Location & Hours --}}
                 <div>
-                    <h2 class="text-3xl md:text-4xl font-serif mb-12 text-[#2D1B10]">Temukan Kami</h2>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif mb-8 sm:mb-10 md:mb-12 text-[#2D1B10]">Temukan Kami</h2>
                     
                     {{-- Alamat --}}
                     <div class="mb-10">
@@ -67,7 +67,7 @@
                             </div>
                             <h3 class="text-xl font-serif font-bold text-[#2D1B10]">Alamat</h3>
                         </div>
-                        <p class="text-[#2D1B10]/70 text-lg pl-16">{{ $contactInfo['address'] ?? '' }}</p>
+                        <p class="text-[#2D1B10]/70 text-base sm:text-lg pl-0 sm:pl-16 break-words">{{ $contactInfo['address'] ?? '' }}</p>
                     </div>
 
                     {{-- Telepon --}}
@@ -78,7 +78,7 @@
                             </div>
                             <h3 class="text-xl font-serif font-bold text-[#2D1B10]">Telepon</h3>
                         </div>
-                        <p class="text-[#2D1B10]/70 text-lg pl-16">{{ $contactInfo['phone'] ?? '' }}</p>
+                        <p class="text-[#2D1B10]/70 text-base sm:text-lg pl-0 sm:pl-16 break-words">{{ $contactInfo['phone'] ?? '' }}</p>
                     </div>
 
                     {{-- Email --}}
@@ -89,17 +89,17 @@
                             </div>
                             <h3 class="text-xl font-serif font-bold text-[#2D1B10]">Email</h3>
                         </div>
-                        <p class="text-[#2D1B10]/70 text-lg pl-16">{{ $contactInfo['email'] ?? '' }}</p>
+                        <p class="text-[#2D1B10]/70 text-base sm:text-lg pl-0 sm:pl-16 break-words">{{ $contactInfo['email'] ?? '' }}</p>
                     </div>
 
                     {{-- Hours --}}
-                    <div class="mt-12 pt-12 border-t border-[#2D1B10]/10">
+                    <div class="mt-10 sm:mt-12 pt-10 sm:pt-12 border-t border-[#2D1B10]/10">
                         <h3 class="text-xl font-serif font-bold text-[#2D1B10] mb-6">Jam Operasional</h3>
                         <div class="space-y-4">
                             @foreach($hours as $hour)
                                 <div class="flex justify-between items-center py-3 border-b border-[#2D1B10]/5">
-                                    <span class="text-[#2D1B10]/70">{{ $hour['day'] }}</span>
-                                    <span class="font-medium text-[#2D1B10]">{{ $hour['time'] }}</span>
+                                    <span class="text-[#2D1B10]/70 text-sm sm:text-base">{{ $hour['day'] }}</span>
+                                    <span class="font-medium text-[#2D1B10] text-sm sm:text-base text-right">{{ $hour['time'] }}</span>
                                 </div>
                             @endforeach
                         </div>
@@ -124,7 +124,7 @@
                             <div class="absolute inset-0 bg-[#2D1B10]/10 pointer-events-none"></div>
                         </div>
                         <div class="mt-4">
-                            <a href="https://www.google.com/maps/search/{{ urlencode($contactMapsQuery) }}" target="_blank" class="inline-flex items-center gap-3 px-6 py-4 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#4A2C1C] transition-all shadow-lg">
+                            <a href="https://www.google.com/maps/search/{{ urlencode($contactMapsQuery) }}" target="_blank" class="inline-flex w-full sm:w-auto justify-center items-center gap-3 px-6 py-4 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#4A2C1C] transition-all shadow-lg">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                                 Lihat Rute
                             </a>
@@ -133,15 +133,15 @@
                 </div>
 
                 {{-- Contact Form --}}
-                <div class="bg-[#FDFBF7] rounded-3xl p-10 lg:p-12">
+                <div class="bg-[#FDFBF7] rounded-3xl p-6 sm:p-8 lg:p-12">
                     @if(session('error'))
                         <div class="mb-6 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">
                             {{ session('error') }}
                         </div>
                     @endif
 
-                    <h2 class="text-3xl md:text-4xl font-serif mb-4 text-[#2D1B10]">{{ $reservationTitle }}</h2>
-                    <p class="text-[#2D1B10]/60 mb-10">{{ $reservationDescription }}</p>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-serif mb-4 text-[#2D1B10]">{{ $reservationTitle }}</h2>
+                    <p class="text-[#2D1B10]/60 mb-7 sm:mb-10">{{ $reservationDescription }}</p>
 
                     @if($reservationEnabled)
                         <form id="reservation-wa-form" action="{{ route('contact.reserve') }}" method="POST" class="space-y-6" data-wa-number="{{ $waAdminNumber }}" data-template-opening="{{ $reservationTemplateOpening }}" data-template-closing="{{ $reservationTemplateClosing }}">

@@ -12,12 +12,19 @@
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+        @media (max-width: 1023px) {
+            html,
+            body {
+                overflow-x: hidden;
+            }
+        }
     </style>
 </head>
-<body class="bg-gray-50 text-gray-900 antialiased">
+<body class="bg-gray-50 text-gray-900 antialiased overflow-x-hidden">
     <div class="min-h-screen flex">
         {{-- Sidebar --}}
-        <aside class="fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-200 transform transition-transform duration-300 lg:translate-x-0 -translate-x-full" id="sidebar">
+        <aside class="fixed inset-y-0 left-0 z-50 w-64 max-w-[85vw] bg-white border-r border-gray-200 transform transition-transform duration-300 lg:translate-x-0 -translate-x-full overflow-y-auto" id="sidebar">
             <div class="flex items-center justify-center h-16 border-b border-gray-200">
                <a href="{{ route('admin.dashboard') }}" class="text-xl font-bold text-gray-800">
                     <span class="text-[#D4A373]">ARA CAFE</span>
@@ -119,20 +126,21 @@
                 </form>
             </nav>
         </aside>
+        <button id="sidebar-backdrop" type="button" class="fixed inset-0 z-40 bg-black/30 hidden lg:hidden" aria-label="Tutup menu samping"></button>
 
         {{-- Main Content --}}
         <div class="flex-1 lg:ml-64">
             {{-- Top Header --}}
             <header class="bg-white border-b border-gray-200 h-16 fixed top-0 right-0 left-0 lg:left-64 z-40">
                 <div class="flex items-center justify-between h-full px-4 lg:px-8">
-                    <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg hover:bg-gray-100">
+                    <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg hover:bg-gray-100" aria-label="Buka menu samping" aria-expanded="false" aria-controls="sidebar">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
                     <div class="hidden lg:block">
                         <h1 class="text-lg font-semibold text-gray-800">{{ $header ?? 'Dasbor' }}</h1>
                     </div>
                     <div class="flex items-center gap-4">
-                        <span class="text-sm text-gray-600">Selamat datang, {{ auth()->user()->name }}</span>
+                        <span class="hidden sm:block text-sm text-gray-600">Selamat datang, {{ auth()->user()->name }}</span>
                     </div>
                 </div>
             </header>
@@ -147,9 +155,53 @@
     <script>
         const sidebar = document.getElementById('sidebar');
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const sidebarBackdrop = document.getElementById('sidebar-backdrop');
+        const sidebarLinks = sidebar ? sidebar.querySelectorAll('a') : [];
+
+        const openSidebar = () => {
+            sidebar?.classList.remove('-translate-x-full');
+            sidebarBackdrop?.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+            mobileMenuBtn?.setAttribute('aria-expanded', 'true');
+        };
+
+        const closeSidebar = () => {
+            sidebar?.classList.add('-translate-x-full');
+            sidebarBackdrop?.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+            mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+        };
 
         mobileMenuBtn?.addEventListener('click', () => {
-            sidebar.classList.toggle('-translate-x-full');
+            const isClosed = sidebar?.classList.contains('-translate-x-full');
+
+            if (isClosed) {
+                openSidebar();
+                return;
+            }
+
+            closeSidebar();
+        });
+
+        sidebarBackdrop?.addEventListener('click', closeSidebar);
+
+        sidebarLinks.forEach((link) => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth < 1024) {
+                    closeSidebar();
+                }
+            });
+        });
+
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 1024) {
+                sidebarBackdrop?.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+                mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+                return;
+            }
+
+            closeSidebar();
         });
     </script>
 </body>

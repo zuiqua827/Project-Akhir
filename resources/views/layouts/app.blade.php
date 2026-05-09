@@ -30,9 +30,33 @@
         html {
             scroll-behavior: smooth;
         }
+
+        [x-cloak] {
+            display: none !important;
+        }
+
+        img,
+        video,
+        svg,
+        canvas {
+            max-width: 100%;
+        }
+
+        @media (max-width: 1023px) {
+            html,
+            body {
+                overflow-x: hidden;
+            }
+
+            input,
+            select,
+            textarea {
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
-<body class="bg-[#FDFBF7] text-[#2D1B10] antialiased">
+<body class="bg-[#FDFBF7] text-[#2D1B10] antialiased overflow-x-hidden">
     <x-navbar />
     
 <main>

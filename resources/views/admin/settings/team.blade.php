@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
-<div class="p-6 lg:p-8 max-w-4xl mx-auto">
-    <div class="mb-8 flex items-center justify-between">
+<div class="p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto">
+    <div class="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <div>
-            <h1 class="text-2xl font-bold text-gray-800">Bagian Tim</h1>
+            <h1 class="text-xl sm:text-2xl font-bold text-gray-800">Bagian Tim</h1>
             <p class="text-gray-500 mt-1">Kelola anggota tim yang ditampilkan di halaman Tentang.</p>
         </div>
     </div>
@@ -26,7 +26,7 @@
     @endif
 
     {{-- Form Tambah Anggota --}}
-    <div class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-gray-100 mb-8">
+    <div class="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-sm border border-gray-100 mb-8">
         <h3 class="text-lg font-semibold mb-6 border-b pb-2">Tambah Anggota Tim</h3>
         <form action="{{ route('admin.settings.team.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
             @csrf
@@ -51,7 +51,7 @@
                 </div>
             </div>
             <div class="flex justify-end">
-                <button type="submit" class="px-6 py-2 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
+                <button type="submit" class="w-full sm:w-auto px-6 py-2 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
                     Tambah Anggota
                 </button>
             </div>
@@ -59,7 +59,7 @@
     </div>
 
     {{-- Daftar Anggota Saat Ini --}}
-    <div class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-gray-100">
+    <div class="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-sm border border-gray-100">
         <h3 class="text-lg font-semibold mb-6 border-b pb-2">Daftar Anggota Tim ({{ $members->count() }})</h3>
 
         @if($members->count() > 0)
@@ -69,7 +69,7 @@
                         <form action="{{ route('admin.settings.team.update', $member) }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
-                            <div class="flex items-start gap-4">
+                            <div class="flex flex-col sm:flex-row items-start gap-4">
                                 <div class="flex-shrink-0">
                                     @if($member->image)
                                         <img src="{{ $member->image }}" alt="{{ $member->name }}" class="w-20 h-20 rounded-xl object-cover shadow-sm">
@@ -99,8 +99,8 @@
                                     </div>
                                 </div>
 
-                                <div class="flex flex-col gap-2 flex-shrink-0">
-                                    <button type="submit" class="px-4 py-1.5 bg-[#D4A373] text-white text-xs rounded-lg font-medium hover:bg-[#c49363] transition-colors">
+                                <div class="flex flex-col gap-2 flex-shrink-0 w-full sm:w-auto">
+                                    <button type="submit" class="w-full px-4 py-1.5 bg-[#D4A373] text-white text-xs rounded-lg font-medium hover:bg-[#c49363] transition-colors">
                                         Perbarui
                                     </button>
                         </form>

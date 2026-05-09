@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
 @section('content')
-    <div class="p-6 lg:p-8">
-        <div class="flex items-center justify-between mb-8">
-            <h1 class="text-2xl font-bold text-gray-800">Galeri Momen</h1>
-            <a href="{{ route('admin.moments.create') }}" class="inline-flex items-center gap-2 px-6 py-3 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
+    <div class="p-4 sm:p-6 lg:p-8">
+        <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-8">
+            <h1 class="text-xl sm:text-2xl font-bold text-gray-800">Galeri Momen</h1>
+            <a href="{{ route('admin.moments.create') }}" class="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-6 py-3 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path></svg>
                 Tambah Momen
             </a>
@@ -18,7 +18,7 @@
 
         <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
-                <table class="w-full">
+                <table class="w-full min-w-[760px]">
                     <thead class="bg-gray-50 border-b border-gray-200">
                         <tr>
                             <th class="text-left text-sm font-semibold text-gray-600 px-6 py-4">Pratinjau</th>
