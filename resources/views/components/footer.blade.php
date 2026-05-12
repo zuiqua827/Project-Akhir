@@ -1,10 +1,22 @@
 @php
     $footerSettings = \App\Models\SiteSetting::getGroup('footer');
+    $brandName = trim((string) ($footerSettings['brand_name'] ?? 'Ara'));
+    $brandAccent = trim((string) ($footerSettings['brand_accent'] ?? 'Cafe'));
+    $brandText = trim($brandName . ' ' . $brandAccent);
+    if ($brandText === '') {
+        $brandText = 'Brand Kami';
+    }
 @endphp
 <footer class="bg-[#2D1B10] text-[#FDFBF7] py-14 md:py-20">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 grid grid-cols-1 md:grid-cols-4 gap-10 md:gap-12">
         <div class="col-span-1 md:col-span-2">
-            <p class="text-sm font-bold uppercase tracking-[0.2em] text-[#D4A373] mb-6">Ara Cafe</p>
+            <x-brand-logo
+                class="mb-6"
+                background="dark"
+                height-class="h-12 sm:h-14"
+                text-class="text-sm font-bold uppercase tracking-[0.2em] text-[#D4A373]"
+                accent-class="text-[#D4A373]"
+            />
             <p class="text-[#FDFBF7]/60 max-w-sm mb-8 leading-relaxed">
                 {{ $footerSettings['tagline'] ?? 'Meracik momen hangat dan penuh makna melalui seni kopi spesialti. Mari menikmati perjalanan rasa dan kebersamaan bersama kami.' }}
             </p>
@@ -32,7 +44,7 @@
         </div>
     </div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 mt-12 md:mt-20 pt-8 border-t border-white/5 flex flex-col gap-2 md:gap-0 md:flex-row justify-between text-[10px] uppercase tracking-widest text-[#FDFBF7]/40">
-         <p class="leading-relaxed">{{ $footerSettings['copyright'] ?? 'Hak Cipta 2024 Ara Cafe. Seluruh hak cipta dilindungi.' }}</p>
+         <p class="leading-relaxed">{{ $footerSettings['copyright'] ?? ('Hak Cipta 2024 ' . $brandText . '. Seluruh hak cipta dilindungi.') }}</p>
         <p class="leading-relaxed">{{ $footerSettings['bottom_text'] ?? 'Dibuat dengan semangat dan secangkir kafein.' }}</p>
     </div>
 </footer>

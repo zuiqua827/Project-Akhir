@@ -2,6 +2,14 @@
 
 @section('content')
 @php
+    $footerSettings = \App\Models\SiteSetting::getGroup('footer');
+    $brandName = trim((string) ($footerSettings['brand_name'] ?? 'Ara'));
+    $brandAccent = trim((string) ($footerSettings['brand_accent'] ?? 'Cafe'));
+    $brandText = trim($brandName . ' ' . $brandAccent);
+    if ($brandText === '') {
+        $brandText = 'kedai kami';
+    }
+
     $values = [
         ['icon' => 'fa-solid fa-gem', 'title' => 'Kualitas Utama', 'desc' => 'Kami hanya memilih biji single-origin terbaik dari kebun etis di berbagai daerah.'],
         ['icon' => 'fa-solid fa-leaf', 'title' => 'Keberlanjutan', 'desc' => 'Setiap tahap proses kami dirancang untuk meminimalkan dampak lingkungan.'],
@@ -10,7 +18,7 @@
     ];
 
     $timeline = [
-        ['year' => '2024', 'title' => 'Awal Baru', 'desc' => 'Ara Cafe membuka pintu untuk menghadirkan kopi spesialti ke tengah kota Jakarta.'],
+        ['year' => '2024', 'title' => 'Awal Baru', 'desc' => $brandText . ' membuka pintu untuk menghadirkan kopi spesialti ke tengah kota Jakarta.'],
         ['year' => 'Q2 2024', 'title' => 'Keluarga yang Bertumbuh', 'desc' => 'Kami meluncurkan program loyalitas dan menyambut lebih dari 10.000 pelanggan.'],
         ['year' => 'Q3 2024', 'title' => 'Kemitraan Langsung', 'desc' => 'Kami menjalin kemitraan langsung dengan petani kopi di Sumatra dan Jawa.'],
         ['year' => 'Q4 2024', 'title' => 'Pengakuan', 'desc' => 'Dianugerahi sebagai kedai kopi spesialti terbaik di Jakarta oleh kritikus kuliner lokal.'],
@@ -30,7 +38,7 @@
                     {{ $heroSettings['title'] ?? 'Lebih dari sekadar' }} <span class="italic text-[#D4A373]">{{ $heroSettings['subtitle'] ?? 'Kopi.' }}</span>
                 </h1>
                 <p class="text-base md:text-lg text-[#2D1B10]/70 mb-5 sm:mb-6 leading-relaxed">
-                    {{ $heroSettings['description1'] ?? 'Di Ara Cafe, kami percaya kopi adalah sebuah ritual, bukan sekadar minuman. Biji kopi kami dipilih secara etis dari dataran tinggi terbaik dan dipanggang dalam batch kecil untuk menjaga karakter rasanya.' }}
+                    {{ $heroSettings['description1'] ?? ('Di ' . $brandText . ', kami percaya kopi adalah sebuah ritual, bukan sekadar minuman. Biji kopi kami dipilih secara etis dari dataran tinggi terbaik dan dipanggang dalam batch kecil untuk menjaga karakter rasanya.') }}
                 </p>
                 <p class="text-base md:text-lg text-[#2D1B10]/70 mb-8 sm:mb-10 leading-relaxed">
                     {{ $heroSettings['description2'] ?? 'Baik saat kamu mencari sudut tenang untuk merenung maupun ruang hangat untuk terhubung, pintu kami selalu terbuka untuk menghadirkan rasa dan pengalaman terbaik.' }}

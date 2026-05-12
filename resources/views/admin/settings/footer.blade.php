@@ -26,11 +26,40 @@
     @endif
 
     <div class="bg-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-sm border border-gray-100">
-        <form action="{{ route('admin.settings.footer') }}" method="POST" class="space-y-6">
+        @php
+            $brandName = trim((string) ($settings['brand_name'] ?? 'Ara'));
+            $brandAccent = trim((string) ($settings['brand_accent'] ?? 'Cafe'));
+            $brandText = trim($brandName . ' ' . $brandAccent);
+            if ($brandText === '') {
+                $brandText = 'Brand Kami';
+            }
+
+            $logoPreview = trim((string) ($settings['brand_logo'] ?? ''));
+            if ($logoPreview === '') {
+                foreach (['assets/Logo_Ara-removebg-preview.png', 'assets/logo-ara.jpg'] as $candidate) {
+                    if (file_exists(public_path($candidate))) {
+                        $logoPreview = asset($candidate);
+                        break;
+                    }
+                }
+            }
+        @endphp
+        <form action="{{ route('admin.settings.footer') }}" method="POST" enctype="multipart/form-data" class="space-y-6">
             @csrf
             @method('PUT')
 
             <h3 class="text-lg font-semibold border-b pb-2">Identitas Merek</h3>
+
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Logo Brand</label>
+                <input type="file" name="brand_logo" accept="image/*" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent file:mr-3 file:rounded-lg file:border-0 file:bg-[#2D1B10] file:px-3 file:py-2 file:text-xs file:font-semibold file:text-white">
+                <p class="text-xs text-gray-500 mt-1">Kosongkan jika tidak ingin mengganti logo. Format: JPG, PNG, SVG, WEBP (maks. 4MB).</p>
+                @if($logoPreview !== '')
+                    <div class="mt-3 inline-flex items-center rounded-xl border border-gray-200 bg-gray-50 px-4 py-3">
+                        <img src="{{ $logoPreview }}" alt="Logo brand saat ini" class="h-14 w-auto object-contain">
+                    </div>
+                @endif
+            </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
@@ -86,7 +115,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Teks Hak Cipta</label>
-                    <input type="text" name="copyright" value="{{ $settings['copyright'] ?? 'Hak Cipta 2024 Ara Cafe. Seluruh hak cipta dilindungi.' }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent">
+                    <input type="text" name="copyright" value="{{ $settings['copyright'] ?? ('Hak Cipta 2024 ' . $brandText . '. Seluruh hak cipta dilindungi.') }}" class="w-full px-4 py-2 border border-gray-300 rounded-xl focus:ring-2 focus:ring-[#D4A373] focus:border-transparent">
                 </div>
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Teks Bagian Bawah</label>

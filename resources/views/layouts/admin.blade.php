@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
+    @php
+        $adminBrandSettings = \App\Models\SiteSetting::getGroup('footer');
+        $adminBrandName = trim((string) ($adminBrandSettings['brand_name'] ?? 'Ara'));
+        $adminBrandAccent = trim((string) ($adminBrandSettings['brand_accent'] ?? 'Cafe'));
+        $adminBrandText = trim($adminBrandName . ' ' . $adminBrandAccent);
+        if ($adminBrandText === '') {
+            $adminBrandText = 'Brand';
+        }
+    @endphp
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ $title ?? 'Panel Admin - Ara Cafe' }}</title>
+    <title>{{ $title ?? ('Panel Admin - ' . $adminBrandText) }}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -26,9 +35,7 @@
         {{-- Sidebar --}}
         <aside class="fixed inset-y-0 left-0 z-50 w-64 max-w-[85vw] bg-white border-r border-gray-200 transform transition-transform duration-300 lg:translate-x-0 -translate-x-full overflow-y-auto" id="sidebar">
             <div class="flex items-center justify-center h-16 border-b border-gray-200">
-               <a href="{{ route('admin.dashboard') }}" class="text-xl font-bold text-gray-800">
-                    <span class="text-[#D4A373]">ARA CAFE</span>
-                </a>
+                <x-brand-logo :href="route('admin.dashboard')" height-class="h-10" text-class="text-lg font-bold text-gray-800" accent-class="text-[#D4A373]" />
             </div>
             <nav class="mt-6 px-4 space-y-2">
                 <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium {{ request()->routeIs('admin.dashboard') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">

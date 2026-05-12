@@ -2,9 +2,14 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <div class="flex justify-between items-center h-16 md:h-20">
             <div class="flex-shrink-0 flex items-center">
-                <a href="{{ route('home') }}" class="text-xl sm:text-2xl font-serif font-bold tracking-tighter text-[#2D1B10]">
-                ARA <span class="text-[#D4A373]">CAFE</span>
-                </a>
+                <x-brand-logo
+                    :href="route('home')"
+                    height-class="h-10 sm:h-12"
+                    setting-group="home_hero"
+                    logo-light-key="navbar_logo_light"
+                    logo-dark-key="navbar_logo_dark"
+                    legacy-logo-key="navbar_logo"
+                />
             </div>
             
             <div class="hidden md:flex space-x-10 text-sm font-medium uppercase tracking-widest">
@@ -14,11 +19,11 @@
                 <a href="{{ route('contact') }}" class="hover:text-[#D4A373] transition-colors {{ request()->routeIs('contact') ? 'text-[#D4A373]' : '' }}">Kontak</a>
             </div>
 
-            <div class="hidden md:block">
+            {{-- <div class="hidden md:block">
                 <a href="{{ route('menu') }}" class="px-6 py-3 bg-[#2D1B10] text-white text-xs font-bold uppercase tracking-widest rounded-full hover:bg-[#4A2C1C] transition-all">
                     Pesan Sekarang
                 </a>
-            </div>
+            </div> --}}
 
             <div class="md:hidden">
                 <button @click="mobileMenuOpen = !mobileMenuOpen" :aria-expanded="mobileMenuOpen.toString()" aria-controls="mobile-nav-panel" aria-label="Toggle mobile menu" class="p-2 rounded-lg text-[#2D1B10] hover:bg-[#2D1B10]/5 transition-colors">
@@ -36,8 +41,8 @@
             <a @click="mobileMenuOpen = false" href="{{ route('menu') }}" class="block px-3 py-3 text-base font-serif rounded-xl hover:bg-[#2D1B10]/5 {{ request()->routeIs('menu') ? 'text-[#D4A373]' : '' }}">Menu</a>
             <a @click="mobileMenuOpen = false" href="{{ route('contact') }}" class="block px-3 py-3 text-base font-serif rounded-xl hover:bg-[#2D1B10]/5 {{ request()->routeIs('contact') ? 'text-[#D4A373]' : '' }}">Kontak</a>
         </div>
-        <a @click="mobileMenuOpen = false" href="{{ route('menu') }}" class="mt-4 inline-flex w-full items-center justify-center px-5 py-3 bg-[#2D1B10] text-white text-xs font-bold uppercase tracking-widest rounded-full hover:bg-[#4A2C1C] transition-all">
+        {{-- <a @click="mobileMenuOpen = false" href="{{ route('menu') }}" class="mt-4 inline-flex w-full items-center justify-center px-5 py-3 bg-[#2D1B10] text-white text-xs font-bold uppercase tracking-widest rounded-full hover:bg-[#4A2C1C] transition-all">
             Pesan Sekarang
-        </a>
+        </a> --}}
     </div>
 </nav>

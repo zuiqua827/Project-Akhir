@@ -74,6 +74,32 @@
                 @endif
             </div>
 
+            <h3 class="text-lg font-semibold border-b pb-2 pt-2">Logo Navbar</h3>
+            <p class="text-sm text-gray-500">Logo ini dipakai di bagian navbar atas website. Gunakan varian sesuai warna latar.</p>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Logo Untuk Background Cerah</label>
+                    <input type="file" name="navbar_logo_light" accept="image/*" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D4A373]/50 focus:border-[#D4A373]">
+                    <p class="text-xs text-gray-500 mt-1">Contoh: logo coklat/gelap.</p>
+                    @if(!empty($settings['navbar_logo_light']))
+                        <div class="mt-3 rounded-xl border border-gray-200 bg-white p-3 inline-flex">
+                            <img src="{{ $settings['navbar_logo_light'] }}" alt="Logo navbar cerah saat ini" class="h-12 w-auto object-contain">
+                        </div>
+                    @endif
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Logo Untuk Background Gelap</label>
+                    <input type="file" name="navbar_logo_dark" accept="image/*" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D4A373]/50 focus:border-[#D4A373]">
+                    <p class="text-xs text-gray-500 mt-1">Contoh: logo putih/terang.</p>
+                    @if(!empty($settings['navbar_logo_dark']))
+                        <div class="mt-3 rounded-xl border border-gray-200 bg-[#2D1B10] p-3 inline-flex">
+                            <img src="{{ $settings['navbar_logo_dark'] }}" alt="Logo navbar gelap saat ini" class="h-12 w-auto object-contain">
+                        </div>
+                    @endif
+                </div>
+            </div>
+
             <div class="pt-4 border-t border-gray-100 flex justify-end">
                 <button type="submit" class="w-full sm:w-auto px-6 py-2 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
                     Simpan Perubahan

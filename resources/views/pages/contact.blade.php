@@ -157,10 +157,10 @@
                                 </div>
                             </div>
                             
-                            <div>
+                            {{-- <div>
                                 <label for="email" class="block text-sm font-bold uppercase tracking-widest text-[#2D1B10]/60 mb-3">Email</label>
                                 <input type="email" id="email" name="email" class="w-full px-6 py-4 bg-white border border-[#2D1B10]/10 rounded-xl focus:outline-none focus:border-[#D4A373] transition-colors" placeholder="nama@email.com" required>
-                            </div>
+                            </div> --}}
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
@@ -268,7 +268,7 @@
                     templateOpening,
                     '',
                     '- Nama: ' + (fullName || '-'),
-                    '- Email: ' + (email || '-'),
+                    //'- Email: ' + (email || '-'),
                     '- Tanggal Reservasi: ' + reservationDateLabel,
                     '- Waktu Reservasi: ' + reservationTimeLabel,
                     '- Subjek: ' + (subjectLabel || '-'),

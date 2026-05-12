@@ -26,6 +26,8 @@ class SiteSettingController extends Controller
             'cta_text' => 'nullable|string',
             'cta_link' => 'nullable|string',
             'background_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:4096',
+            'navbar_logo_light' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:4096',
+            'navbar_logo_dark' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:4096',
         ]);
 
         if ($request->hasFile('background_image')) {
@@ -33,6 +35,23 @@ class SiteSettingController extends Controller
             $data['background_image'] = Storage::url($path);
         } else {
             unset($data['background_image']); // Don't override with null if no file chosen
+        }
+
+        foreach (['navbar_logo_light', 'navbar_logo_dark'] as $logoKey) {
+            if ($request->hasFile($logoKey)) {
+                $existingLogo = SiteSetting::get('home_hero', $logoKey);
+                if (is_string($existingLogo) && str_starts_with($existingLogo, '/storage/')) {
+                    $existingPath = ltrim(substr($existingLogo, strlen('/storage/')), '/');
+                    if ($existingPath !== '') {
+                        Storage::disk('public')->delete($existingPath);
+                    }
+                }
+
+                $path = $request->file($logoKey)->store('settings', 'public');
+                $data[$logoKey] = Storage::url($path);
+            } else {
+                unset($data[$logoKey]);
+            }
         }
 
         foreach ($data as $key => $value) {
@@ -295,6 +314,7 @@ class SiteSettingController extends Controller
         $data = $request->validate([
             'brand_name' => 'nullable|string',
             'brand_accent' => 'nullable|string',
+            'brand_logo' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:4096',
             'tagline' => 'nullable|string',
             'instagram_url' => 'nullable|string',
             'tiktok_url' => 'nullable|string',
@@ -304,6 +324,21 @@ class SiteSettingController extends Controller
             'copyright' => 'nullable|string',
             'bottom_text' => 'nullable|string',
         ]);
+
+        if ($request->hasFile('brand_logo')) {
+            $existingLogo = SiteSetting::get('footer', 'brand_logo');
+            if (is_string($existingLogo) && str_starts_with($existingLogo, '/storage/')) {
+                $existingPath = ltrim(substr($existingLogo, strlen('/storage/')), '/');
+                if ($existingPath !== '') {
+                    Storage::disk('public')->delete($existingPath);
+                }
+            }
+
+            $path = $request->file('brand_logo')->store('settings', 'public');
+            $data['brand_logo'] = Storage::url($path);
+        } else {
+            unset($data['brand_logo']);
+        }
 
         foreach ($data as $key => $value) {
             SiteSetting::set('footer', $key, $value);
