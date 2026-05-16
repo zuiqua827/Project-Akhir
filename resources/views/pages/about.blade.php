@@ -86,15 +86,15 @@
 </section>
 
 {{-- Story Timeline --}}
-<section class="py-16 sm:py-20 md:py-24 bg-white">
+{{-- <section class="py-16 sm:py-20 md:py-24 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <div class="text-center mb-12 sm:mb-14 md:mb-16">
             <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">perjalanan kami</span>
             <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif text-[#2D1B10]">Perjalanan Kami</h2>
         </div>
-        <div class="relative">
+        <div class="relative"> --}}
             {{-- Timeline Line --}}
-            <div class="absolute left-1/2 top-0 bottom-0 w-px bg-[#2D1B10]/10 hidden md:block transform -translate-x-1/2"></div>
+            {{-- <div class="absolute left-1/2 top-0 bottom-0 w-px bg-[#2D1B10]/10 hidden md:block transform -translate-x-1/2"></div>
             
             <div class="space-y-16">
 @foreach($timeline as $index => $item)
@@ -109,13 +109,13 @@
                         <p class="text-[#2D1B10]/60 leading-relaxed">{{ $item['desc'] }}</p>
                     </div>
                     {{-- Timeline Dot --}}
-                    <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#D4A373] rounded-full hidden md:block ring-4 ring-white"></div>
+                    {{-- <div class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#D4A373] rounded-full hidden md:block ring-4 ring-white"></div>
                 </div>
 @endforeach
             </div>
         </div>
     </div>
-</section>
+</section> --}} --}}
 
 {{-- Team Section --}}
 @php
