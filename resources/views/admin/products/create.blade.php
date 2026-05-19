@@ -55,6 +55,9 @@
                             <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                         @endforeach
                     </select>
+                    <a href="{{ route('admin.product-categories.index') }}" class="inline-flex mt-2 text-sm text-[#D4A373] hover:underline">
+                        + Tambah kategori baru
+                    </a>
                 </div>
 
                 <div>

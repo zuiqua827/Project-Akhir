@@ -36,7 +36,6 @@ class MomentController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'caption' => 'required|string|max:255',
             'order' => 'nullable|integer|min:0',
-            'is_featured' => 'boolean',
         ]);
 
         $imagePath = '';
@@ -49,7 +48,6 @@ class MomentController extends Controller
             'image' => $imagePath,
             'caption' => $validated['caption'],
             'order' => $validated['order'] ?? 0,
-            'is_featured' => $request->has('is_featured'),
         ]);
 
         return redirect()->route('admin.moments.index')->with('success', 'Momen berhasil ditambahkan.');
@@ -82,7 +80,6 @@ class MomentController extends Controller
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
             'caption' => 'required|string|max:255',
             'order' => 'nullable|integer|min:0',
-            'is_featured' => 'boolean',
         ]);
 
         $imagePath = $moment->image;
@@ -95,7 +92,6 @@ class MomentController extends Controller
             'image' => $imagePath,
             'caption' => $validated['caption'],
             'order' => $validated['order'] ?? $moment->order,
-            'is_featured' => $request->has('is_featured'),
         ]);
 
         return redirect()->route('admin.moments.index')->with('success', 'Momen berhasil diperbarui.');

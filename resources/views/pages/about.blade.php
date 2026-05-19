@@ -25,7 +25,6 @@
     ];
 
     $heroSettings = \App\Models\SiteSetting::getGroup('about_hero');
-    $stats = \App\Models\SiteSetting::getGroup('about_stats');
 @endphp
 
 {{-- Hero Section --}}
@@ -43,16 +42,6 @@
                 <p class="text-base md:text-lg text-[#2D1B10]/70 mb-8 sm:mb-10 leading-relaxed">
                     {{ $heroSettings['description2'] ?? 'Baik saat kamu mencari sudut tenang untuk merenung maupun ruang hangat untuk terhubung, pintu kami selalu terbuka untuk menghadirkan rasa dan pengalaman terbaik.' }}
                 </p>
-                <div class="grid grid-cols-2 gap-4 sm:gap-8 border-t border-[#2D1B10]/10 pt-8 sm:pt-10">
-                    <div>
-                        <h4 class="font-serif text-3xl sm:text-4xl mb-2 text-[#D4A373]">{{ $stats['stat1_value'] ?? '100%' }}</h4>
-                        <p class="text-xs uppercase tracking-widest text-[#2D1B10]/60 font-bold">{{ $stats['stat1_label'] ?? 'Biji Organik' }}</p>
-                    </div>
-                    <div>
-                        <h4 class="font-serif text-3xl sm:text-4xl mb-2 text-[#D4A373]">{{ $stats['stat2_value'] ?? '15+' }}</h4>
-                        <p class="text-xs uppercase tracking-widest text-[#2D1B10]/60 font-bold">{{ $stats['stat2_label'] ?? 'Asal Negara' }}</p>
-                    </div>
-                </div>
             </div>
             <div class="relative">
                 <div class="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
@@ -134,7 +123,7 @@
             <div class="group text-center">
                 <div class="aspect-[3/4] rounded-3xl overflow-hidden mb-6 shadow-lg">
                     @if($member->image)
-                        <img src="{{ $member->image }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="{{ $member->name }}">
+                        <img src="{{ $member->image }}" class="w-full h-full object-cover transition-transform duration-700" alt="{{ $member->name }}">
                     @else
                         <div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 text-6xl"><i class="fa-solid fa-user"></i></div>
                     @endif

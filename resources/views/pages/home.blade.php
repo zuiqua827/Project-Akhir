@@ -45,42 +45,76 @@
     </section>
 
     {{-- Best Seller Section --}}
-    <section id="bestseller" class="py-16 sm:py-20 md:py-24 lg:py-32 bg-[#FDFBF7]">
+    <section id="bestseller" class="py-16 sm:py-20 md:py-24 lg:py-28 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-            <div class="text-center max-w-3xl mx-auto mb-12 sm:mb-16 md:mb-20">
-                <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif mb-5 sm:mb-6">Produk <span class="italic text-[#D4A373]">Terlaris</span></h2>
-                <div class="w-20 h-1 bg-[#D4A373] mx-auto mb-8"></div>
-                <p class="text-[#2D1B10]/60">Minuman favorit yang paling disukai pelanggan kami.</p>
+            <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-14">
+                <span class="inline-block text-[#A67C52] font-bold uppercase tracking-[0.22em] text-xs mb-3">Jelajahi</span>
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif text-[#2D1B10]">Produk Terlaris</h2>
+                <p class="mt-4 text-[#2D1B10]/60 text-sm sm:text-base">Pilihan favorit pelanggan yang paling sering dipesan.</p>
+                <div class="w-20 h-0.5 bg-[#A67C52] mx-auto mt-4"></div>
             </div>
 
             @if($products->count() > 0)
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-                @foreach($products as $product)
-                    <a href="{{ route('menu.show', $product->slug) }}" class="group block bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
-                        <div class="h-56 sm:h-60 md:h-64 overflow-hidden relative">
-                            <img src="{{ $product->image }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="{{ $product->name }}">
-                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full font-bold text-sm shadow-lg">
-                                {{ $product->formatted_price }}
+                @php
+                    $showcaseProducts = $products->take(5)->values();
+                    $useMosaicLayout = $showcaseProducts->count() >= 5;
+                    $desktopLayout = [
+                        'md:col-span-2 lg:col-span-6 lg:row-span-2',
+                        'lg:col-span-3 lg:row-span-1',
+                        'lg:col-span-3 lg:row-span-1',
+                        'lg:col-span-3 lg:row-span-1',
+                        'lg:col-span-3 lg:row-span-1',
+                    ];
+                @endphp
+
+                <div class="{{ $useMosaicLayout ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 lg:auto-rows-[230px] gap-2 sm:gap-3' : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4' }}">
+                    @foreach($showcaseProducts as $index => $product)
+                        @php
+                            $isLeadCard = $useMosaicLayout && $index === 0;
+                            $itemClass = $useMosaicLayout
+                                ? ($desktopLayout[$index] ?? 'lg:col-span-3 lg:row-span-1')
+                                : '';
+                            $heightClass = $useMosaicLayout
+                                ? ($isLeadCard ? 'h-[420px] sm:h-[520px] lg:h-auto' : 'h-[240px] sm:h-[290px] lg:h-auto')
+                                : 'h-[260px] sm:h-[320px]';
+                        @endphp
+                        <a href="{{ route('menu.show', $product->slug) }}" class="group relative overflow-hidden rounded-xl sm:rounded-2xl {{ $heightClass }} {{ $itemClass }}">
+                            <img src="{{ $product->image }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="{{ $product->name }}">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent"></div>
+                            <div class="absolute inset-0 ring-1 ring-inset ring-white/15"></div>
+
+                            <div class="absolute inset-x-0 bottom-0 p-4 sm:p-5 md:p-6">
+                                <p class="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.14em] text-white/90">
+                                    {{ $product->category_label !== '' ? $product->category_label : 'Top Selection' }}
+                                </p>
+                                <h3 class="mt-2 font-serif text-white leading-tight {{ $isLeadCard ? 'text-xl sm:text-2xl md:text-3xl lg:text-[1.95rem]' : 'text-lg sm:text-xl md:text-[1.45rem]' }}">
+                                    {{ \Illuminate\Support\Str::limit($product->name, $isLeadCard ? 42 : 32) }}
+                                </h3>
+                                <p class="mt-2.5 text-[#D4A373] text-[10px] sm:text-xs font-semibold tracking-[0.06em] uppercase">
+                                    Lihat Produk
+                                </p>
+                                <div class="mt-1 h-px bg-[#D4A373]/75"></div>
                             </div>
-                        </div>
-                        <div class="p-6 sm:p-7 md:p-8">
-                            <h3 class="text-xl font-serif font-bold mb-3 group-hover:text-[#D4A373] transition-colors">{{ $product->name }}</h3>
-                            <p class="text-[#2D1B10]/50 text-sm leading-relaxed">{{ \Illuminate\Support\Str::limit($product->description ?? 'Belum ada penjelasan produk.', 95) }}</p>
-                            <p class="mt-3 text-xs font-semibold tracking-[0.15em] uppercase text-[#D4A373]">Lihat Penjelasan</p>
-                        </div>
+                        </a>
+                    @endforeach
+                </div>
+
+                <div class="mt-8 sm:mt-10 text-center">
+                    <a href="{{ route('menu') }}" class="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-[#2D1B10]/20 text-[#2D1B10] text-sm font-semibold tracking-[0.08em] uppercase hover:bg-[#2D1B10] hover:text-white hover:border-[#2D1B10] transition-all">
+                        Lihat Semua Menu
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </a>
-                @endforeach
-            </div>
+                </div>
             @else
-            <div class="text-center py-16">
-                <p class="text-[#2D1B10]/40 text-lg">Produk terlaris segera hadir...</p>
-            </div>
+                <div class="text-center py-16">
+                    <p class="text-[#2D1B10]/40 text-lg">Produk terlaris segera hadir...</p>
+                </div>
             @endif
         </div>
     </section>
 
     {{-- Gallery Section (Instagram-style) --}}
-    <section class="py-16 sm:py-20 md:py-24 bg-[#2D1B10]">
+    <section class="py-16 sm:py-20 md:py-24 bg-[#2D1B10]" x-data="galleryModal()">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="text-center mb-12 sm:mb-14 md:mb-16" data-aos="fade-up">
                 <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $gallerySettings['badge'] ?? 'Momen Kami' }}</span>
@@ -88,10 +122,13 @@
             </div>
             <div class="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
                 @forelse($moments as $index => $moment)
-                    <div class="group relative aspect-square overflow-hidden rounded-2xl" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}">
+                    <div class="group relative aspect-square overflow-hidden rounded-2xl cursor-pointer" data-aos="fade-up" data-aos-delay="{{ $index * 100 }}" @click="openModal({{ $index }})">
                         <img src="{{ $moment->image }}" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" alt="{{ $moment->caption }}">
                         <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-all duration-300 flex items-center justify-center">
-                            <span class="text-white font-serif text-lg">{{ $moment->caption }}</span>
+                            <div class="text-center">
+                                <i class="fas fa-magnifying-glass text-white text-2xl mb-2 block"></i>
+                                <span class="text-white font-serif text-sm sm:text-lg">{{ $moment->caption }}</span>
+                            </div>
                         </div>
                     </div>
                 @empty
@@ -99,6 +136,76 @@
                         <p>Galeri segera hadir...</p>
                     </div>
                 @endforelse
+            </div>
+        </div>
+
+        {{-- Gallery Modal Lightbox --}}
+        <div class="fixed inset-0 z-50 bg-black/95 opacity-0 pointer-events-none transition-opacity duration-300" 
+             @click="closeModal()" 
+             :class="{ 'opacity-100 pointer-events-auto': isOpen }">
+            
+            <button @click="closeModal()" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/40 transition-colors">
+                <i class="fas fa-times text-white text-xl"></i>
+            </button>
+
+            <div class="h-full flex items-center justify-center p-4">
+                <div class="relative w-full max-w-4xl" @click.stop>
+                    {{-- Main Image --}}
+                    <div class="relative aspect-square md:aspect-auto md:h-[70vh] overflow-hidden rounded-lg">
+                        <template x-for="(image, idx) in images" :key="idx">
+                            <img 
+                                :src="image.src" 
+                                :alt="image.caption"
+                                x-show="currentIndex === idx"
+                                x-transition:enter="transition duration-300"
+                                x-transition:enter-start="opacity-0"
+                                x-transition:enter-end="opacity-100"
+                                x-transition:leave="transition duration-300"
+                                x-transition:leave-start="opacity-100"
+                                x-transition:leave-end="opacity-0"
+                                class="w-full h-full object-contain"
+                            >
+                        </template>
+                    </div>
+
+                    {{-- Caption --}}
+                    <div class="text-center mt-4 text-white">
+                        <p class="text-lg font-serif" x-text="images[currentIndex]?.caption || ''"></p>
+                        <p class="text-sm text-gray-400 mt-2" x-text="(currentIndex + 1) + ' / ' + images.length"></p>
+                    </div>
+
+                    {{-- Navigation Buttons --}}
+                    <button 
+                        @click="prevImage()" 
+                        :disabled="!hasPrev()"
+                        :class="{ 'opacity-50 cursor-not-allowed': !hasPrev() }"
+                        class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 md:translate-x-0 w-12 h-12 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/40 transition-colors disabled:hover:bg-white/20 text-white text-xl"
+                    >
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+
+                    <button 
+                        @click="nextImage()" 
+                        :disabled="!hasNext()"
+                        :class="{ 'opacity-50 cursor-not-allowed': !hasNext() }"
+                        class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 md:translate-x-0 w-12 h-12 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/40 transition-colors disabled:hover:bg-white/20 text-white text-xl"
+                    >
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+
+                    {{-- Thumbnails --}}
+                    <div class="flex gap-2 mt-4 overflow-x-auto pb-2 justify-center md:justify-start">
+                        <template x-for="(image, idx) in images" :key="idx">
+                            <button 
+                                @click="currentIndex = idx"
+                                :class="{ 'ring-2 ring-white': currentIndex === idx }"
+                                class="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden opacity-70 hover:opacity-100 transition-opacity"
+                            >
+                                <img :src="image.src" :alt="image.caption" class="w-full h-full object-cover">
+                            </button>
+                        </template>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -159,4 +266,64 @@
             </a>
         </div>
     </section> -->
+
+<script>
+    function galleryModal() {
+        return {
+            isOpen: false,
+            currentIndex: 0,
+            images: [
+                @foreach($moments as $moment)
+                    {
+                        src: '{{ $moment->image }}',
+                        caption: '{{ $moment->caption }}'
+                    },
+                @endforeach
+            ],
+            
+            openModal(index) {
+                if (this.images.length === 0) return;
+                this.currentIndex = index;
+                this.isOpen = true;
+                document.body.style.overflow = 'hidden';
+            },
+            
+            closeModal() {
+                this.isOpen = false;
+                document.body.style.overflow = 'auto';
+            },
+            
+            nextImage() {
+                if (this.hasNext()) {
+                    this.currentIndex++;
+                }
+            },
+            
+            prevImage() {
+                if (this.hasPrev()) {
+                    this.currentIndex--;
+                }
+            },
+            
+            hasNext() {
+                return this.currentIndex < this.images.length - 1;
+            },
+            
+            hasPrev() {
+                return this.currentIndex > 0;
+            }
+        }
+    }
+
+    // Keyboard navigation for gallery
+    document.addEventListener('keydown', function(e) {
+        const modal = document.querySelector('[x-data*="galleryModal"]');
+        if (modal && modal.__x) {
+            if (e.key === 'ArrowRight') modal.__x.nextImage();
+            if (e.key === 'ArrowLeft') modal.__x.prevImage();
+            if (e.key === 'Escape') modal.__x.closeModal();
+        }
+    });
+</script>
+
 @endsection

@@ -110,8 +110,7 @@ class SiteSettingController extends Controller
     public function aboutHero()
     {
         $settings = SiteSetting::getGroup('about_hero');
-        $stats = SiteSetting::getGroup('about_stats');
-        return view('admin.settings.about-hero', compact('settings', 'stats'));
+        return view('admin.settings.about-hero', compact('settings'));
     }
 
     public function updateAboutHero(Request $request)
@@ -140,19 +139,8 @@ class SiteSettingController extends Controller
             unset($heroData['image2']);
         }
 
-        $statsData = $request->validate([
-            'stat1_value' => 'nullable|string',
-            'stat1_label' => 'nullable|string',
-            'stat2_value' => 'nullable|string',
-            'stat2_label' => 'nullable|string',
-        ]);
-
         foreach ($heroData as $key => $value) {
             SiteSetting::set('about_hero', $key, $value);
-        }
-
-        foreach ($statsData as $key => $value) {
-            SiteSetting::set('about_stats', $key, $value);
         }
 
         return back()->with('success', 'Pengaturan hero halaman tentang berhasil diperbarui.');

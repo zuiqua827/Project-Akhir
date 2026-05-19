@@ -3,7 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductCategoryController;
 use App\Http\Controllers\Admin\MomentController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\MenuController;
 use App\Models\SiteSetting;
 
@@ -100,6 +102,19 @@ Route::post('/contact', function (Request $request) {
 // Admin Routes (protected)
 Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(function () {
     Route::view('dashboard', 'admin.dashboard')->name('dashboard');
+    
+    // Profile
+    Route::prefix('profile')->name('profile.')->group(function () {
+        Route::get('/', [ProfileController::class, 'edit'])->name('edit');
+        Route::put('/', [ProfileController::class, 'updateProfile'])->name('update');
+        Route::put('password', [ProfileController::class, 'updatePassword'])->name('password');
+    });
+
+    // Product categories
+    Route::get('product-categories', [ProductCategoryController::class, 'index'])->name('product-categories.index');
+    Route::post('product-categories', [ProductCategoryController::class, 'store'])->name('product-categories.store');
+    Route::put('product-categories/{category}', [ProductCategoryController::class, 'update'])->name('product-categories.update');
+    Route::delete('product-categories/{category}', [ProductCategoryController::class, 'destroy'])->name('product-categories.destroy');
     
     // Products CRUD
     Route::resource('products', ProductController::class)->names([

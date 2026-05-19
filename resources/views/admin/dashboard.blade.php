@@ -152,7 +152,6 @@
                             <th class="text-left text-sm font-semibold text-gray-600 pb-4">Pratinjau</th>
                             <th class="text-left text-sm font-semibold text-gray-600 pb-4">Keterangan</th>
                             <th class="text-left text-sm font-semibold text-gray-600 pb-4">Urutan</th>
-                            <th class="text-right text-sm font-semibold text-gray-600 pb-4">Status</th>
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
@@ -167,15 +166,10 @@
                                 <td class="py-4">
                                     <span class="text-sm font-mono bg-gray-100 px-2 py-1 rounded-full">{{ $moment->order }}</span>
                                 </td>
-                                <td class="py-4 text-right">
-                                    @if($moment->is_featured)
-                                        <span class="px-2 py-1 text-xs font-medium bg-blue-100 text-blue-700 rounded-full">Unggulan</span>
-                                    @endif
-                                </td>
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="4" class="py-12 text-center text-gray-500 text-sm">
+                                <td colspan="3" class="py-12 text-center text-gray-500 text-sm">
                                     Belum ada momen
                                 </td>
                             </tr>

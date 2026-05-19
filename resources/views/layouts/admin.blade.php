@@ -34,103 +34,144 @@
     <div class="min-h-screen flex">
         {{-- Sidebar --}}
         <aside class="fixed inset-y-0 left-0 z-50 w-64 max-w-[85vw] bg-white border-r border-gray-200 transform transition-transform duration-300 lg:translate-x-0 -translate-x-full overflow-y-auto" id="sidebar">
+            <!-- Logo -->
             <div class="flex items-center justify-center h-16 border-b border-gray-200">
                 <x-brand-logo :href="route('admin.dashboard')" height-class="h-10" text-class="text-lg font-bold text-gray-800" accent-class="text-[#D4A373]" />
             </div>
-            <nav class="mt-6 px-4 space-y-2">
-                <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium {{ request()->routeIs('admin.dashboard') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
-                    Dasbor
-                </a>
-                <a href="{{ route('admin.products.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium {{ request()->routeIs('admin.products.*') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
-                    Produk
-                </a>
-                
-                {{-- Pengaturan Website Dropdown --}}
-                <div x-data="{ open: {{ request()->routeIs('admin.settings.*') ? 'true' : 'false' }} }" class="mt-4 pt-4 border-t border-gray-200">
-                    <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-3 rounded-xl text-sm font-medium text-gray-600 hover:bg-gray-100">
-                        <div class="flex items-center gap-3">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            Pengaturan Website
-                        </div>
-                        <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                    </button>
+
+            {{-- Navigation --}}
+            <nav class="mt-6 px-3 pb-6 space-y-1">
+                <!-- Main Section -->
+                <div class="mb-6">
+                    <p class="px-4 py-2 text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Utama</p>
+                    <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.dashboard') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
+                        <i class="fa-solid fa-chart-line w-5 text-center"></i>
+                        <span>Dasbor</span>
+                    </a>
+                    <a href="{{ route('admin.products.index') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.products.*', 'admin.product-categories.*') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
+                        <i class="fa-solid fa-box w-5 text-center"></i>
+                        <span>Produk</span>
+                    </a>
+                </div>
+
+                <!-- Website Settings Section -->
+                <div>
+                    <p class="px-4 py-2 text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Pengaturan</p>
                     
-                    <div x-show="open" x-collapse class="pl-11 pr-4 mt-2 space-y-1">
-                        <!-- Beranda Pages -->
-                        <div x-data="{ openBeranda: {{ request()->routeIs('admin.settings.home.*') ? 'true' : 'false' }} }">
-                            <button @click="openBeranda = !openBeranda" class="flex items-center justify-between w-full py-2 text-sm font-medium text-gray-600 hover:text-[#D4A373]">
-                                <span><i class="fa-solid fa-house"></i> Beranda</span>
-                                <svg class="w-3 h-3 transition-transform" :class="{ 'rotate-180': openBeranda }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </button>
-                            <div x-show="openBeranda" class="pl-4 mt-1 space-y-1 border-l-2 border-gray-100">
-                                <a href="{{ route('admin.settings.home.hero') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.home.hero') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}"> <i class="fa-solid fa-house"></i> Bagian Hero</a>
-                                <a href="{{ route('admin.settings.best-seller') }}" class="block py-1.5 text-xs  {{ request()->routeIs('admin.settings.best-seller') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}"><i class="fa-solid fa-crown"></i>Terlaris</a>
-                                <a href="{{ route('admin.settings.home.gallery') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.home.gallery') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}"> <i class="fa-solid fa-images"></i> Bagian Galeri</a>
-                                <a href="{{ route('admin.moments.index') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.moments.*') ? ' text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}"><i class="fa-solid fa-images"></i> Momen</a>
-                                <a href="{{ route('admin.settings.home.location') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.home.location') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}"><i class="fa-solid fa-location-dot"></i> Bagian Lokasi</a>
-                                
+                    <!-- Beranda -->
+                    <div x-data="{ open: {{ request()->routeIs('admin.settings.home.*', 'admin.settings.best-seller', 'admin.moments.*') ? 'true' : 'false' }} }">
+                        <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.settings.home.*', 'admin.settings.best-seller', 'admin.moments.*') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-home w-5 text-center"></i>
+                                <span>Beranda</span>
                             </div>
+                            <i class="fa-solid fa-chevron-down w-4 transition-transform duration-300" :class="{ 'rotate-180': open }"></i>
+                        </button>
+                        <div x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
+                            <a href="{{ route('admin.settings.home.hero') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.home.hero') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
+                                Hero Utama
+                            </a>
+                            <a href="{{ route('admin.settings.best-seller') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.best-seller') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
+                                Produk Terlaris
+                            </a>
+                            <a href="{{ route('admin.settings.home.gallery') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.home.gallery') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
+                                Galeri
+                            </a>
+                            <a href="{{ route('admin.moments.index') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.moments.*') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
+                                Momen
+                            </a>
+                            <a href="{{ route('admin.settings.home.location') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.home.location') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
+                                Lokasi
+                            </a>
                         </div>
+                    </div>
 
-                        <!-- Tentang Pages -->
-                        <div x-data="{ openTentang: {{ request()->routeIs('admin.settings.about.*') ? 'true' : 'false' }} }">
-                            <button @click="openTentang = !openTentang" class="flex items-center justify-between w-full py-2 text-sm font-medium text-gray-600 hover:text-[#D4A373]">
-                                <span><i class="fa-solid fa-circle-info"></i> Tentang</span>
-                                <svg class="w-3 h-3 transition-transform" :class="{ 'rotate-180': openTentang }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </button>
-                            <div x-show="openTentang" class="pl-4 mt-1 space-y-1 border-l-2 border-gray-100">
-                                <a href="{{ route('admin.settings.about.hero') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.about.hero') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}"> <i class="fa-solid fa-house"></i> Hero & Statistik</a>
-                                <a href="{{ route('admin.settings.about.team') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.about.team') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}"> <i class="fa-solid fa-users"></i> Bagian Tim</a>
+                    <!-- Tentang -->
+                    <div x-data="{ open: {{ request()->routeIs('admin.settings.about.*') ? 'true' : 'false' }} }" class="mt-1">
+                        <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.settings.about.*') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-circle-info w-5 text-center"></i>
+                                <span>Tentang</span>
                             </div>
+                            <i class="fa-solid fa-chevron-down w-4 transition-transform duration-300" :class="{ 'rotate-180': open }"></i>
+                        </button>
+                        <div x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
+                            <a href="{{ route('admin.settings.about.hero') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.about.hero') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
+                                Hero Tentang
+                            </a>
+                            <a href="{{ route('admin.settings.about.team') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.about.team') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
+                                Tim Kami
+                            </a>
                         </div>
+                    </div>
 
-                        <!-- Menu Pages -->
-                        <div x-data="{ openMenu: {{ request()->routeIs('admin.settings.menu.*') ? 'true' : 'false' }} }">
-                            <button @click="openMenu = !openMenu" class="flex items-center justify-between w-full py-2 text-sm font-medium text-gray-600 hover:text-[#D4A373]">
-                                <span><i class="fa-solid fa-utensils"></i> Menu</span>
-                                <svg class="w-3 h-3 transition-transform" :class="{ 'rotate-180': openMenu }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </button>
-                            <div x-show="openMenu" class="pl-4 mt-1 space-y-1 border-l-2 border-gray-100">
-                                <a href="{{ route('admin.settings.menu.hero') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.menu.hero') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}"> <i class="fa-solid fa-house"></i> Bagian Hero</a>
+                    <!-- Menu -->
+                    <div x-data="{ open: {{ request()->routeIs('admin.settings.menu.*') ? 'true' : 'false' }} }" class="mt-1">
+                        <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.settings.menu.*') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-utensils w-5 text-center"></i>
+                                <span>Menu</span>
                             </div>
+                            <i class="fa-solid fa-chevron-down w-4 transition-transform duration-300" :class="{ 'rotate-180': open }"></i>
+                        </button>
+                        <div x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
+                            <a href="{{ route('admin.settings.menu.hero') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.menu.hero') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
+                                Hero Menu
+                            </a>
                         </div>
+                    </div>
 
-                        <!-- Kontak Pages -->
-                        <div x-data="{ openKontak: {{ request()->routeIs('admin.settings.contact.*') ? 'true' : 'false' }} }">
-                            <button @click="openKontak = !openKontak" class="flex items-center justify-between w-full py-2 text-sm font-medium text-gray-600 hover:text-[#D4A373]">
-                                <span><i class="fa-solid fa-phone"></i> Kontak</span>
-                                <svg class="w-3 h-3 transition-transform" :class="{ 'rotate-180': openKontak }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </button>
-                            <div x-show="openKontak" class="pl-4 mt-1 space-y-1 border-l-2 border-gray-100">
-                                <a href="{{ route('admin.settings.contact.hero') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.contact.hero') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}"><i class="fa-solid fa-house"></i> Bagian Hero</a>
-                                <a href="{{ route('admin.settings.contact.info') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.contact.info') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}"><i class="fa-solid fa-info-circle"></i> Info & Jam Operasional</a>
+                    <!-- Kontak -->
+                    <div x-data="{ open: {{ request()->routeIs('admin.settings.contact.*') ? 'true' : 'false' }} }" class="mt-1">
+                        <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.settings.contact.*') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-phone w-5 text-center"></i>
+                                <span>Kontak</span>
                             </div>
+                            <i class="fa-solid fa-chevron-down w-4 transition-transform duration-300" :class="{ 'rotate-180': open }"></i>
+                        </button>
+                        <div x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
+                            <a href="{{ route('admin.settings.contact.hero') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.contact.hero') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
+                                Hero Kontak
+                            </a>
+                            <a href="{{ route('admin.settings.contact.info') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.contact.info') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
+                                Info & Jam
+                            </a>
                         </div>
+                    </div>
 
-                        <!-- Footer -->
-                        <div x-data="{ openFooter: {{ request()->routeIs('admin.settings.footer') ? 'true' : 'false' }} }">
-                            <button @click="openFooter = !openFooter" class="flex items-center justify-between w-full py-2 text-sm font-medium text-gray-600 hover:text-[#D4A373]">
-                                <span><i class="fa-brands fa-discourse"></i> Footer</span>
-                                <svg class="w-3 h-3 transition-transform" :class="{ 'rotate-180': openFooter }" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
-                            </button>
-                            <div x-show="openFooter" class="pl-4 mt-1 space-y-1 border-l-2 border-gray-100">
-                                <a href="{{ route('admin.settings.footer') }}" class="block py-1.5 text-xs {{ request()->routeIs('admin.settings.footer') ? 'text-[#D4A373] font-bold' : 'text-gray-500 hover:text-[#D4A373]' }}">Konten Footer</a>
+                    <!-- Footer -->
+                    <div x-data="{ open: {{ request()->routeIs('admin.settings.footer') ? 'true' : 'false' }} }" class="mt-1">
+                        <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.settings.footer') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
+                            <div class="flex items-center gap-3">
+                                <i class="fa-solid fa-footer w-5 text-center"></i>
+                                <span>Footer</span>
                             </div>
+                            <i class="fa-solid fa-chevron-down w-4 transition-transform duration-300" :class="{ 'rotate-180': open }"></i>
+                        </button>
+                        <div x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
+                            <a href="{{ route('admin.settings.footer') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.footer') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
+                                Konten Footer
+                            </a>
                         </div>
                     </div>
                 </div>
 
-                <form method="POST" action="{{ route('logout') }}" class="mt-4 pt-4 border-t border-gray-200">
-
-
-                    @csrf
-                    <button type="submit" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium text-red-600 hover:bg-red-50 w-full">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
-                        Keluar
-                    </button>
-                </form>
+                <!-- Account Section -->
+                <div class="mt-8 pt-6 border-t border-gray-200">
+                    <p class="px-4 py-2 text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Akun</p>
+                    <a href="{{ route('admin.profile.edit') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.profile.*') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
+                        <i class="fa-solid fa-user w-5 text-center"></i>
+                        <span>Edit Profil</span>
+                    </a>
+                    <form method="POST" action="{{ route('logout') }}" class="mt-1">
+                        @csrf
+                        <button type="submit" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium text-red-600 hover:bg-red-50 transition-all w-full">
+                            <i class="fa-solid fa-arrow-right-from-bracket w-5 text-center"></i>
+                            <span>Keluar</span>
+                        </button>
+                    </form>
+                </div>
             </nav>
         </aside>
         <button id="sidebar-backdrop" type="button" class="fixed inset-0 z-40 bg-black/30 hidden lg:hidden" aria-label="Tutup menu samping"></button>

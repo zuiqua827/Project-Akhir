@@ -46,13 +46,6 @@
                     <p class="text-sm text-gray-500 mt-1">Angka lebih kecil akan tampil lebih dulu</p>
                 </div>
 
-                <div>
-                    <label class="flex items-center gap-3 p-3 bg-gray-50 rounded-xl cursor-pointer hover:bg-gray-100 transition-colors group {{ $moment->is_featured ? 'bg-blue-50 ring-2 ring-blue-200' : '' }}">
-                        <input type="checkbox" name="is_featured" id="is_featured" {{ $moment->is_featured ? 'checked' : '' }} class="w-5 h-5 rounded border-gray-300 text-[#D4A373] focus:ring-[#D4A373]">
-                        <span class="text-gray-700 font-medium group-hover:text-[#D4A373]">Momen Unggulan</span>
-                    </label>
-                    <p class="text-sm text-gray-500 mt-1">Momen unggulan mendapat prioritas tampilan</p>
-                </div>
             </div>
 
             <div class="flex flex-col-reverse sm:flex-row sm:items-center justify-end gap-3 sm:gap-4 mt-8 pt-6 border-t border-gray-200">
