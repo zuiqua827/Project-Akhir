@@ -56,15 +56,19 @@
             @if($products->count() > 0)
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
                 @foreach($products as $product)
-                    <div class="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+                    <a href="{{ route('menu.show', $product->slug) }}" class="group block bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
                         <div class="h-56 sm:h-60 md:h-64 overflow-hidden relative">
                             <img src="{{ $product->image }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="{{ $product->name }}">
+                            <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full font-bold text-sm shadow-lg">
+                                {{ $product->formatted_price }}
+                            </div>
                         </div>
                         <div class="p-6 sm:p-7 md:p-8">
                             <h3 class="text-xl font-serif font-bold mb-3 group-hover:text-[#D4A373] transition-colors">{{ $product->name }}</h3>
-                            <p class="text-[#2D1B10]/50 text-sm leading-relaxed">{{ $product->description }}</p>
+                            <p class="text-[#2D1B10]/50 text-sm leading-relaxed">{{ \Illuminate\Support\Str::limit($product->description ?? 'Belum ada penjelasan produk.', 95) }}</p>
+                            <p class="mt-3 text-xs font-semibold tracking-[0.15em] uppercase text-[#D4A373]">Lihat Penjelasan</p>
                         </div>
-                    </div>
+                    </a>
                 @endforeach
             </div>
             @else

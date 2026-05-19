@@ -50,15 +50,4 @@
             @endforeach
         </div>
     </section>
-
-    <!-- {{-- CTA Section --}}
-    <section class="py-24 bg-[#D4A373]">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-4xl md:text-5xl font-serif text-[#2D1B10] mb-6">Bingung memilih? Mulai dari menu spesial kami.</h2>
-            <p class="text-[#2D1B10] text-lg mb-10 opacity-80">Pilihan favorit barista kami di musim ini.</p>
-            <div class="inline-block bg-[#2D1B10] text-[#FDFBF7] px-12 py-5 rounded-full font-bold text-2xl font-serif italic">
-                Caramel Macadamia Latte - Rp 75.000
-            </div>
-        </div>
-    </section> -->
 @endsection
