@@ -8,8 +8,12 @@ use App\Http\Controllers\Admin\MomentController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\MenuController;
 use App\Models\SiteSetting;
+use App\Models\Moment;
 
-Route::view('/', 'pages.home')->name('home');
+Route::get('/', function () {
+    $moments = Moment::orderBy('order')->get();
+    return view('pages.home', compact('moments'));
+})->name('home');
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
 Route::get('/menu/{slug}', [MenuController::class, 'show'])->name('menu.show');
 Route::view('/about', 'pages.about')->name('about');

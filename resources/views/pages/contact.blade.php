@@ -44,7 +44,7 @@
                 <h1 class="text-4xl sm:text-5xl md:text-7xl font-serif leading-[1.1] mb-5 sm:mb-6 text-[#2D1B10]">
                     {{ $heroSettings['title'] ?? 'Kunjungi' }} <span class="italic text-[#D4A373]">{{ $heroSettings['subtitle'] ?? 'Kami.' }}</span>
                 </h1>
-                <p class="text-base sm:text-lg md:text-xl text-[#2D1B10]/70 max-w-2xl mx-auto leading-relaxed">
+                <p class="text-base sm:text-lg md:text-xl text-[#2D1B10]/70 max-w-2xl mx-auto leading-relaxed break-words">
                     {{ $heroSettings['description'] ?? 'Kami senang mendengar dari Anda. Jika Anda punya pertanyaan tentang kopi kami, ingin memesan acara, atau sekadar menyapa, pintu kami selalu terbuka.' }}
                 </p>
             </div>
@@ -97,9 +97,9 @@
                         <h3 class="text-xl font-serif font-bold text-[#2D1B10] mb-6">Jam Operasional</h3>
                         <div class="space-y-4">
                             @foreach($hours as $hour)
-                                <div class="flex justify-between items-center py-3 border-b border-[#2D1B10]/5">
-                                    <span class="text-[#2D1B10]/70 text-sm sm:text-base">{{ $hour['day'] }}</span>
-                                    <span class="font-medium text-[#2D1B10] text-sm sm:text-base text-right">{{ $hour['time'] }}</span>
+                                <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1.5 sm:gap-4 py-3 border-b border-[#2D1B10]/5">
+                                    <span class="text-[#2D1B10]/70 text-sm sm:text-base break-words">{{ $hour['day'] }}</span>
+                                    <span class="font-medium text-[#2D1B10] text-sm sm:text-base sm:text-right break-words">{{ $hour['time'] }}</span>
                                 </div>
                             @endforeach
                         </div>
@@ -149,11 +149,11 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label for="first_name" class="block text-sm font-bold uppercase tracking-widest text-[#2D1B10]/60 mb-3">Nama Depan</label>
-                                    <input type="text" id="first_name" name="first_name" class="w-full px-6 py-4 bg-white border border-[#2D1B10]/10 rounded-xl focus:outline-none focus:border-[#D4A373] transition-colors" placeholder="Budi" required>
+                                    <input type="text" id="first_name" name="first_name" class="w-full px-4 sm:px-6 py-4 bg-white border border-[#2D1B10]/10 rounded-xl focus:outline-none focus:border-[#D4A373] transition-colors" placeholder="Budi" required>
                                 </div>
                                 <div>
                                     <label for="last_name" class="block text-sm font-bold uppercase tracking-widest text-[#2D1B10]/60 mb-3">Nama Belakang</label>
-                                    <input type="text" id="last_name" name="last_name" class="w-full px-6 py-4 bg-white border border-[#2D1B10]/10 rounded-xl focus:outline-none focus:border-[#D4A373] transition-colors" placeholder="Santoso">
+                                    <input type="text" id="last_name" name="last_name" class="w-full px-4 sm:px-6 py-4 bg-white border border-[#2D1B10]/10 rounded-xl focus:outline-none focus:border-[#D4A373] transition-colors" placeholder="Santoso">
                                 </div>
                             </div>
                             
@@ -165,17 +165,17 @@
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
                                     <label for="reservation_date" class="block text-sm font-bold uppercase tracking-widest text-[#2D1B10]/60 mb-3">Tanggal Reservasi</label>
-                                    <input type="date" id="reservation_date" name="reservation_date" min="{{ now()->toDateString() }}" class="w-full px-6 py-4 bg-white border border-[#2D1B10]/10 rounded-xl focus:outline-none focus:border-[#D4A373] transition-colors" required>
+                                    <input type="date" id="reservation_date" name="reservation_date" min="{{ now()->toDateString() }}" class="w-full px-4 sm:px-6 py-4 bg-white border border-[#2D1B10]/10 rounded-xl focus:outline-none focus:border-[#D4A373] transition-colors" required>
                                 </div>
                                 <div>
                                     <label for="reservation_time" class="block text-sm font-bold uppercase tracking-widest text-[#2D1B10]/60 mb-3">Waktu Reservasi</label>
-                                    <input type="time" id="reservation_time" name="reservation_time" class="w-full px-6 py-4 bg-white border border-[#2D1B10]/10 rounded-xl focus:outline-none focus:border-[#D4A373] transition-colors" required>
+                                    <input type="time" id="reservation_time" name="reservation_time" class="w-full px-4 sm:px-6 py-4 bg-white border border-[#2D1B10]/10 rounded-xl focus:outline-none focus:border-[#D4A373] transition-colors" required>
                                 </div>
                             </div>
                             
                             <div>
                                 <label for="subject" class="block text-sm font-bold uppercase tracking-widest text-[#2D1B10]/60 mb-3">Subjek</label>
-                                <select id="subject" name="subject" class="w-full px-6 py-4 bg-white border border-[#2D1B10]/10 rounded-xl focus:outline-none focus:border-[#D4A373] transition-colors" required>
+                                <select id="subject" name="subject" class="w-full px-4 sm:px-6 py-4 bg-white border border-[#2D1B10]/10 rounded-xl focus:outline-none focus:border-[#D4A373] transition-colors" required>
                                     <option value="">Pilih subjek</option>
                                     @foreach($reservationSubjectOptions as $subjectOption)
                                         <option value="{{ $subjectOption }}">{{ $subjectOption }}</option>
@@ -185,7 +185,7 @@
                             
                             <div>
                                 <label for="message" class="block text-sm font-bold uppercase tracking-widest text-[#2D1B10]/60 mb-3">Pesan</label>
-                                <textarea id="message" name="message" rows="5" class="w-full px-6 py-4 bg-white border border-[#2D1B10]/10 rounded-xl focus:outline-none focus:border-[#D4A373] transition-colors resize-none" placeholder="Tulis pesan Anda di sini..." required></textarea>
+                                <textarea id="message" name="message" rows="5" class="w-full px-4 sm:px-6 py-4 bg-white border border-[#2D1B10]/10 rounded-xl focus:outline-none focus:border-[#D4A373] transition-colors resize-none" placeholder="Tulis pesan Anda di sini..." required></textarea>
                             </div>
                             
                             <button type="submit" class="w-full px-10 py-5 bg-[#2D1B10] text-white rounded-xl font-bold uppercase tracking-widest text-sm hover:bg-[#4A2C1C] transition-all">

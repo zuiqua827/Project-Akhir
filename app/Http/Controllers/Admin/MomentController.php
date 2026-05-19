@@ -57,9 +57,9 @@ class MomentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Moment $moment)
     {
-        //
+        return redirect()->route('admin.moments.edit', $moment);
     }
 
     /**
@@ -84,6 +84,13 @@ class MomentController extends Controller
 
         $imagePath = $moment->image;
         if ($request->hasFile('image')) {
+            // Hapus gambar lama dari storage jika ada
+            if (is_string($moment->image) && str_starts_with($moment->image, '/storage/')) {
+                $existingPath = ltrim(substr($moment->image, strlen('/storage/')), '/');
+                if ($existingPath !== '' && Storage::disk('public')->exists($existingPath)) {
+                    Storage::disk('public')->delete($existingPath);
+                }
+            }
             $path = $request->file('image')->store('moments', 'public');
             $imagePath = Storage::url($path);
         }
@@ -103,6 +110,13 @@ class MomentController extends Controller
      */
     public function destroy(Moment $moment)
     {
+        // Hapus file fisik sebelum menghapus record
+        if (is_string($moment->image) && str_starts_with($moment->image, '/storage/')) {
+            $existingPath = ltrim(substr($moment->image, strlen('/storage/')), '/');
+            if ($existingPath !== '' && Storage::disk('public')->exists($existingPath)) {
+                Storage::disk('public')->delete($existingPath);
+            }
+        }
         $moment->delete();
         return redirect()->route('admin.moments.index')->with('success', 'Momen berhasil dihapus.');
     }

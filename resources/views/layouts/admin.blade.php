@@ -198,14 +198,14 @@
             {{-- Top Header --}}
             <header class="bg-white border-b border-gray-200 h-16 fixed top-0 right-0 left-0 lg:left-64 z-40">
                 <div class="flex items-center justify-between h-full px-4 lg:px-8">
-                    <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg hover:bg-gray-100" aria-label="Buka menu samping" aria-expanded="false" aria-controls="sidebar">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-                    </button>
-                    <div class="hidden lg:block">
-                        <h1 class="text-lg font-semibold text-gray-800">{{ $adminHeaderTitle }}</h1>
+                    <div class="min-w-0 flex items-center gap-2 sm:gap-3">
+                        <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-lg hover:bg-gray-100" aria-label="Buka menu samping" aria-expanded="false" aria-controls="sidebar">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                        </button>
+                        <h1 class="text-sm sm:text-base lg:text-lg font-semibold text-gray-800 truncate">{{ $adminHeaderTitle }}</h1>
                     </div>
-                    <div class="flex items-center gap-4">
-                        <span class="hidden sm:block text-sm text-gray-600">Selamat datang, {{ auth()->user()->name }}</span>
+                    <div class="flex items-center gap-4 min-w-0">
+                        <span class="hidden md:block text-sm text-gray-600 truncate max-w-[18rem]">Selamat datang, {{ auth()->user()->name }}</span>
                     </div>
                 </div>
             </header>

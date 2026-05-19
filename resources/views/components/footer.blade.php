@@ -77,9 +77,9 @@
         </div>
 
         <!-- Bottom Bar -->
-        <div class="mt-6 md:mt-8 pt-6 border-t border-white/10 flex flex-col gap-2 md:gap-0 md:flex-row justify-between text-[11px] uppercase tracking-wider text-[#FDFBF7]/50">
-            <p>{{ $footerSettings['copyright'] ?? ('Hak Cipta 2024 ' . $brandText . '. Seluruh hak cipta dilindungi.') }}</p>
-            <p>{{ $footerSettings['bottom_text'] ?? 'Dibuat dengan semangat dan secangkir kafein.' }}</p>
+        <div class="mt-6 md:mt-8 pt-6 border-t border-white/10 flex flex-col gap-2 md:gap-4 md:flex-row md:items-start md:justify-between text-[11px] uppercase tracking-wider text-[#FDFBF7]/50">
+            <p class="break-words md:max-w-[48%]">{{ $footerSettings['copyright'] ?? ('Hak Cipta 2024 ' . $brandText . '. Seluruh hak cipta dilindungi.') }}</p>
+            <p class="break-words md:max-w-[48%]">{{ $footerSettings['bottom_text'] ?? 'Dibuat dengan semangat dan secangkir kafein.' }}</p>
         </div>
     </div>
 </footer>

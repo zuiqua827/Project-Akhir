@@ -74,10 +74,10 @@
                     </div>
 
                     {{-- Submit Button --}}
-                    <div class="flex justify-end pt-2">
+                    <div class="flex flex-col sm:flex-row justify-end pt-2">
                         <button 
                             type="submit"
-                            class="px-4 py-2 bg-[#D4A373] text-white rounded-lg hover:bg-[#C4935D] transition-colors font-medium text-sm"
+                            class="w-full sm:w-auto px-6 py-2.5 bg-[#D4A373] text-white rounded-lg hover:bg-[#C4935D] transition-colors font-medium text-sm shadow-sm"
                         >
                             <i class="fa-solid fa-save mr-2"></i>Simpan Perubahan
                         </button>
@@ -142,10 +142,10 @@
                     </div>
 
                     {{-- Submit Button --}}
-                    <div class="flex justify-end pt-2">
+                    <div class="flex flex-col sm:flex-row justify-end pt-2">
                         <button 
                             type="submit"
-                            class="px-4 py-2 bg-[#D4A373] text-white rounded-lg hover:bg-[#C4935D] transition-colors font-medium text-sm"
+                            class="w-full sm:w-auto px-6 py-2.5 bg-[#D4A373] text-white rounded-lg hover:bg-[#C4935D] transition-colors font-medium text-sm shadow-sm"
                         >
                             <i class="fa-solid fa-save mr-2"></i>Ubah Password
                         </button>

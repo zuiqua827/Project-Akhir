@@ -19,7 +19,7 @@
             </div>
         @endif
 
-        <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data" class="bg-white rounded-2xl shadow-sm p-5 sm:p-6 lg:p-8">
+        <form action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data" class="bg-white rounded-2xl shadow-sm p-4 sm:p-6 lg:p-8">
             @csrf
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
@@ -44,8 +44,8 @@
 
                 <div class="lg:col-span-2">
                     <label for="image" class="block text-sm font-semibold text-gray-700 mb-2">Unggah Gambar</label>
-                    <input type="file" id="image" name="image" accept="image/*" class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D4A373]/50 focus:border-[#D4A373]">
-                    <p class="text-sm text-gray-500 mt-1">Unggah gambar produk (JPEG, PNG, WEBP). Jika kosong, gambar default akan digunakan.</p>
+                    <input type="file" id="image" name="image" accept="image/*" class="w-full px-4 py-2 text-sm border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D4A373]/50 focus:border-[#D4A373] file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-[#D4A373]/10 file:text-[#D4A373] hover:file:bg-[#D4A373]/20">
+                    <p class="text-xs text-gray-500 mt-2">Unggah gambar produk (JPEG, PNG, WEBP). Jika kosong, gambar default akan digunakan.</p>
                 </div>
 
                 <div>

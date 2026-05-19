@@ -33,13 +33,13 @@
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 items-center">
             <div>
                 <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $heroSettings['badge'] ?? 'cerita kami' }}</span>
-                <h1 class="text-4xl sm:text-5xl md:text-7xl font-serif leading-[1.1] mb-6 sm:mb-8 text-[#2D1B10]">
+                <h1 class="text-4xl sm:text-5xl md:text-7xl font-serif leading-[1.1] mb-6 sm:mb-8 text-[#2D1B10] break-words">
                     {{ $heroSettings['title'] ?? 'Lebih dari sekadar' }} <span class="italic text-[#D4A373]">{{ $heroSettings['subtitle'] ?? 'Kopi.' }}</span>
                 </h1>
-                <p class="text-base md:text-lg text-[#2D1B10]/70 mb-5 sm:mb-6 leading-relaxed">
+                <p class="text-base md:text-lg text-[#2D1B10]/70 mb-5 sm:mb-6 leading-relaxed break-words">
                     {{ $heroSettings['description1'] ?? ('Di ' . $brandText . ', kami percaya kopi adalah sebuah ritual, bukan sekadar minuman. Biji kopi kami dipilih secara etis dari dataran tinggi terbaik dan dipanggang dalam batch kecil untuk menjaga karakter rasanya.') }}
                 </p>
-                <p class="text-base md:text-lg text-[#2D1B10]/70 mb-8 sm:mb-10 leading-relaxed">
+                <p class="text-base md:text-lg text-[#2D1B10]/70 mb-8 sm:mb-10 leading-relaxed break-words">
                     {{ $heroSettings['description2'] ?? 'Baik saat kamu mencari sudut tenang untuk merenung maupun ruang hangat untuk terhubung, pintu kami selalu terbuka untuk menghadirkan rasa dan pengalaman terbaik.' }}
                 </p>
             </div>
@@ -126,7 +126,7 @@
             <p class="text-[#2D1B10]/60 max-w-2xl mx-auto">Orang-orang penuh semangat di balik setiap cangkir terbaik.</p>
         </div>
         @if($teamMembers->count() > 0)
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             @foreach($teamMembers as $member)
             <div class="group text-center">
                 <div class="aspect-[3/4] rounded-3xl overflow-hidden mb-6 shadow-lg">
@@ -136,8 +136,8 @@
                         <div class="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400 text-6xl"><i class="fa-solid fa-user"></i></div>
                     @endif
                 </div>
-                <h3 class="text-xl font-serif font-bold text-[#2D1B10] mb-1">{{ $member->name }}</h3>
-                <p class="text-[#D4A373] text-sm font-bold uppercase tracking-widest">{{ $member->role }}</p>
+                <h3 class="text-xl font-serif font-bold text-[#2D1B10] mb-1 break-words">{{ $member->name }}</h3>
+                <p class="text-[#D4A373] text-sm font-bold uppercase tracking-widest break-words">{{ $member->role }}</p>
             </div>
             @endforeach
         </div>

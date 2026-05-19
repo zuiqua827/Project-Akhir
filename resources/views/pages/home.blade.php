@@ -51,13 +51,13 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 relative z-20 w-full">
             <div class="max-w-2xl">
                 <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $heroSettings['badge'] ?? 'Est. 2024' }}</span>
-                <h1 class="text-4xl sm:text-5xl md:text-8xl font-serif leading-[1.1] mb-6 sm:mb-8 text-[#2D1B10]">
+                <h1 class="text-4xl sm:text-5xl md:text-8xl font-serif leading-[1.1] mb-6 sm:mb-8 text-[#2D1B10] break-words">
                     {!! nl2br(e($heroSettings['title'] ?? 'Diseduh Segar')) !!} <br><span class="italic text-[#D4A373]">{{ $heroSettings['subtitle'] ?? 'Untukmu.' }}</span>
                 </h1>
-                <p class="text-base sm:text-lg md:text-xl text-[#2D1B10]/70 mb-5 sm:mb-6 leading-relaxed max-w-lg">
+                <p class="text-base sm:text-lg md:text-xl text-[#2D1B10]/70 mb-5 sm:mb-6 leading-relaxed max-w-lg break-words">
                     {{ $heroSettings['description'] ?? 'Nikmati keseimbangan sempurna antara teknik roasting artisan dan suasana hangat di setiap cangkir yang kami sajikan.' }}
                 </p>
-                <p class="text-[#2D1B10]/50 mb-8 sm:mb-12 text-sm leading-relaxed">
+                <p class="text-[#2D1B10]/50 mb-8 sm:mb-12 text-sm leading-relaxed break-words">
                     {{ $heroSettings['sub_description'] ?? 'Biji kopi pilihan dari sumber berkelanjutan, dipanggang dalam batch kecil.' }}
                 </p>
                 <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-6">
@@ -202,9 +202,9 @@
                         </template>
                     </div>
 
-                    {{-- Caption --}}
+                    {{-- Caption & Info --}}
                     <div class="text-center mt-4 text-white">
-                        <p class="text-lg font-serif" x-text="images[currentIndex]?.caption || ''"></p>
+                        <p class="text-lg font-serif break-words" x-text="images[currentIndex]?.caption || ''"></p>
                         <p class="text-sm text-gray-400 mt-2" x-text="(currentIndex + 1) + ' / ' + images.length"></p>
                     </div>
 
@@ -213,7 +213,7 @@
                         @click="prevImage()" 
                         :disabled="!hasPrev()"
                         :class="{ 'opacity-50 cursor-not-allowed': !hasPrev() }"
-                        class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 md:translate-x-0 w-12 h-12 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/40 transition-colors disabled:hover:bg-white/20 text-white text-xl"
+                        class="absolute left-2 sm:left-4 md:left-0 top-1/2 -translate-y-1/2 md:-translate-x-1/2 w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md border border-white/10 transition-all disabled:hover:bg-white/20 text-white text-lg md:text-xl shadow-lg"
                     >
                         <i class="fas fa-chevron-left"></i>
                     </button>
@@ -222,13 +222,13 @@
                         @click="nextImage()" 
                         :disabled="!hasNext()"
                         :class="{ 'opacity-50 cursor-not-allowed': !hasNext() }"
-                        class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 md:translate-x-0 w-12 h-12 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/40 transition-colors disabled:hover:bg-white/20 text-white text-xl"
+                        class="absolute right-2 sm:right-4 md:right-0 top-1/2 -translate-y-1/2 md:translate-x-1/2 w-11 h-11 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/40 backdrop-blur-md border border-white/10 transition-all disabled:hover:bg-white/20 text-white text-lg md:text-xl shadow-lg"
                     >
                         <i class="fas fa-chevron-right"></i>
                     </button>
 
                     {{-- Thumbnails --}}
-                    <div class="flex gap-2 mt-4 overflow-x-auto pb-2 justify-center md:justify-start">
+                    <div class="flex gap-2 mt-6 overflow-x-auto pb-2 px-4 justify-start sm:justify-center">
                         <template x-for="(image, idx) in images" :key="idx">
                             <button 
                                 @click="currentIndex = idx"
@@ -257,13 +257,13 @@
                         {{ $locationSettings['description'] ?? 'Berada di jantung Jepara, cafe kami menghadirkan suasana hangat yang cocok untuk bekerja, bersantai, atau berkumpul bersama teman.' }}
                     </p>
                     <div class="space-y-4 mb-8 sm:mb-10">
-                        <div class="flex items-center gap-4">
-                            <svg class="w-5 h-5 text-[#D4A373]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            <span class="text-[#2D1B10]/70">{{ $locationSettings['address'] ?? 'Jl. KH Achmad Fauzan No.17, Krasak, Bangsri' }}</span>
+                        <div class="flex items-start gap-4">
+                            <svg class="w-5 h-5 mt-0.5 shrink-0 text-[#D4A373]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <span class="text-[#2D1B10]/70 break-words">{{ $locationSettings['address'] ?? 'Jl. KH Achmad Fauzan No.17, Krasak, Bangsri' }}</span>
                         </div>
-                        <div class="flex items-center gap-4">
-                            <svg class="w-5 h-5 text-[#D4A373]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                            <span class="text-[#2D1B10]/70">{{ $locationSettings['hours'] ?? 'Buka Setiap Hari: 07:00 - 21:00 WIB' }}</span>
+                        <div class="flex items-start gap-4">
+                            <svg class="w-5 h-5 mt-0.5 shrink-0 text-[#D4A373]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span class="text-[#2D1B10]/70 break-words">{{ $locationSettings['hours'] ?? 'Buka Setiap Hari: 07:00 - 21:00 WIB' }}</span>
                         </div>
                     </div>
                     <a href="{{ route('contact') }}" class="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-8 py-4 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#4A2C1C] transition-all">

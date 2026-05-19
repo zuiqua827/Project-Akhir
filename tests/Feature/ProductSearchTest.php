@@ -104,3 +104,63 @@ test('public menu search only returns matching available products', function () 
     $response->assertDontSee('Kopi Legacy');
     $response->assertDontSee('Matcha Latte');
 });
+
+test('public menu can be filtered by category slug', function () {
+    $coffee = ProductCategory::create([
+        'slug' => 'coffee',
+        'name' => 'Coffee',
+        'order' => 1,
+    ]);
+
+    $tea = ProductCategory::create([
+        'slug' => 'tea',
+        'name' => 'Tea',
+        'order' => 2,
+    ]);
+
+    Product::create([
+        'name' => 'Espresso',
+        'price' => 25000,
+        'description' => 'Kopi hitam pekat.',
+        'image' => 'https://example.com/espresso.jpg',
+        'slug' => Str::slug('Espresso'),
+        'product_category_id' => $coffee->id,
+        'is_available' => true,
+        'is_featured' => false,
+        'is_special' => false,
+    ]);
+
+    Product::create([
+        'name' => 'Teh Lemon',
+        'price' => 23000,
+        'description' => 'Teh segar rasa lemon.',
+        'image' => 'https://example.com/teh-lemon.jpg',
+        'slug' => Str::slug('Teh Lemon'),
+        'product_category_id' => $tea->id,
+        'is_available' => true,
+        'is_featured' => false,
+        'is_special' => false,
+    ]);
+
+    Product::create([
+        'name' => 'Teh Melati',
+        'price' => 22000,
+        'description' => 'Teh melati harum.',
+        'image' => 'https://example.com/teh-melati.jpg',
+        'slug' => Str::slug('Teh Melati'),
+        'product_category_id' => $tea->id,
+        'is_available' => true,
+        'is_featured' => true,
+        'is_special' => false,
+    ]);
+
+    $response = $this->get(route('menu', [
+        'category' => 'tea',
+        'q' => 'Melati',
+    ]));
+
+    $response->assertOk();
+    $response->assertSee('Teh Melati');
+    $response->assertDontSee('Espresso');
+    $response->assertDontSee('Teh Lemon');
+});

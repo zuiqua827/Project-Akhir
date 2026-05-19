@@ -36,7 +36,7 @@
         @endif
 
         <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
-            <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-gray-100">
+            <div class="bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-gray-100 h-fit">
                 <h2 class="text-lg font-semibold text-gray-800 mb-5">Tambah Kategori</h2>
                 <form action="{{ route('admin.product-categories.store') }}" method="POST" class="space-y-4">
                     @csrf
@@ -54,7 +54,7 @@
                 </form>
             </div>
 
-            <div class="xl:col-span-2 bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-gray-100">
+            <div class="xl:col-span-2 bg-white rounded-2xl p-5 sm:p-6 shadow-sm border border-gray-100 overflow-hidden">
                 <h2 class="text-lg font-semibold text-gray-800 mb-5">Daftar Kategori ({{ $categories->count() }})</h2>
 
                 @if($categories->isEmpty())
@@ -63,8 +63,8 @@
                     <div class="space-y-3">
                         @foreach($categories as $category)
                             <div class="border border-gray-100 rounded-xl p-4 hover:border-[#D4A373]/30 transition-colors">
-                                <div class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
-                                    <form action="{{ route('admin.product-categories.update', $category->id) }}" method="POST" class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                <div class="flex flex-col gap-4 lg:flex-row lg:items-end lg:justify-between">
+                                    <form action="{{ route('admin.product-categories.update', $category->id) }}" method="POST" class="flex-1 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
                                         @csrf
                                         @method('PUT')
                                         <div>
@@ -75,21 +75,24 @@
                                             <label class="block text-xs font-medium text-gray-500 mb-1">Urutan</label>
                                             <input type="number" name="order" min="0" value="{{ $category->order }}" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#D4A373]/40 focus:border-[#D4A373]">
                                         </div>
-                                        <div class="sm:col-span-2 flex items-center justify-between gap-3">
-                                            <span class="text-xs text-gray-500">Dipakai oleh {{ $category->products_count }} produk</span>
-                                            <button type="submit" class="px-4 py-2 bg-[#D4A373] text-white text-sm rounded-lg font-medium hover:bg-[#c49363] transition-colors">
+                                        <div class="sm:col-span-2 lg:col-span-1 flex items-center justify-between lg:justify-end gap-3">
+                                            <span class="text-xs text-gray-500 lg:hidden">Total: {{ $category->products_count }} produk</span>
+                                            <button type="submit" class="w-full sm:w-auto px-4 py-2 bg-[#D4A373] text-white text-sm rounded-lg font-medium hover:bg-[#c49363] transition-colors">
                                                 Perbarui
                                             </button>
                                         </div>
                                     </form>
 
-                                    <form action="{{ route('admin.product-categories.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Hapus kategori ini?')">
+                                    <form action="{{ route('admin.product-categories.destroy', $category->id) }}" method="POST" onsubmit="return confirm('Hapus kategori ini?')" class="border-t border-gray-50 pt-3 lg:border-t-0 lg:pt-0">
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="w-full md:w-auto px-4 py-2 text-sm rounded-lg font-medium transition-colors {{ $category->products_count > 0 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-red-50 text-red-600 hover:bg-red-100' }}" {{ $category->products_count > 0 ? 'disabled' : '' }}>
+                                        <button type="submit" class="w-full sm:w-auto px-4 py-2 text-sm rounded-lg font-medium transition-colors {{ $category->products_count > 0 ? 'bg-gray-100 text-gray-400 cursor-not-allowed' : 'bg-red-50 text-red-600 hover:bg-red-100' }}" {{ $category->products_count > 0 ? 'disabled' : '' }}>
                                             Hapus
                                         </button>
                                     </form>
+                                </div>
+                                <div class="hidden lg:block mt-2">
+                                    <span class="text-[10px] uppercase tracking-wider text-gray-400 font-bold">Digunakan oleh {{ $category->products_count }} produk</span>
                                 </div>
                             </div>
                         @endforeach

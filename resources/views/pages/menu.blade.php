@@ -21,6 +21,7 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             @php
                 $matchedItems = $categories->sum(fn ($category) => $category['items']->count());
+                $hasFilters = $keyword !== '' || $selectedCategory !== '';
             @endphp
 
             <div class="mb-10 sm:mb-12">
@@ -39,21 +40,58 @@
                             class="w-full rounded-2xl border border-[#2D1B10]/15 bg-[#FDFBF7] pl-11 pr-4 py-3 text-sm text-[#2D1B10] focus:outline-none focus:ring-2 focus:ring-[#D4A373] focus:border-[#D4A373]"
                         >
                     </div>
-                    <div class="flex gap-2">
-                        <button type="submit" class="inline-flex justify-center items-center px-6 py-3 rounded-2xl bg-[#2D1B10] text-white font-semibold hover:bg-[#4A2C1C] transition-colors">
+                    <div class="w-full sm:w-56">
+                        <select
+                            name="category"
+                            class="w-full rounded-2xl border border-[#2D1B10]/15 bg-[#FDFBF7] px-4 py-3 text-sm text-[#2D1B10] focus:outline-none focus:ring-2 focus:ring-[#D4A373] focus:border-[#D4A373]"
+                        >
+                            <option value="">Semua Kategori</option>
+                            @foreach($availableCategories as $filterCategory)
+                                <option value="{{ $filterCategory->slug }}" @selected($selectedCategory === $filterCategory->slug)>{{ $filterCategory->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="flex w-full sm:w-auto gap-2">
+                        <button type="submit" class="inline-flex flex-1 sm:flex-none justify-center items-center px-6 py-3 rounded-2xl bg-[#2D1B10] text-white font-semibold hover:bg-[#4A2C1C] transition-colors">
                             Cari
                         </button>
-                        @if($keyword !== '')
-                            <a href="{{ route('menu') }}" class="inline-flex justify-center items-center px-6 py-3 rounded-2xl border border-[#2D1B10]/20 text-[#2D1B10] font-semibold hover:bg-[#FDFBF7] transition-colors">
+                        @if($hasFilters)
+                            <a href="{{ route('menu') }}" class="inline-flex flex-1 sm:flex-none justify-center items-center px-6 py-3 rounded-2xl border border-[#2D1B10]/20 text-[#2D1B10] font-semibold hover:bg-[#FDFBF7] transition-colors">
                                 Reset
                             </a>
                         @endif
                     </div>
                 </form>
 
-                @if($keyword !== '')
+                @if($availableCategories->isNotEmpty())
+                    <div class="mt-4 flex flex-wrap gap-2">
+                        <a
+                            href="{{ route('menu', array_filter(['q' => $keyword], fn ($value) => $value !== '')) }}"
+                            class="inline-flex items-center px-4 py-2 rounded-full text-xs font-semibold border transition-colors {{ $selectedCategory === '' ? 'bg-[#2D1B10] border-[#2D1B10] text-white' : 'bg-white border-[#2D1B10]/20 text-[#2D1B10] hover:bg-[#FDFBF7]' }}"
+                        >
+                            Semua
+                        </a>
+                        @foreach($availableCategories as $filterCategory)
+                            <a
+                                href="{{ route('menu', array_filter(['q' => $keyword, 'category' => $filterCategory->slug], fn ($value) => $value !== '')) }}"
+                                class="inline-flex items-center px-4 py-2 rounded-full text-xs font-semibold border transition-colors {{ $selectedCategory === $filterCategory->slug ? 'bg-[#2D1B10] border-[#2D1B10] text-white' : 'bg-white border-[#2D1B10]/20 text-[#2D1B10] hover:bg-[#FDFBF7]' }}"
+                            >
+                                {{ $filterCategory->name }}
+                            </a>
+                        @endforeach
+                    </div>
+                @endif
+
+                @if($hasFilters)
                     <p class="mt-3 text-sm text-[#2D1B10]/65">
-                        Menampilkan {{ $matchedItems }} menu untuk kata kunci <span class="font-semibold text-[#2D1B10]">"{{ $keyword }}"</span>.
+                        Menampilkan {{ $matchedItems }} menu
+                        @if($keyword !== '')
+                            untuk kata kunci <span class="font-semibold text-[#2D1B10]">"{{ $keyword }}"</span>
+                        @endif
+                        @if($selectedCategoryName !== '')
+                            pada kategori <span class="font-semibold text-[#2D1B10]">{{ $selectedCategoryName }}</span>
+                        @endif
+                        .
                     </p>
                 @endif
             </div>
@@ -78,8 +116,8 @@
                                     </div>
                                 </div>
                                 <div class="p-5 sm:p-6">
-                                    <h3 class="text-lg font-serif font-bold mb-2 group-hover:text-[#D4A373] transition-colors">{{ $item->name }}</h3>
-                                    <p class="text-[#2D1B10]/50 text-sm leading-relaxed">{{ \Illuminate\Support\Str::limit($item->description ?? 'Belum ada penjelasan produk.', 95) }}</p>
+                                    <h3 class="text-lg font-serif font-bold mb-2 break-words group-hover:text-[#D4A373] transition-colors">{{ $item->name }}</h3>
+                                    <p class="text-[#2D1B10]/50 text-sm leading-relaxed break-words">{{ \Illuminate\Support\Str::limit($item->description ?? 'Belum ada penjelasan produk.', 95) }}</p>
                                     <p class="mt-3 text-xs font-semibold tracking-[0.15em] uppercase text-[#D4A373]">Lihat Penjelasan</p>
                                 </div>
                             </a>
@@ -88,8 +126,8 @@
                 </div>
             @empty
                 <div class="text-center py-16">
-                    @if($keyword !== '')
-                        <p class="text-[#2D1B10]/55 text-lg">Tidak ada menu yang cocok dengan pencarian kamu.</p>
+                    @if($hasFilters)
+                        <p class="text-[#2D1B10]/55 text-lg">Tidak ada menu yang cocok dengan filter yang kamu pilih.</p>
                         <a href="{{ route('menu') }}" class="inline-flex mt-4 px-5 py-2.5 rounded-full border border-[#2D1B10]/20 text-[#2D1B10] text-sm font-semibold hover:bg-[#FDFBF7] transition-colors">
                             Lihat Semua Menu
                         </a>

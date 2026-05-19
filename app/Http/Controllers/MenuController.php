@@ -14,13 +14,27 @@ class MenuController extends Controller
     public function index(Request $request): View
     {
         $keyword = trim((string) $request->query('q', ''));
+        $selectedCategory = trim((string) $request->query('category', ''));
 
         if (!Schema::hasTable((new Product())->getTable()) || !Schema::hasTable((new ProductCategory())->getTable())) {
             return view('pages.menu', [
                 'categories' => collect(),
                 'heroSettings' => SiteSetting::getGroup('menu_hero'),
                 'keyword' => $keyword,
+                'availableCategories' => collect(),
+                'selectedCategory' => $selectedCategory,
+                'selectedCategoryName' => '',
             ]);
+        }
+
+        $availableCategories = ProductCategory::ordered()
+            ->whereHas('products', function ($query) {
+                $query->where('is_available', true);
+            })
+            ->get(['id', 'slug', 'name']);
+
+        if ($selectedCategory !== '' && ! $availableCategories->contains('slug', $selectedCategory)) {
+            $selectedCategory = '';
         }
 
         $applyProductSearch = function ($query) use ($keyword) {
@@ -35,7 +49,7 @@ class MenuController extends Controller
         };
 
         // Ambil semua kategori yang memiliki produk tersedia, terurut
-        $categories = ProductCategory::ordered()
+        $categoriesQuery = ProductCategory::ordered()
             ->with(['products' => function ($query) use ($applyProductSearch) {
                 $query->where('is_available', true)
                     ->orderByDesc('is_featured');
@@ -44,18 +58,33 @@ class MenuController extends Controller
             ->whereHas('products', function ($query) use ($applyProductSearch) {
                 $query->where('is_available', true);
                 $applyProductSearch($query);
-            })
+            });
+
+        if ($selectedCategory !== '') {
+            $categoriesQuery->where('slug', $selectedCategory);
+        }
+
+        $categories = $categoriesQuery
             ->get()
             ->map(function ($category) {
                 return [
+                    'slug' => $category->slug,
                     'name' => $category->name,
                     'items' => $category->products,
                 ];
             });
 
         $heroSettings = SiteSetting::getGroup('menu_hero');
+        $selectedCategoryName = (string) ($availableCategories->firstWhere('slug', $selectedCategory)->name ?? '');
 
-        return view('pages.menu', compact('categories', 'heroSettings', 'keyword'));
+        return view('pages.menu', compact(
+            'categories',
+            'heroSettings',
+            'keyword',
+            'availableCategories',
+            'selectedCategory',
+            'selectedCategoryName'
+        ));
     }
 
     public function show(string $slug): View

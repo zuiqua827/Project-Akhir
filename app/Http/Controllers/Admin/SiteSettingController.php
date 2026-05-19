@@ -31,6 +31,14 @@ class SiteSettingController extends Controller
         ]);
 
         if ($request->hasFile('background_image')) {
+            $existingBg = SiteSetting::get('home_hero', 'background_image');
+            if (is_string($existingBg) && str_starts_with($existingBg, '/storage/')) {
+                $existingPath = ltrim(substr($existingBg, strlen('/storage/')), '/');
+                if ($existingPath !== '') {
+                    Storage::disk('public')->delete($existingPath);
+                }
+            }
+
             $path = $request->file('background_image')->store('settings', 'public');
             $data['background_image'] = Storage::url($path);
         } else {
@@ -126,6 +134,14 @@ class SiteSettingController extends Controller
         ]);
 
         if ($request->hasFile('image1')) {
+            $existingImg1 = SiteSetting::get('about_hero', 'image1');
+            if (is_string($existingImg1) && str_starts_with($existingImg1, '/storage/')) {
+                $existingPath = ltrim(substr($existingImg1, strlen('/storage/')), '/');
+                if ($existingPath !== '') {
+                    Storage::disk('public')->delete($existingPath);
+                }
+            }
+
             $path = $request->file('image1')->store('settings', 'public');
             $heroData['image1'] = Storage::url($path);
         } else {
@@ -133,6 +149,14 @@ class SiteSettingController extends Controller
         }
         
         if ($request->hasFile('image2')) {
+            $existingImg2 = SiteSetting::get('about_hero', 'image2');
+            if (is_string($existingImg2) && str_starts_with($existingImg2, '/storage/')) {
+                $existingPath = ltrim(substr($existingImg2, strlen('/storage/')), '/');
+                if ($existingPath !== '') {
+                    Storage::disk('public')->delete($existingPath);
+                }
+            }
+
             $path = $request->file('image2')->store('settings', 'public');
             $heroData['image2'] = Storage::url($path);
         } else {
