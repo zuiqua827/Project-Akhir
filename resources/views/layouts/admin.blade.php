@@ -60,14 +60,14 @@
                     
                     <!-- Beranda -->
                     <div x-data="{ open: {{ request()->routeIs('admin.settings.home.*', 'admin.settings.best-seller', 'admin.moments.*') ? 'true' : 'false' }} }">
-                        <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.settings.home.*', 'admin.settings.best-seller', 'admin.moments.*') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
+                        <button @click="open = !open" :aria-expanded="open.toString()" aria-controls="admin-nav-home" class="flex items-center justify-between w-full px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.settings.home.*', 'admin.settings.best-seller', 'admin.moments.*') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
                             <div class="flex items-center gap-3">
                                 <i class="fa-solid fa-home w-5 text-center"></i>
                                 <span>Beranda</span>
                             </div>
                             <i class="fa-solid fa-chevron-down w-4 transition-transform duration-300" :class="{ 'rotate-180': open }"></i>
                         </button>
-                        <div x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
+                        <div id="admin-nav-home" x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
                             <a href="{{ route('admin.settings.home.hero') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.home.hero') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
                                 Hero Utama
                             </a>
@@ -88,14 +88,14 @@
 
                     <!-- Tentang -->
                     <div x-data="{ open: {{ request()->routeIs('admin.settings.about.*') ? 'true' : 'false' }} }" class="mt-1">
-                        <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.settings.about.*') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
+                        <button @click="open = !open" :aria-expanded="open.toString()" aria-controls="admin-nav-about" class="flex items-center justify-between w-full px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.settings.about.*') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
                             <div class="flex items-center gap-3">
                                 <i class="fa-solid fa-circle-info w-5 text-center"></i>
                                 <span>Tentang</span>
                             </div>
                             <i class="fa-solid fa-chevron-down w-4 transition-transform duration-300" :class="{ 'rotate-180': open }"></i>
                         </button>
-                        <div x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
+                        <div id="admin-nav-about" x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
                             <a href="{{ route('admin.settings.about.hero') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.about.hero') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
                                 Hero Tentang
                             </a>
@@ -107,14 +107,14 @@
 
                     <!-- Menu -->
                     <div x-data="{ open: {{ request()->routeIs('admin.settings.menu.*') ? 'true' : 'false' }} }" class="mt-1">
-                        <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.settings.menu.*') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
+                        <button @click="open = !open" :aria-expanded="open.toString()" aria-controls="admin-nav-menu" class="flex items-center justify-between w-full px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.settings.menu.*') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
                             <div class="flex items-center gap-3">
                                 <i class="fa-solid fa-utensils w-5 text-center"></i>
                                 <span>Menu</span>
                             </div>
                             <i class="fa-solid fa-chevron-down w-4 transition-transform duration-300" :class="{ 'rotate-180': open }"></i>
                         </button>
-                        <div x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
+                        <div id="admin-nav-menu" x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
                             <a href="{{ route('admin.settings.menu.hero') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.menu.hero') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
                                 Hero Menu
                             </a>
@@ -123,14 +123,14 @@
 
                     <!-- Kontak -->
                     <div x-data="{ open: {{ request()->routeIs('admin.settings.contact.*') ? 'true' : 'false' }} }" class="mt-1">
-                        <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.settings.contact.*') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
+                        <button @click="open = !open" :aria-expanded="open.toString()" aria-controls="admin-nav-contact" class="flex items-center justify-between w-full px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.settings.contact.*') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
                             <div class="flex items-center gap-3">
                                 <i class="fa-solid fa-phone w-5 text-center"></i>
                                 <span>Kontak</span>
                             </div>
                             <i class="fa-solid fa-chevron-down w-4 transition-transform duration-300" :class="{ 'rotate-180': open }"></i>
                         </button>
-                        <div x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
+                        <div id="admin-nav-contact" x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
                             <a href="{{ route('admin.settings.contact.hero') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.contact.hero') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
                                 Hero Kontak
                             </a>
@@ -142,14 +142,14 @@
 
                     <!-- Footer -->
                     <div x-data="{ open: {{ request()->routeIs('admin.settings.footer') ? 'true' : 'false' }} }" class="mt-1">
-                        <button @click="open = !open" class="flex items-center justify-between w-full px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.settings.footer') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
+                        <button @click="open = !open" :aria-expanded="open.toString()" aria-controls="admin-nav-footer" class="flex items-center justify-between w-full px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.settings.footer') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
                             <div class="flex items-center gap-3">
-                                <i class="fa-solid fa-footer w-5 text-center"></i>
+                                <i class="fa-solid fa-table-cells-large w-5 text-center"></i>
                                 <span>Footer</span>
                             </div>
                             <i class="fa-solid fa-chevron-down w-4 transition-transform duration-300" :class="{ 'rotate-180': open }"></i>
                         </button>
-                        <div x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
+                        <div id="admin-nav-footer" x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
                             <a href="{{ route('admin.settings.footer') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.footer') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
                                 Konten Footer
                             </a>

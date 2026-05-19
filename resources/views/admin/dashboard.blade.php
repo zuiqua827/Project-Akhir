@@ -5,7 +5,7 @@
         <h1 class="text-xl sm:text-2xl font-bold text-gray-800 mb-8">Dasbor</h1>
 
         {{-- Stats Cards --}}
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
             <div class="bg-white rounded-2xl p-6 shadow-sm">
                 <div class="flex items-center justify-between">
                     <div>
@@ -105,7 +105,7 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
-                        @foreach(\App\Models\Product::latest()->take(5)->get() as $product)
+                        @foreach(\App\Models\Product::with('category')->latest()->take(5)->get() as $product)
                             <tr>
                                 <td class="py-4">
                                     <div class="flex items-center gap-3">
