@@ -115,7 +115,7 @@
             </div>
         </div>
     </div>
-</section> --}} --}}
+</section> --}} 
 
 {{-- Team Section --}}
 @php

@@ -45,6 +45,7 @@
                                 <td class="px-6 py-4">
                                     <span class="inline-block px-3 py-1 text-sm font-medium capitalize bg-gray-100 text-gray-700 rounded-full">
                                         {{ $product->category_label }}
+
                                     </span>
                                 </td>
                                 <td class="px-6 py-4">

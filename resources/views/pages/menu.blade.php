@@ -31,7 +31,7 @@
                     {{-- Products Grid --}}
                     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 md:gap-8">
                         @foreach($category['items'] as $item)
-                            <a href="{{ route('menu.show', $item->id) }}" class="group block bg-[#FDFBF7] rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
+                            <a href="{{ route('menu.show', $item->slug) }}" class="group block bg-[#FDFBF7] rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2">
                                 <div class="h-52 sm:h-56 overflow-hidden relative">
                                     <img src="{{ $item->image }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" alt="{{ $item->name }}">
                                     <div class="absolute top-4 right-4 bg-white/90 backdrop-blur-md px-4 py-2 rounded-full font-bold text-sm shadow-lg">

@@ -14,6 +14,7 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->text('description')->nullable();
             $table->string('image')->nullable();
+            $table->string('slug')->unique();
             $table->string('category')->default('coffee');
             $table->boolean('is_featured')->default(false);
             $table->boolean('is_special')->default(false);

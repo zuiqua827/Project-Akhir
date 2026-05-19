@@ -4,24 +4,19 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model
 {
     use HasFactory;
-
-    public const CATEGORY_LABELS = [
-        'signature' => 'Kopi Signature',
-        'specialty' => 'Minuman Spesial',
-        'quick' => 'Pilihan Cepat',
-        'non-coffee' => 'Non-Kopi',
-    ];
 
     protected $fillable = [
         'name',
         'price',
         'description',
         'image',
-        'category',
+        'slug',
+        'product_category_id',
         'is_featured',
         'is_special',
         'is_available',
@@ -34,25 +29,38 @@ class Product extends Model
         'is_available' => 'boolean',
     ];
 
+    /* ------------------------------------------------------------------ */
+    /*  Relationships                                                     */
+    /* ------------------------------------------------------------------ */
+
+    /**
+     * Relasi ke tabel product_categories.
+     */
+    public function category(): BelongsTo
+    {
+        return $this->belongsTo(ProductCategory::class, 'product_category_id');
+    }
+
+    /* ------------------------------------------------------------------ */
+    /*  Accessors                                                         */
+    /* ------------------------------------------------------------------ */
+
     public function getFormattedPriceAttribute(): string
     {
         return 'Rp ' . number_format((float) $this->price, 0, ',', '.');
     }
 
+    /**
+     * Label kategori yang diambil dari relasi.
+     */
     public function getCategoryLabelAttribute(): string
     {
-        return self::CATEGORY_LABELS[$this->category] ?? ucfirst(str_replace('-', ' ', $this->category));
+        return $this->category?->name ?? '';
     }
 
-    public static function categoryOptions(): array
-    {
-        return array_keys(self::CATEGORY_LABELS);
-    }
-
-    public static function categoryLabels(): array
-    {
-        return self::CATEGORY_LABELS;
-    }
+    /* ------------------------------------------------------------------ */
+    /*  Scopes                                                            */
+    /* ------------------------------------------------------------------ */
 
     public function scopeFeatured($query)
     {
@@ -69,8 +77,8 @@ class Product extends Model
         return $query->where('is_available', true);
     }
 
-    public function scopeByCategory($query, string $category)
+    public function scopeByCategory($query, int $categoryId)
     {
-        return $query->where('category', $category);
+        return $query->where('product_category_id', $categoryId);
     }
 }

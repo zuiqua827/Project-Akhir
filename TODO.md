@@ -1,15 +1,13 @@
-# TODO: Fix About Page Syntax Error
+- [x] Update routes/web.php: ubah parameter di menu.show dari {product} (id) ke {product:slug}
 
-## Steps:
+- [x] Update app/Http/Controllers/MenuController.php: method show menerima Product $product (route model binding) dan difilter is_available
+- [x] Update resources/views/pages/menu.blade.php: ubah route('menu.show', $item->id) menjadi $item->slug
 
-- [x]   1. Analyze error and identify root cause in about.blade.php
-- [x]   2. Create detailed edit plan
-- [x]   3. Edit about.blade.php to fix all &#39; encoding issues
-- [x]   4. Verify fix by loading /about page (syntax error resolved)
-- [x]   5. Clear view cache if needed
-- [x]   6. Mark complete
-- [ ]   2. Create detailed edit plan
-- [ ]   3. Edit about.blade.php to fix all &#39; encoding issues
-- [ ]   4. Verify fix by loading /about page
-- [ ]   5. Clear view cache if needed
-- [ ]   6. Mark complete
+- [ ] Pisahkan kategori: buat tabel `product_categories` dan relasi ke `products` (ganti products.category string -> product_category_id)
+- [ ] Buat migration produk baru: add product_category_id + foreign key, lalu drop products.category
+- [ ] Update app/Models/Product.php: relasi belongsTo ProductCategory + label dari relasi
+- [ ] Buat app/Models/ProductCategory.php
+- [ ] Update MenuController + view: group kategori lewat relasi (product_category)
+- [ ] Update Admin Product CRUD + blade: select kategori dari tabel product_categories
+- [ ] Update seeder ProductSeeder: set product_category_id dari slug kategori
+- [ ] Jalankan: php artisan migrate (atau migrasi ulang) lalu php artisan db:seed

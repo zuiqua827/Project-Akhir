@@ -65,6 +65,7 @@
 
     <x-footer />
     
+    <x-floating-whatsapp />    
     <!-- Initialize AOS -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {

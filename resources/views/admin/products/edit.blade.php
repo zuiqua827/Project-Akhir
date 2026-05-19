@@ -52,8 +52,8 @@
                 <div>
                     <label for="category" class="block text-sm font-semibold text-gray-700 mb-2">Kategori *</label>
                     <select id="category" name="category" required class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-[#D4A373]/50 focus:border-[#D4A373]">
-                        @foreach($categories as $category)
-                            <option value="{{ $category }}" {{ $product->category === $category ? 'selected' : '' }}>{{ $categoryLabels[$category] ?? ucfirst(str_replace('-', ' ', $category)) }}</option>
+                        @foreach($categories as $cat)
+                            <option value="{{ $cat->id }}" {{ $product->product_category_id == $cat->id ? 'selected' : '' }}>{{ $cat->name }}</option>
                         @endforeach
                     </select>
                 </div>

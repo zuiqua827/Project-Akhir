@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -11,16 +12,15 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::latest()->paginate(10);
+        $products = Product::with('category')->latest()->paginate(10);
         return view('admin.products.index', compact('products'));
     }
 
     public function create()
     {
-        $categories = Product::categoryOptions();
-        $categoryLabels = Product::categoryLabels();
+        $categories = ProductCategory::ordered()->get();
 
-        return view('admin.products.create', compact('categories', 'categoryLabels'));
+        return view('admin.products.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -30,7 +30,7 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0|max:99999999',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'category' => 'required|string',
+            'category' => 'required|exists:product_categories,id',
         ]);
 
         $imagePath = 'https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?auto=format&fit=crop&q=80&w=600';
@@ -44,7 +44,8 @@ class ProductController extends Controller
             'price' => $validated['price'],
             'description' => $validated['description'] ?? null,
             'image' => $imagePath,
-            'category' => $validated['category'],
+            'slug' => strtolower(str_replace(' ', '-', trim($validated['name']))),
+            'product_category_id' => $validated['category'],
             'is_featured' => $request->has('is_featured'),
             'is_special' => $request->has('is_special'),
             'is_available' => $request->has('is_available'),
@@ -55,10 +56,9 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
-        $categories = Product::categoryOptions();
-        $categoryLabels = Product::categoryLabels();
+        $categories = ProductCategory::ordered()->get();
 
-        return view('admin.products.edit', compact('product', 'categories', 'categoryLabels'));
+        return view('admin.products.edit', compact('product', 'categories'));
     }
 
     public function update(Request $request, Product $product)
@@ -68,12 +68,11 @@ class ProductController extends Controller
             'price' => 'required|numeric|min:0|max:99999999',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg,webp|max:2048',
-            'category' => 'required|string',
+            'category' => 'required|exists:product_categories,id',
         ]);
 
         $imagePath = $product->image;
         if ($request->hasFile('image')) {
-            // Option to delete old image could go here
             $path = $request->file('image')->store('products', 'public');
             $imagePath = Storage::url($path);
         }
@@ -83,7 +82,8 @@ class ProductController extends Controller
             'price' => $validated['price'],
             'description' => $validated['description'] ?? null,
             'image' => $imagePath,
-            'category' => $validated['category'],
+            'slug' => strtolower(str_replace(' ', '-', trim($validated['name']))),
+            'product_category_id' => $validated['category'],
             'is_featured' => $request->has('is_featured'),
             'is_special' => $request->has('is_special'),
             'is_available' => $request->has('is_available'),

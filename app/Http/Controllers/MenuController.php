@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Models\SiteSetting;
 use Illuminate\View\View;
 
@@ -10,34 +11,34 @@ class MenuController extends Controller
 {
     public function index(): View
     {
-        $categoryLabels = Product::categoryLabels();
-
-        $products = Product::query()
-            ->where('is_available', true)
-            ->orderBy('category')
-            ->orderByDesc('is_featured')
-            ->get();
-
-        $categories = $products
-            ->groupBy('category')
-            ->map(function ($items, $category) use ($categoryLabels) {
-                return [
-                    'name' => $categoryLabels[$category] ?? str_replace('-', ' ', $category),
-                    'items' => $items->values(),
-                ];
+        // Ambil semua kategori yang memiliki produk tersedia, terurut
+        $categories = ProductCategory::ordered()
+            ->with(['products' => function ($query) {
+                $query->where('is_available', true)
+                      ->orderByDesc('is_featured');
+            }])
+            ->whereHas('products', function ($query) {
+                $query->where('is_available', true);
             })
-            ->values();
+            ->get()
+            ->map(function ($category) {
+                return [
+                    'name' => $category->name,
+                    'items' => $category->products,
+                ];
+            });
 
         $heroSettings = SiteSetting::getGroup('menu_hero');
 
         return view('pages.menu', compact('categories', 'heroSettings'));
     }
 
-    public function show(int $product): View
+    public function show(Product $product): View
     {
         $menuProduct = Product::query()
             ->where('is_available', true)
-            ->findOrFail($product);
+            ->where('slug', $product->slug)
+            ->firstOrFail();
 
         return view('pages.menu-detail', [
             'product' => $menuProduct,
