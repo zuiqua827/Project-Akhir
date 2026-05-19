@@ -9,6 +9,21 @@
         if ($adminBrandText === '') {
             $adminBrandText = 'Brand';
         }
+
+        $adminHeaderTitle = $header ?? match (true) {
+            request()->routeIs('admin.dashboard', 'dashboard') => 'Dasbor',
+            request()->routeIs('admin.products.*') => 'Produk',
+            request()->routeIs('admin.product-categories.*') => 'Kategori Produk',
+            request()->routeIs('admin.moments.*') => 'Momen',
+            request()->routeIs('admin.profile.*') => 'Profil',
+            request()->routeIs('admin.settings.home.*') => 'Pengaturan Beranda',
+            request()->routeIs('admin.settings.best-seller') => 'Produk Terlaris',
+            request()->routeIs('admin.settings.about.*') => 'Pengaturan Tentang',
+            request()->routeIs('admin.settings.menu.*') => 'Pengaturan Menu',
+            request()->routeIs('admin.settings.contact.*') => 'Pengaturan Kontak',
+            request()->routeIs('admin.settings.footer') => 'Pengaturan Footer',
+            default => 'Dasbor',
+        };
     @endphp
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -18,9 +33,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    <script defer src="https://unpkg.com/@alpinejs/collapse@3.x.x/dist/cdn.min.js"></script>
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <style>
         body { font-family: 'Plus Jakarta Sans', sans-serif; }
+        [x-cloak] { display: none !important; }
 
         @media (max-width: 1023px) {
             html,
@@ -44,7 +61,7 @@
                 <!-- Main Section -->
                 <div class="mb-6">
                     <p class="px-4 py-2 text-xs font-bold uppercase tracking-widest text-gray-400 mb-3">Utama</p>
-                    <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.dashboard') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
+                    <a href="{{ route('admin.dashboard') }}" class="flex items-center gap-3 px-4 py-2.5 rounded-lg text-sm font-medium transition-all {{ request()->routeIs('admin.dashboard', 'dashboard') ? 'bg-[#D4A373]/10 text-[#D4A373]' : 'text-gray-600 hover:bg-gray-100' }}">
                         <i class="fa-solid fa-chart-line w-5 text-center"></i>
                         <span>Dasbor</span>
                     </a>
@@ -67,7 +84,7 @@
                             </div>
                             <i class="fa-solid fa-chevron-down w-4 transition-transform duration-300" :class="{ 'rotate-180': open }"></i>
                         </button>
-                        <div id="admin-nav-home" x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
+                        <div id="admin-nav-home" x-cloak x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
                             <a href="{{ route('admin.settings.home.hero') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.home.hero') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
                                 Hero Utama
                             </a>
@@ -95,7 +112,7 @@
                             </div>
                             <i class="fa-solid fa-chevron-down w-4 transition-transform duration-300" :class="{ 'rotate-180': open }"></i>
                         </button>
-                        <div id="admin-nav-about" x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
+                        <div id="admin-nav-about" x-cloak x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
                             <a href="{{ route('admin.settings.about.hero') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.about.hero') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
                                 Hero Tentang
                             </a>
@@ -114,7 +131,7 @@
                             </div>
                             <i class="fa-solid fa-chevron-down w-4 transition-transform duration-300" :class="{ 'rotate-180': open }"></i>
                         </button>
-                        <div id="admin-nav-menu" x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
+                        <div id="admin-nav-menu" x-cloak x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
                             <a href="{{ route('admin.settings.menu.hero') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.menu.hero') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
                                 Hero Menu
                             </a>
@@ -130,7 +147,7 @@
                             </div>
                             <i class="fa-solid fa-chevron-down w-4 transition-transform duration-300" :class="{ 'rotate-180': open }"></i>
                         </button>
-                        <div id="admin-nav-contact" x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
+                        <div id="admin-nav-contact" x-cloak x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
                             <a href="{{ route('admin.settings.contact.hero') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.contact.hero') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
                                 Hero Kontak
                             </a>
@@ -149,7 +166,7 @@
                             </div>
                             <i class="fa-solid fa-chevron-down w-4 transition-transform duration-300" :class="{ 'rotate-180': open }"></i>
                         </button>
-                        <div id="admin-nav-footer" x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
+                        <div id="admin-nav-footer" x-cloak x-show="open" x-collapse class="pl-8 mt-1 space-y-1 border-l-2 border-gray-200">
                             <a href="{{ route('admin.settings.footer') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.footer') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
                                 Konten Footer
                             </a>
@@ -174,7 +191,7 @@
                 </div>
             </nav>
         </aside>
-        <button id="sidebar-backdrop" type="button" class="fixed inset-0 z-40 bg-black/30 hidden lg:hidden" aria-label="Tutup menu samping"></button>
+        <button id="sidebar-backdrop" type="button" class="fixed inset-0 z-[45] bg-black/30 hidden lg:hidden" aria-label="Tutup menu samping"></button>
 
         {{-- Main Content --}}
         <div class="flex-1 lg:ml-64">
@@ -185,7 +202,7 @@
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
                     </button>
                     <div class="hidden lg:block">
-                        <h1 class="text-lg font-semibold text-gray-800">{{ $header ?? 'Dasbor' }}</h1>
+                        <h1 class="text-lg font-semibold text-gray-800">{{ $adminHeaderTitle }}</h1>
                     </div>
                     <div class="flex items-center gap-4">
                         <span class="hidden sm:block text-sm text-gray-600">Selamat datang, {{ auth()->user()->name }}</span>
@@ -205,6 +222,7 @@
         const mobileMenuBtn = document.getElementById('mobile-menu-btn');
         const sidebarBackdrop = document.getElementById('sidebar-backdrop');
         const sidebarLinks = sidebar ? sidebar.querySelectorAll('a') : [];
+        let isDesktopViewport = window.innerWidth >= 1024;
 
         const openSidebar = () => {
             sidebar?.classList.remove('-translate-x-full');
@@ -241,15 +259,27 @@
             });
         });
 
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && window.innerWidth < 1024) {
+                closeSidebar();
+            }
+        });
+
         window.addEventListener('resize', () => {
-            if (window.innerWidth >= 1024) {
-                sidebarBackdrop?.classList.add('hidden');
-                document.body.classList.remove('overflow-hidden');
-                mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+            const isDesktop = window.innerWidth >= 1024;
+            if (isDesktop === isDesktopViewport) {
                 return;
             }
 
-            closeSidebar();
+            if (isDesktop) {
+                sidebarBackdrop?.classList.add('hidden');
+                document.body.classList.remove('overflow-hidden');
+                mobileMenuBtn?.setAttribute('aria-expanded', 'false');
+            } else {
+                closeSidebar();
+            }
+
+            isDesktopViewport = isDesktop;
         });
     </script>
 </body>

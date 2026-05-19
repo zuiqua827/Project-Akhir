@@ -19,7 +19,46 @@
     {{-- Menu Categories --}}
     <section class="py-14 sm:py-16 md:py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
-            @foreach($categories as $category)
+            @php
+                $matchedItems = $categories->sum(fn ($category) => $category['items']->count());
+            @endphp
+
+            <div class="mb-10 sm:mb-12">
+                <form action="{{ route('menu') }}" method="GET" class="flex flex-col sm:flex-row gap-3 sm:items-center">
+                    <div class="relative flex-1">
+                        <span class="pointer-events-none absolute inset-y-0 left-0 pl-4 flex items-center text-[#2D1B10]/45">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z"></path>
+                            </svg>
+                        </span>
+                        <input
+                            type="text"
+                            name="q"
+                            value="{{ $keyword }}"
+                            placeholder="Cari menu favorit kamu..."
+                            class="w-full rounded-2xl border border-[#2D1B10]/15 bg-[#FDFBF7] pl-11 pr-4 py-3 text-sm text-[#2D1B10] focus:outline-none focus:ring-2 focus:ring-[#D4A373] focus:border-[#D4A373]"
+                        >
+                    </div>
+                    <div class="flex gap-2">
+                        <button type="submit" class="inline-flex justify-center items-center px-6 py-3 rounded-2xl bg-[#2D1B10] text-white font-semibold hover:bg-[#4A2C1C] transition-colors">
+                            Cari
+                        </button>
+                        @if($keyword !== '')
+                            <a href="{{ route('menu') }}" class="inline-flex justify-center items-center px-6 py-3 rounded-2xl border border-[#2D1B10]/20 text-[#2D1B10] font-semibold hover:bg-[#FDFBF7] transition-colors">
+                                Reset
+                            </a>
+                        @endif
+                    </div>
+                </form>
+
+                @if($keyword !== '')
+                    <p class="mt-3 text-sm text-[#2D1B10]/65">
+                        Menampilkan {{ $matchedItems }} menu untuk kata kunci <span class="font-semibold text-[#2D1B10]">"{{ $keyword }}"</span>.
+                    </p>
+                @endif
+            </div>
+
+            @forelse($categories as $category)
                 <div class="mb-14 sm:mb-16 md:mb-24 last:mb-0">
                     {{-- Category Title --}}
                     <div class="flex items-center gap-4 sm:gap-6 mb-8 sm:mb-10 md:mb-12">
@@ -47,7 +86,18 @@
                         @endforeach
                     </div>
                 </div>
-            @endforeach
+            @empty
+                <div class="text-center py-16">
+                    @if($keyword !== '')
+                        <p class="text-[#2D1B10]/55 text-lg">Tidak ada menu yang cocok dengan pencarian kamu.</p>
+                        <a href="{{ route('menu') }}" class="inline-flex mt-4 px-5 py-2.5 rounded-full border border-[#2D1B10]/20 text-[#2D1B10] text-sm font-semibold hover:bg-[#FDFBF7] transition-colors">
+                            Lihat Semua Menu
+                        </a>
+                    @else
+                        <p class="text-[#2D1B10]/45 text-lg">Menu belum tersedia saat ini.</p>
+                    @endif
+                </div>
+            @endforelse
         </div>
     </section>
 @endsection

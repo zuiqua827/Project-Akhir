@@ -22,6 +22,39 @@
             </div>
         @endif
 
+        <form action="{{ route('admin.products.index') }}" method="GET" class="mb-6 flex flex-col sm:flex-row gap-3 sm:items-center">
+            <div class="relative flex-1">
+                <span class="pointer-events-none absolute inset-y-0 left-0 pl-4 flex items-center text-gray-400">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m21 21-4.35-4.35M17 10.5a6.5 6.5 0 11-13 0 6.5 6.5 0 0113 0z"></path>
+                    </svg>
+                </span>
+                <input
+                    type="text"
+                    name="q"
+                    value="{{ $keyword }}"
+                    placeholder="Cari nama produk, deskripsi, atau kategori..."
+                    class="w-full rounded-xl border border-gray-300 pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#D4A373] focus:border-[#D4A373]"
+                >
+            </div>
+            <div class="flex gap-2">
+                <button type="submit" class="inline-flex justify-center items-center gap-2 px-5 py-3 bg-[#2D1B10] text-white rounded-xl font-medium hover:bg-[#4A2C1C] transition-colors">
+                    Cari
+                </button>
+                @if($keyword !== '')
+                    <a href="{{ route('admin.products.index') }}" class="inline-flex justify-center items-center gap-2 px-5 py-3 border border-gray-300 text-gray-700 rounded-xl font-medium hover:bg-gray-50 transition-colors">
+                        Reset
+                    </a>
+                @endif
+            </div>
+        </form>
+
+        @if($keyword !== '')
+            <p class="text-sm text-gray-600 mb-4">
+                Hasil pencarian untuk <span class="font-semibold text-gray-800">"{{ $keyword }}"</span>: {{ $products->total() }} produk.
+            </p>
+        @endif
+
         <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
             <div class="overflow-x-auto">
                 <table class="w-full min-w-[720px]">
@@ -34,7 +67,7 @@
                         </tr>
                     </thead>
                     <tbody class="divide-y divide-gray-100">
-                        @foreach($products as $product)
+                        @forelse($products as $product)
                             <tr class="hover:bg-gray-50 transition-colors">
                                 <td class="px-6 py-4">
                                     <div class="flex items-center gap-4">
@@ -43,7 +76,7 @@
                                             <p class="font-medium text-gray-800">{{ $product->name }}</p>
                                             <p class="text-sm text-gray-500 line-clamp-1">{{ $product->description }}</p>
                                             {{-- @if($product->is_available)
-                                                <a href="{{ route('menu.show', $product->id) }}" target="_blank" class="inline-block mt-1 text-xs text-[#D4A373] hover:underline">Lihat halaman penjelasan</a>
+                                                <a href="{{ route('menu.show', $product->slug) }}" target="_blank" class="inline-block mt-1 text-xs text-[#D4A373] hover:underline">Lihat halaman penjelasan</a>
                                             @endif --}}
                                         </div>
                                     </div>
@@ -73,7 +106,17 @@
                                     </div>
                                 </td>
                             </tr>
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="4" class="px-6 py-10 text-center text-sm text-gray-500">
+                                    @if($keyword !== '')
+                                        Tidak ada produk yang cocok dengan kata kunci "{{ $keyword }}".
+                                    @else
+                                        Belum ada produk untuk ditampilkan.
+                                    @endif
+                                </td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

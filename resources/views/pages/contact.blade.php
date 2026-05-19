@@ -124,7 +124,7 @@
                             <div class="absolute inset-0 bg-[#2D1B10]/10 pointer-events-none"></div>
                         </div>
                         <div class="mt-4">
-                            <a href="https://www.google.com/maps/search/{{ urlencode($contactMapsQuery) }}" target="_blank" class="inline-flex w-full sm:w-auto justify-center items-center gap-3 px-6 py-4 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#4A2C1C] transition-all shadow-lg">
+                            <a href="https://www.google.com/maps/search/{{ urlencode($contactMapsQuery) }}" target="_blank" rel="noopener noreferrer" class="inline-flex w-full sm:w-auto justify-center items-center gap-3 px-6 py-4 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-xs hover:bg-[#4A2C1C] transition-all shadow-lg">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                                 Lihat Rute
                             </a>
@@ -238,14 +238,12 @@
                 var templateClosing = form.dataset.templateClosing || 'Mohon info ketersediaannya. Terima kasih.';
                 var firstNameField = form.querySelector('#first_name');
                 var lastNameField = form.querySelector('#last_name');
-                var emailField = form.querySelector('#email');
                 var reservationDateField = form.querySelector('#reservation_date');
                 var reservationTimeField = form.querySelector('#reservation_time');
                 var messageField = form.querySelector('#message');
                 var firstName = firstNameField ? firstNameField.value.trim() : '';
                 var lastName = lastNameField ? lastNameField.value.trim() : '';
                 var fullName = [firstName, lastName].filter(Boolean).join(' ');
-                var email = emailField ? emailField.value.trim() : '';
                 var reservationDate = reservationDateField ? reservationDateField.value.trim() : '';
                 var reservationTime = reservationTimeField ? reservationTimeField.value.trim() : '';
                 var subjectField = form.querySelector('#subject');

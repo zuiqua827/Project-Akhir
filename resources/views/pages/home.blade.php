@@ -3,10 +3,38 @@
 @section('content')
 @php
     use App\Models\Product;
+    use Illuminate\Support\Facades\Schema;
 
-    $products = Product::where('is_featured', true)->where('is_available', true)->take(8)->get();
+    $products = collect();
+    $moments = collect();
+    $hasProductCategoryTable = false;
 
-    $moments = App\Models\Moment::ordered()->get();
+    try {
+        $hasProductTable = Schema::hasTable((new Product())->getTable());
+        $hasProductCategoryTable = Schema::hasTable('product_categories');
+        $hasMomentTable = Schema::hasTable((new App\Models\Moment())->getTable());
+
+        if ($hasProductTable) {
+            $productsQuery = Product::query()
+                ->where('is_featured', true)
+                ->where('is_available', true)
+                ->take(8);
+
+            if ($hasProductCategoryTable) {
+                $productsQuery->with('category');
+            }
+
+            $products = $productsQuery->get();
+        }
+
+        if ($hasMomentTable) {
+            $moments = App\Models\Moment::ordered()->get();
+        }
+    } catch (\Throwable $exception) {
+        $products = collect();
+        $moments = collect();
+        $hasProductCategoryTable = false;
+    }
 
     $heroSettings = \App\Models\SiteSetting::getGroup('home_hero');
     $gallerySettings = \App\Models\SiteSetting::getGroup('home_gallery');
@@ -84,8 +112,14 @@
                             <div class="absolute inset-0 ring-1 ring-inset ring-white/15"></div>
 
                             <div class="absolute inset-x-0 bottom-0 p-4 sm:p-5 md:p-6">
+                                @php
+                                    $categoryLabel = 'Top Selection';
+                                    if ($hasProductCategoryTable && $product->relationLoaded('category') && $product->category) {
+                                        $categoryLabel = $product->category->name;
+                                    }
+                                @endphp
                                 <p class="text-[9px] sm:text-[10px] font-bold uppercase tracking-[0.14em] text-white/90">
-                                    {{ $product->category_label !== '' ? $product->category_label : 'Top Selection' }}
+                                    {{ $categoryLabel }}
                                 </p>
                                 <h3 class="mt-2 font-serif text-white leading-tight {{ $isLeadCard ? 'text-xl sm:text-2xl md:text-3xl lg:text-[1.95rem]' : 'text-lg sm:text-xl md:text-[1.45rem]' }}">
                                     {{ \Illuminate\Support\Str::limit($product->name, $isLeadCard ? 42 : 32) }}
@@ -114,7 +148,7 @@
     </section>
 
     {{-- Gallery Section (Instagram-style) --}}
-    <section class="py-16 sm:py-20 md:py-24 bg-[#2D1B10]" x-data="galleryModal()">
+    <section class="py-16 sm:py-20 md:py-24 bg-[#2D1B10]" x-data="galleryModal()" @keydown.window="handleKeydown($event)">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="text-center mb-12 sm:mb-14 md:mb-16" data-aos="fade-up">
                 <span class="inline-block text-[#D4A373] font-bold uppercase tracking-[0.3em] text-xs mb-6">{{ $gallerySettings['badge'] ?? 'Momen Kami' }}</span>
@@ -290,7 +324,7 @@
             
             closeModal() {
                 this.isOpen = false;
-                document.body.style.overflow = 'auto';
+                document.body.style.overflow = '';
             },
             
             nextImage() {
@@ -311,19 +345,30 @@
             
             hasPrev() {
                 return this.currentIndex > 0;
+            },
+
+            handleKeydown(event) {
+                if (!this.isOpen) {
+                    return;
+                }
+
+                if (event.key === 'ArrowRight') {
+                    event.preventDefault();
+                    this.nextImage();
+                }
+
+                if (event.key === 'ArrowLeft') {
+                    event.preventDefault();
+                    this.prevImage();
+                }
+
+                if (event.key === 'Escape') {
+                    event.preventDefault();
+                    this.closeModal();
+                }
             }
         }
     }
-
-    // Keyboard navigation for gallery
-    document.addEventListener('keydown', function(e) {
-        const modal = document.querySelector('[x-data*="galleryModal"]');
-        if (modal && modal.__x) {
-            if (e.key === 'ArrowRight') modal.__x.nextImage();
-            if (e.key === 'ArrowLeft') modal.__x.prevImage();
-            if (e.key === 'Escape') modal.__x.closeModal();
-        }
-    });
 </script>
 
 @endsection

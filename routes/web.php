@@ -11,7 +11,7 @@ use App\Models\SiteSetting;
 
 Route::view('/', 'pages.home')->name('home');
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
-Route::get('/menu/{product:slug}', [MenuController::class, 'show'])->name('menu.show');
+Route::get('/menu/{slug}', [MenuController::class, 'show'])->name('menu.show');
 Route::view('/about', 'pages.about')->name('about');
 Route::view('/contact', 'pages.contact')->name('contact');
 Route::post('/contact', function (Request $request) {
@@ -167,7 +167,7 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
 
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::view('dashboard', 'admin.dashboard')->name('dashboard');
+    Route::get('dashboard', fn () => redirect()->route('admin.dashboard'))->name('dashboard');
 });
 
 require __DIR__.'/settings.php';

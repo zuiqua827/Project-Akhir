@@ -6,6 +6,8 @@
     if ($brandText === '') {
         $brandText = 'Brand Kami';
     }
+    $instagramUrl = trim((string) ($footerSettings['instagram_url'] ?? ''));
+    $tiktokUrl = trim((string) ($footerSettings['tiktok_url'] ?? ''));
 @endphp
 <footer class="bg-[#2D1B10] text-[#FDFBF7] py-8 md:py-10">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
@@ -23,12 +25,25 @@
                     {{ $footerSettings['tagline'] ?? 'Meracik momen hangat dan penuh makna melalui seni kopi spesialti.' }}
                 </p>
                 <div class="flex space-x-3">
-                    <a href="{{ $footerSettings['instagram_url'] ?? '#' }}" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full border border-[#FDFBF7]/20 flex items-center justify-center hover:bg-[#D4A373] hover:border-[#D4A373] transition-all duration-300" aria-label="Instagram">
-                        <i class="fa-brands fa-instagram text-sm"></i>
-                    </a>
-                    <a href="{{ $footerSettings['tiktok_url'] ?? '#' }}" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full border border-[#FDFBF7]/20 flex items-center justify-center hover:bg-[#D4A373] hover:border-[#D4A373] transition-all duration-300" aria-label="TikTok">
-                        <i class="fa-brands fa-tiktok text-sm"></i>
-                    </a>
+                    @if($instagramUrl !== '')
+                        <a href="{{ $instagramUrl }}" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full border border-[#FDFBF7]/20 flex items-center justify-center hover:bg-[#D4A373] hover:border-[#D4A373] transition-all duration-300" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram text-sm"></i>
+                        </a>
+                    @else
+                        <span class="w-9 h-9 rounded-full border border-[#FDFBF7]/10 flex items-center justify-center text-[#FDFBF7]/35 cursor-not-allowed" aria-hidden="true">
+                            <i class="fa-brands fa-instagram text-sm"></i>
+                        </span>
+                    @endif
+
+                    @if($tiktokUrl !== '')
+                        <a href="{{ $tiktokUrl }}" target="_blank" rel="noopener noreferrer" class="w-9 h-9 rounded-full border border-[#FDFBF7]/20 flex items-center justify-center hover:bg-[#D4A373] hover:border-[#D4A373] transition-all duration-300" aria-label="TikTok">
+                            <i class="fa-brands fa-tiktok text-sm"></i>
+                        </a>
+                    @else
+                        <span class="w-9 h-9 rounded-full border border-[#FDFBF7]/10 flex items-center justify-center text-[#FDFBF7]/35 cursor-not-allowed" aria-hidden="true">
+                            <i class="fa-brands fa-tiktok text-sm"></i>
+                        </span>
+                    @endif
                 </div>
             </div>
 

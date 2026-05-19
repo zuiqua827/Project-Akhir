@@ -10,10 +10,26 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::with('category')->latest()->paginate(10);
-        return view('admin.products.index', compact('products'));
+        $keyword = trim((string) $request->query('q', ''));
+
+        $products = Product::query()
+            ->with('category')
+            ->when($keyword !== '', function ($query) use ($keyword) {
+                $query->where(function ($searchQuery) use ($keyword) {
+                    $searchQuery->where('name', 'like', "%{$keyword}%")
+                        ->orWhere('description', 'like', "%{$keyword}%")
+                        ->orWhereHas('category', function ($categoryQuery) use ($keyword) {
+                            $categoryQuery->where('name', 'like', "%{$keyword}%");
+                        });
+                });
+            })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('admin.products.index', compact('products', 'keyword'));
     }
 
     public function create()

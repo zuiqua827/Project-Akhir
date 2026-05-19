@@ -108,7 +108,15 @@
 
 {{-- Team Section --}}
 @php
-    $teamMembers = \App\Models\TeamMember::ordered()->get();
+    $teamMembers = collect();
+
+    try {
+        if (\Illuminate\Support\Facades\Schema::hasTable((new \App\Models\TeamMember())->getTable())) {
+            $teamMembers = \App\Models\TeamMember::ordered()->get();
+        }
+    } catch (\Throwable $exception) {
+        $teamMembers = collect();
+    }
 @endphp
 <section class="py-16 sm:py-20 md:py-24 bg-[#FDFBF7]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
