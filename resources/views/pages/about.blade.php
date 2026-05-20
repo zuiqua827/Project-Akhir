@@ -10,12 +10,39 @@
         $brandText = 'kedai kami';
     }
 
-    $values = [
+    $defaultValues = [
         ['icon' => 'fa-solid fa-gem', 'title' => 'Kualitas Utama', 'desc' => 'Kami hanya memilih biji single-origin terbaik dari kebun etis di berbagai daerah.'],
         ['icon' => 'fa-solid fa-leaf', 'title' => 'Keberlanjutan', 'desc' => 'Setiap tahap proses kami dirancang untuk meminimalkan dampak lingkungan.'],
         ['icon' => 'fa-solid fa-people-group', 'title' => 'Komunitas', 'desc' => 'Kami percaya kopi adalah jembatan untuk koneksi dan percakapan yang bermakna.'],
         ['icon' => 'fa-solid fa-wand-magic-sparkles', 'title' => 'Keahlian', 'desc' => 'Barista kami dilatih berbulan-bulan untuk menyempurnakan setiap cangkir yang disajikan.'],
     ];
+
+    $valuesSettings = \App\Models\SiteSetting::getGroup('about_values');
+    $valuesTitle = trim((string) ($valuesSettings['title'] ?? '')) ?: 'Yang Menggerakkan Kami';
+    $valuesDescription = trim((string) ($valuesSettings['description'] ?? '')) ?: 'Prinsip kami memandu setiap keputusan, dari biji hingga tersaji di cangkir.';
+
+    $values = json_decode($valuesSettings['items_json'] ?? '[]', true);
+    if (!is_array($values) || empty($values)) {
+        $values = $defaultValues;
+    }
+
+    $values = collect($values)
+        ->take(4)
+        ->values()
+        ->map(function ($value, $index) use ($defaultValues) {
+            $fallback = $defaultValues[$index] ?? ['icon' => 'fa-solid fa-star', 'title' => '', 'desc' => ''];
+            $item = is_array($value) ? $value : [];
+
+            return [
+                'icon' => trim((string) ($item['icon'] ?? '')) ?: $fallback['icon'],
+                'title' => trim((string) ($item['title'] ?? '')) ?: $fallback['title'],
+                'desc' => trim((string) ($item['desc'] ?? '')) ?: $fallback['desc'],
+            ];
+        });
+
+    if ($values->isEmpty()) {
+        $values = collect($defaultValues);
+    }
 
     $timeline = [
         ['year' => '2024', 'title' => 'Awal Baru', 'desc' => $brandText . ' membuka pintu untuk menghadirkan kopi spesialti ke tengah kota Jakarta.'],
@@ -59,15 +86,15 @@
 <section class="py-16 sm:py-20 md:py-24 bg-[#2D1B10]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
         <div class="text-center mb-12 sm:mb-14 md:mb-16">
-            <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif text-[#FDFBF7] mb-6">Yang Menggerakkan Kami</h2>
-            <p class="text-[#FDFBF7]/60 max-w-2xl mx-auto">Prinsip kami memandu setiap keputusan, dari biji hingga tersaji di cangkir.</p>
+            <h2 class="text-3xl sm:text-4xl md:text-5xl font-serif text-[#FDFBF7] mb-6">{{ $valuesTitle }}</h2>
+            <p class="text-[#FDFBF7]/60 max-w-2xl mx-auto">{{ $valuesDescription }}</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 md:gap-8">
 @foreach($values as $value)
-            <div class="text-center p-6 sm:p-8 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[#D4A373]/30 transition-all duration-500">
-                <div class="text-4xl mb-6 text-[#D4A373]"><i class="{{ $value['icon'] }}"></i></div>
-                <h3 class="text-xl font-serif font-bold text-[#FDFBF7] mb-4">{{ $value['title'] }}</h3>
-                <p class="text-[#FDFBF7]/50 text-sm leading-relaxed">{{ $value['desc'] }}</p>
+            <div class="text-center p-4 sm:p-6 md:p-8 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:border-[#D4A373]/30 transition-all duration-500">
+                <div class="text-2xl sm:text-4xl mb-3 sm:mb-6 text-[#D4A373]"><i class="{{ $value['icon'] }}"></i></div>
+                <h3 class="text-base sm:text-xl font-serif font-bold text-[#FDFBF7] mb-2 sm:mb-4 leading-snug break-words">{{ $value['title'] }}</h3>
+                <p class="text-[#FDFBF7]/55 text-xs sm:text-sm leading-relaxed break-words">{{ $value['desc'] }}</p>
             </div>
 @endforeach
         </div>

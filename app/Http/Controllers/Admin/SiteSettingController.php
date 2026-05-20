@@ -170,6 +170,68 @@ class SiteSettingController extends Controller
         return back()->with('success', 'Pengaturan hero halaman tentang berhasil diperbarui.');
     }
 
+    public function aboutValues()
+    {
+        $settings = SiteSetting::getGroup('about_values');
+        $defaultItems = $this->defaultAboutValuesItems();
+
+        $items = json_decode($settings['items_json'] ?? '[]', true);
+        if (!is_array($items) || empty($items)) {
+            $items = $defaultItems;
+        }
+
+        $valueItems = [];
+        for ($index = 0; $index < 4; $index++) {
+            $fallback = $defaultItems[$index] ?? ['icon' => 'fa-solid fa-star', 'title' => '', 'desc' => ''];
+            $rawItem = is_array($items[$index] ?? null) ? $items[$index] : [];
+
+            $valueItems[] = [
+                'icon' => trim((string) ($rawItem['icon'] ?? $fallback['icon'])) ?: $fallback['icon'],
+                'title' => trim((string) ($rawItem['title'] ?? $fallback['title'])) ?: $fallback['title'],
+                'desc' => trim((string) ($rawItem['desc'] ?? $fallback['desc'])) ?: $fallback['desc'],
+            ];
+        }
+
+        return view('admin.settings.about-values', compact('settings', 'valueItems'));
+    }
+
+    public function updateAboutValues(Request $request)
+    {
+        $data = $request->validate([
+            'title' => 'nullable|string|max:150',
+            'description' => 'nullable|string|max:500',
+            'items' => 'nullable|array|max:4',
+            'items.*.icon' => 'nullable|string|max:100',
+            'items.*.title' => 'nullable|string|max:120',
+            'items.*.desc' => 'nullable|string|max:500',
+        ]);
+
+        $defaultItems = $this->defaultAboutValuesItems();
+        $rawItems = $data['items'] ?? [];
+        $normalizedItems = [];
+
+        for ($index = 0; $index < 4; $index++) {
+            $fallback = $defaultItems[$index] ?? ['icon' => 'fa-solid fa-star', 'title' => '', 'desc' => ''];
+            $rawItem = is_array($rawItems[$index] ?? null) ? $rawItems[$index] : [];
+
+            $icon = trim((string) ($rawItem['icon'] ?? ''));
+            $title = trim((string) ($rawItem['title'] ?? ''));
+            $desc = trim((string) ($rawItem['desc'] ?? ''));
+
+            $normalizedItems[] = [
+                'icon' => $icon !== '' ? $icon : $fallback['icon'],
+                'title' => $title !== '' ? $title : $fallback['title'],
+                'desc' => $desc !== '' ? $desc : $fallback['desc'],
+            ];
+        }
+
+        SiteSetting::set('about_values', 'title', $data['title'] ?? '');
+        SiteSetting::set('about_values', 'description', $data['description'] ?? '');
+        SiteSetting::set('about_values', 'items_json', json_encode($normalizedItems, JSON_UNESCAPED_UNICODE));
+
+        return back()->with('success', 'Pengaturan section "Yang Menggerakkan Kami" berhasil diperbarui.');
+    }
+
     public function menuHero()
     {
         $settings = SiteSetting::getGroup('menu_hero');
@@ -357,5 +419,31 @@ class SiteSettingController extends Controller
         }
 
         return back()->with('success', 'Pengaturan footer berhasil diperbarui.');
+    }
+
+    private function defaultAboutValuesItems(): array
+    {
+        return [
+            [
+                'icon' => 'fa-solid fa-gem',
+                'title' => 'Kualitas Utama',
+                'desc' => 'Kami hanya memilih biji single-origin terbaik dari kebun etis di berbagai daerah.',
+            ],
+            [
+                'icon' => 'fa-solid fa-leaf',
+                'title' => 'Keberlanjutan',
+                'desc' => 'Setiap tahap proses kami dirancang untuk meminimalkan dampak lingkungan.',
+            ],
+            [
+                'icon' => 'fa-solid fa-people-group',
+                'title' => 'Komunitas',
+                'desc' => 'Kami percaya kopi adalah jembatan untuk koneksi dan percakapan yang bermakna.',
+            ],
+            [
+                'icon' => 'fa-solid fa-wand-magic-sparkles',
+                'title' => 'Keahlian',
+                'desc' => 'Barista kami dilatih berbulan-bulan untuk menyempurnakan setiap cangkir yang disajikan.',
+            ],
+        ];
     }
 }

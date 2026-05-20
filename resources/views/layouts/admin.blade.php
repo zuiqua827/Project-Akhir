@@ -116,6 +116,9 @@
                             <a href="{{ route('admin.settings.about.hero') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.about.hero') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
                                 Hero Tentang
                             </a>
+                            <a href="{{ route('admin.settings.about.values') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.about.values') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
+                                Nilai Kami
+                            </a>
                             <a href="{{ route('admin.settings.about.team') }}" class="block px-3 py-2 text-xs rounded transition-colors {{ request()->routeIs('admin.settings.about.team') ? 'bg-[#D4A373]/10 text-[#D4A373] font-semibold' : 'text-gray-600 hover:text-[#D4A373]' }}">
                                 Tim Kami
                             </a>

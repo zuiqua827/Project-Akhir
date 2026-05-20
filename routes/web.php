@@ -144,6 +144,8 @@ Route::middleware(['auth', 'verified'])->prefix('admin')->name('admin.')->group(
         
         Route::get('about-hero', [\App\Http\Controllers\Admin\SiteSettingController::class, 'aboutHero'])->name('about.hero');
         Route::put('about-hero', [\App\Http\Controllers\Admin\SiteSettingController::class, 'updateAboutHero']);
+        Route::get('about-values', [\App\Http\Controllers\Admin\SiteSettingController::class, 'aboutValues'])->name('about.values');
+        Route::put('about-values', [\App\Http\Controllers\Admin\SiteSettingController::class, 'updateAboutValues']);
         
         Route::get('menu-hero', [\App\Http\Controllers\Admin\SiteSettingController::class, 'menuHero'])->name('menu.hero');
         Route::put('menu-hero', [\App\Http\Controllers\Admin\SiteSettingController::class, 'updateMenuHero']);
