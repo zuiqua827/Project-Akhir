@@ -175,10 +175,10 @@
                             
                             <div>
                                 <label for="subject" class="block text-sm font-bold uppercase tracking-widest text-[#2D1B10]/60 mb-3">Subjek</label>
-                                <select id="subject" name="subject" class="w-full px-4 sm:px-6 py-4 bg-white border border-[#2D1B10]/10 rounded-xl focus:outline-none focus:border-[#D4A373] transition-colors" required>
+                                <select id="subject" name="subject" class="w-full px-4 sm:px-6 py-4 bg-white border border-[#2D1B10]/10 rounded-xl focus:outline-none focus:border-[#D4A373] transition-colors overflow-hidden text-ellipsis whitespace-nowrap" required>
                                     <option value="">Pilih subjek</option>
                                     @foreach($reservationSubjectOptions as $subjectOption)
-                                        <option value="{{ $subjectOption }}">{{ $subjectOption }}</option>
+                                        <option value="{{ $subjectOption }}" title="{{ $subjectOption }}">{{ \Illuminate\Support\Str::limit($subjectOption, 38, '...') }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -247,9 +247,7 @@
                 var reservationDate = reservationDateField ? reservationDateField.value.trim() : '';
                 var reservationTime = reservationTimeField ? reservationTimeField.value.trim() : '';
                 var subjectField = form.querySelector('#subject');
-                var subjectLabel = subjectField && subjectField.selectedOptions.length
-                    ? subjectField.selectedOptions[0].text
-                    : '-';
+                var subjectValue = subjectField ? subjectField.value.trim() : '';
                 var message = messageField ? messageField.value.trim() : '';
 
                 var reservationDateLabel = '-';
@@ -269,7 +267,7 @@
                     //'- Email: ' + (email || '-'),
                     '- Tanggal Reservasi: ' + reservationDateLabel,
                     '- Waktu Reservasi: ' + reservationTimeLabel,
-                    '- Subjek: ' + (subjectLabel || '-'),
+                    '- Subjek: ' + subjectValue,
                     '- Pesan: ' + (message || '-'),
                     '',
                     templateClosing

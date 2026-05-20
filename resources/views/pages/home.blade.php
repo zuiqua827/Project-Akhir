@@ -86,6 +86,13 @@
                 @php
                     $showcaseProducts = $products->take(5)->values();
                     $useMosaicLayout = $showcaseProducts->count() >= 5;
+                    $mobileLayout = [
+                        'col-span-2',
+                        'col-span-1',
+                        'col-span-1',
+                        'col-span-1',
+                        'col-span-1',
+                    ];
                     $desktopLayout = [
                         'md:col-span-2 lg:col-span-6 lg:row-span-2',
                         'lg:col-span-3 lg:row-span-1',
@@ -93,17 +100,21 @@
                         'lg:col-span-3 lg:row-span-1',
                         'lg:col-span-3 lg:row-span-1',
                     ];
+                    $gridClass = $useMosaicLayout
+                        ? 'grid grid-cols-2 lg:grid-cols-12 lg:auto-rows-[230px] gap-1.5 sm:gap-3'
+                        : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4';
                 @endphp
 
-                <div class="{{ $useMosaicLayout ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 lg:auto-rows-[230px] gap-2 sm:gap-3' : 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4' }}">
+                <div class="{{ $useMosaicLayout ? 'rounded-2xl sm:rounded-3xl bg-[#F7F2E8] p-2 sm:p-3' : '' }}">
+                    <div class="{{ $gridClass }}">
                     @foreach($showcaseProducts as $index => $product)
                         @php
                             $isLeadCard = $useMosaicLayout && $index === 0;
                             $itemClass = $useMosaicLayout
-                                ? ($desktopLayout[$index] ?? 'lg:col-span-3 lg:row-span-1')
+                                ? (($mobileLayout[$index] ?? 'col-span-1') . ' ' . ($desktopLayout[$index] ?? 'lg:col-span-3 lg:row-span-1'))
                                 : '';
                             $heightClass = $useMosaicLayout
-                                ? ($isLeadCard ? 'h-[420px] sm:h-[520px] lg:h-auto' : 'h-[240px] sm:h-[290px] lg:h-auto')
+                                ? ($isLeadCard ? 'h-[230px] sm:h-[360px] lg:h-auto' : 'h-[210px] sm:h-[260px] lg:h-auto')
                                 : 'h-[260px] sm:h-[320px]';
                         @endphp
                         <a href="{{ route('menu.show', $product->slug) }}" class="group relative overflow-hidden rounded-xl sm:rounded-2xl {{ $heightClass }} {{ $itemClass }}">
@@ -131,6 +142,7 @@
                             </div>
                         </a>
                     @endforeach
+                    </div>
                 </div>
 
                 <div class="mt-8 sm:mt-10 text-center">
