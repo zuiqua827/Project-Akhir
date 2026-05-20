@@ -13,7 +13,7 @@
             </div>
             
             <div class="hidden md:flex space-x-10 text-sm font-medium uppercase tracking-widest">
-                <a href="{{ route('home') }}" class="hover:text-[#D4A373] transition-colors {{ request()->routeIs('home') ? 'text-[#D4A373]' : '' }}">Beranda</a>
+                <a href="{{ route('home') }}" class="hover:text-[#D4A373] transition-colors {{ request()->routeIs('home', 'best-seller.show') ? 'text-[#D4A373]' : '' }}">Beranda</a>
                 <a href="{{ route('about') }}" class="hover:text-[#D4A373] transition-colors {{ request()->routeIs('about') ? 'text-[#D4A373]' : '' }}">Tentang</a>
                 <a href="{{ route('menu') }}" class="hover:text-[#D4A373] transition-colors {{ request()->routeIs('menu') ? 'text-[#D4A373]' : '' }}">Menu</a>
                 <a href="{{ route('contact') }}" class="hover:text-[#D4A373] transition-colors {{ request()->routeIs('contact') ? 'text-[#D4A373]' : '' }}">Kontak</a>
@@ -36,7 +36,7 @@
 
     <div id="mobile-nav-panel" x-cloak x-show="mobileMenuOpen" x-transition.origin.top.duration.200ms @click.outside="mobileMenuOpen = false" class="md:hidden absolute inset-x-0 top-full bg-[#FDFBF7] border-b border-[#2D1B10]/5 px-4 sm:px-6 pt-4 pb-6 shadow-xl shadow-[#2D1B10]/10">
         <div class="space-y-1">
-            <a @click="mobileMenuOpen = false" href="{{ route('home') }}" class="block px-3 py-3 text-base font-serif rounded-xl hover:bg-[#2D1B10]/5 {{ request()->routeIs('home') ? 'text-[#D4A373]' : '' }}">Beranda</a>
+            <a @click="mobileMenuOpen = false" href="{{ route('home') }}" class="block px-3 py-3 text-base font-serif rounded-xl hover:bg-[#2D1B10]/5 {{ request()->routeIs('home', 'best-seller.show') ? 'text-[#D4A373]' : '' }}">Beranda</a>
             <a @click="mobileMenuOpen = false" href="{{ route('about') }}" class="block px-3 py-3 text-base font-serif rounded-xl hover:bg-[#2D1B10]/5 {{ request()->routeIs('about') ? 'text-[#D4A373]' : '' }}">Tentang</a>
             <a @click="mobileMenuOpen = false" href="{{ route('menu') }}" class="block px-3 py-3 text-base font-serif rounded-xl hover:bg-[#2D1B10]/5 {{ request()->routeIs('menu') ? 'text-[#D4A373]' : '' }}">Menu</a>
             <a @click="mobileMenuOpen = false" href="{{ route('contact') }}" class="block px-3 py-3 text-base font-serif rounded-xl hover:bg-[#2D1B10]/5 {{ request()->routeIs('contact') ? 'text-[#D4A373]' : '' }}">Kontak</a>

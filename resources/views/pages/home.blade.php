@@ -18,6 +18,7 @@
             $productsQuery = Product::query()
                 ->where('is_featured', true)
                 ->where('is_available', true)
+                ->orderBy('id')
                 ->take(8);
 
             if ($hasProductCategoryTable) {
@@ -117,7 +118,7 @@
                                 ? ($isLeadCard ? 'h-[230px] sm:h-[360px] lg:h-auto' : 'h-[210px] sm:h-[260px] lg:h-auto')
                                 : 'h-[260px] sm:h-[320px]';
                         @endphp
-                        <a href="{{ route('menu.show', $product->slug) }}" class="group relative overflow-hidden rounded-xl sm:rounded-2xl {{ $heightClass }} {{ $itemClass }}">
+                        <a href="{{ route('best-seller.show', $product->slug) }}" class="group relative overflow-hidden rounded-xl sm:rounded-2xl {{ $heightClass }} {{ $itemClass }}">
                             <img src="{{ $product->image }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="{{ $product->name }}">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent"></div>
                             <div class="absolute inset-0 ring-1 ring-inset ring-white/15"></div>
@@ -135,10 +136,10 @@
                                 <h3 class="mt-2 font-serif text-white leading-tight {{ $isLeadCard ? 'text-xl sm:text-2xl md:text-3xl lg:text-[1.95rem]' : 'text-lg sm:text-xl md:text-[1.45rem]' }}">
                                     {{ \Illuminate\Support\Str::limit($product->name, $isLeadCard ? 42 : 32) }}
                                 </h3>
-                                <p class="mt-2.5 text-[#D4A373] text-[10px] sm:text-xs font-semibold tracking-[0.06em] uppercase">
+                                {{-- <p class="mt-2.5 text-[#D4A373] text-[10px] sm:text-xs font-semibold tracking-[0.06em] uppercase">
                                     Lihat Produk
                                 </p>
-                                <div class="mt-1 h-px bg-[#D4A373]/75"></div>
+                                <div class="mt-1 h-px bg-[#D4A373]/75"></div> --}}
                             </div>
                         </a>
                     @endforeach

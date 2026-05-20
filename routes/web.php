@@ -16,6 +16,7 @@ Route::get('/', function () {
 })->name('home');
 Route::get('/menu', [MenuController::class, 'index'])->name('menu');
 Route::get('/menu/{slug}', [MenuController::class, 'show'])->name('menu.show');
+Route::get('/produk-terlaris/{slug}', [MenuController::class, 'showBestSeller'])->name('best-seller.show');
 Route::view('/about', 'pages.about')->name('about');
 Route::view('/contact', 'pages.contact')->name('contact');
 Route::post('/contact', function (Request $request) {
