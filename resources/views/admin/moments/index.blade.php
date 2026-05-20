@@ -17,7 +17,49 @@
         @endif
 
         <div class="bg-white rounded-2xl shadow-sm overflow-hidden">
-            <div class="overflow-x-auto">
+            {{-- Tampilan Mobile (Card) --}}
+            <div class="md:hidden p-4 space-y-3">
+                @forelse($moments as $moment)
+                    <article class="rounded-xl border border-gray-200 p-4">
+                        <div class="flex items-start gap-4">
+                            <img src="{{ $moment->image }}" class="w-16 h-16 rounded-xl object-cover shrink-0" alt="{{ $moment->caption }}" onerror="this.src='https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&q=80&w=200'">
+                            <div class="min-w-0 flex-1">
+                                <p class="font-medium text-gray-800 line-clamp-2 break-words">{{ $moment->caption }}</p>
+                                <div class="mt-2">
+                                    <span class="inline-flex items-center text-xs font-mono bg-gray-100 text-gray-600 px-2.5 py-1 rounded-full">
+                                        Urutan: {{ $moment->order }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="mt-4 flex gap-2">
+                            <a href="{{ route('admin.moments.edit', $moment) }}" class="inline-flex flex-1 justify-center items-center gap-2 px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path></svg>
+                                Edit
+                            </a>
+                            <form action="{{ route('admin.moments.destroy', $moment) }}" method="POST" class="flex-1" onsubmit="return confirm('Yakin ingin menghapus?')">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="inline-flex w-full justify-center items-center gap-2 px-3 py-2 text-sm text-red-700 border border-red-200 rounded-lg hover:bg-red-50 transition-colors">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                                    Hapus
+                                </button>
+                            </form>
+                        </div>
+                    </article>
+                @empty
+                    <div class="py-8 text-center text-sm text-gray-500">
+                        <svg class="w-12 h-12 mx-auto mb-3 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                        </svg>
+                        <p>Belum ada momen.</p>
+                        <a href="{{ route('admin.moments.create') }}" class="text-[#D4A373] hover:underline font-medium mt-1 inline-block">Tambahkan momen pertamamu!</a>
+                    </div>
+                @endforelse
+            </div>
+
+            {{-- Tampilan Desktop (Table) --}}
+            <div class="hidden md:block overflow-x-auto">
                 <table class="w-full min-w-[700px]">
                     <thead class="bg-gray-50 border-b border-gray-200">
                         <tr>

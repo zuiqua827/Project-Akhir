@@ -194,7 +194,7 @@
         <button id="sidebar-backdrop" type="button" class="fixed inset-0 z-[45] bg-black/30 hidden lg:hidden" aria-label="Tutup menu samping"></button>
 
         {{-- Main Content --}}
-        <div class="flex-1 lg:ml-64">
+        <div class="flex-1 min-w-0 lg:ml-64">
             {{-- Top Header --}}
             <header class="bg-white border-b border-gray-200 h-16 fixed top-0 right-0 left-0 lg:left-64 z-40">
                 <div class="flex items-center justify-between h-full px-4 lg:px-8">
