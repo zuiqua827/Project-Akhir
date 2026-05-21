@@ -138,42 +138,4 @@ class MenuController extends Controller
             'product' => $menuProduct,
         ]);
     }
-
-    public function showBestSeller(string $slug): View
-    {
-        if (!Schema::hasTable((new Product())->getTable())) {
-            abort(404);
-        }
-
-        $featuredProducts = Product::query()
-            ->with('category')
-            ->where('is_available', true)
-            ->where('is_featured', true)
-            ->orderBy('id')
-            ->get();
-
-        if ($featuredProducts->isEmpty()) {
-            abort(404);
-        }
-
-        $currentIndex = $featuredProducts->search(function ($item) use ($slug) {
-            return $item->slug === $slug;
-        });
-
-        if ($currentIndex === false) {
-            abort(404);
-        }
-
-        $currentProduct = $featuredProducts->get($currentIndex);
-        $previousProduct = $currentIndex > 0 ? $featuredProducts->get($currentIndex - 1) : null;
-        $nextProduct = $currentIndex < ($featuredProducts->count() - 1) ? $featuredProducts->get($currentIndex + 1) : null;
-
-        return view('pages.best-seller-detail', [
-            'product' => $currentProduct,
-            'previousProduct' => $previousProduct,
-            'nextProduct' => $nextProduct,
-            'currentPosition' => $currentIndex + 1,
-            'totalProducts' => $featuredProducts->count(),
-        ]);
-    }
 }

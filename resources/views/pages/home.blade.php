@@ -74,7 +74,7 @@
     </section>
 
     {{-- Best Seller Section --}}
-    <section id="bestseller" class="py-16 sm:py-20 md:py-24 lg:py-28 bg-white">
+    <section id="bestseller" class="py-16 sm:py-20 md:py-24 lg:py-28 bg-white" x-data="bestsellerModal()" @keydown.window="handleKeydown($event)">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-12">
             <div class="text-center max-w-3xl mx-auto mb-10 sm:mb-12 md:mb-14">
                 <span class="inline-block text-[#A67C52] font-bold uppercase tracking-[0.22em] text-xs mb-3">Jelajahi</span>
@@ -118,7 +118,7 @@
                                 ? ($isLeadCard ? 'h-[230px] sm:h-[360px] lg:h-auto' : 'h-[210px] sm:h-[260px] lg:h-auto')
                                 : 'h-[260px] sm:h-[320px]';
                         @endphp
-                        <a href="{{ route('best-seller.show', $product->slug) }}" class="group relative overflow-hidden rounded-xl sm:rounded-2xl {{ $heightClass }} {{ $itemClass }}">
+                        <a href="#bestseller-{{ $product->slug }}" @click.prevent="openModal({{ $index }})" class="group relative overflow-hidden rounded-xl sm:rounded-2xl {{ $heightClass }} {{ $itemClass }}">
                             <img src="{{ $product->image }}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="{{ $product->name }}">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/35 to-transparent"></div>
                             <div class="absolute inset-0 ring-1 ring-inset ring-white/15"></div>
@@ -151,6 +151,103 @@
                         Lihat Semua Menu
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
                     </a>
+                </div>
+
+                {{-- Best Seller Modal Lightbox --}}
+                <div class="fixed inset-0 z-50 bg-black/95 opacity-0 pointer-events-none transition-opacity duration-300 flex items-center justify-center p-4" 
+                     @click="closeModal()" 
+                     :class="{ 'opacity-100 pointer-events-auto': isOpen }">
+                    
+                    <button @click="closeModal()" class="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/20 hover:bg-white/40 transition-colors">
+                        <i class="fas fa-times text-white text-xl"></i>
+                    </button>
+
+                    <div class="relative w-full max-w-5xl bg-[#FDFBF7] rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[90vh] md:max-h-[85vh]" @click.stop x-show="isOpen" x-transition:enter="transition ease-out duration-300" x-transition:enter-start="transform scale-95 opacity-0" x-transition:enter-end="transform scale-100 opacity-100">
+                        
+                        {{-- Left: Image & Navigation Overlay --}}
+                        <div class="relative w-full md:w-1/2 aspect-square md:aspect-auto md:h-[550px] bg-black flex items-center justify-center">
+                            <template x-for="(prod, idx) in products" :key="idx">
+                                <img 
+                                    :src="prod.image" 
+                                    :alt="prod.name"
+                                    x-show="currentIndex === idx"
+                                    x-transition:enter="transition duration-300"
+                                    x-transition:enter-start="opacity-0"
+                                    x-transition:enter-end="opacity-100"
+                                    x-transition:leave="transition duration-300"
+                                    x-transition:leave-start="opacity-100"
+                                    x-transition:leave-end="opacity-0"
+                                    class="absolute inset-0 w-full h-full object-cover"
+                                >
+                            </template>
+
+                            {{-- Navigation Buttons --}}
+                            <button 
+                                @click="prevProduct()" 
+                                :disabled="!hasPrev()"
+                                :class="{ 'opacity-30 cursor-not-allowed': !hasPrev(), 'hover:bg-white/40': hasPrev() }"
+                                class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/10 transition-all text-white text-lg shadow-lg z-10"
+                            >
+                                <i class="fas fa-chevron-left"></i>
+                            </button>
+
+                            <button 
+                                @click="nextProduct()" 
+                                :disabled="!hasNext()"
+                                :class="{ 'opacity-30 cursor-not-allowed': !hasNext(), 'hover:bg-white/40': hasNext() }"
+                                class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md border border-white/10 transition-all text-white text-lg shadow-lg z-10"
+                            >
+                                <i class="fas fa-chevron-right"></i>
+                            </button>
+                            
+                            {{-- Badge overlay --}}
+                            <div class="absolute top-4 left-4 flex gap-2 z-10">
+                                <span class="inline-flex px-3 py-1 rounded-full bg-blue-600 text-white text-xs font-semibold shadow-md">Terlaris</span>
+                                <template x-if="products[currentIndex]?.is_special">
+                                    <span class="inline-flex px-3 py-1 rounded-full bg-purple-600 text-white text-xs font-semibold shadow-md">Spesial</span>
+                                </template>
+                            </div>
+                        </div>
+
+                        {{-- Right: Content & Thumbnails --}}
+                        <div class="w-full md:w-1/2 p-6 sm:p-8 flex flex-col justify-between bg-[#FDFBF7] md:h-[550px] overflow-y-auto">
+                            <div>
+                                {{-- Category --}}
+                                <p class="text-xs uppercase tracking-[0.2em] text-[#D4A373] font-bold" x-text="products[currentIndex]?.category || ''"></p>
+                                
+                                {{-- Product Name --}}
+                                <h2 class="mt-2 text-2xl sm:text-3xl font-serif text-[#2D1B10] leading-tight break-words" x-text="products[currentIndex]?.name || ''"></h2>
+
+                                {{-- Price & Position --}}
+                                <div class="mt-4 flex items-center gap-4 flex-wrap">
+                                    <span class="inline-flex px-4 py-2 rounded-full bg-[#2D1B10] text-white text-sm font-semibold" x-text="products[currentIndex]?.price || ''"></span>
+                                    <span class="text-xs font-semibold uppercase tracking-[0.08em] text-[#2D1B10]/50" x-text="'Produk Terlaris ' + (currentIndex + 1) + ' dari ' + products.length"></span>
+                                </div>
+
+                                {{-- Description --}}
+                                <div class="mt-6 sm:mt-8 rounded-2xl bg-white border border-[#2D1B10]/10 p-5 overflow-y-auto max-h-[150px] sm:max-h-[180px]">
+                                    <h3 class="text-sm font-semibold text-[#2D1B10] mb-2">Penjelasan Produk</h3>
+                                    <p class="text-sm text-[#2D1B10]/70 leading-relaxed whitespace-pre-line break-words" x-text="products[currentIndex]?.description || ''"></p>
+                                </div>
+                            </div>
+
+                            {{-- Navigation / Action & Thumbnails --}}
+                            <div class="mt-6 border-t border-[#2D1B10]/10 pt-4 flex flex-col gap-4">
+                                {{-- Thumbnails --}}
+                                <div class="flex gap-2 overflow-x-auto pb-2 justify-start">
+                                    <template x-for="(prod, idx) in products" :key="idx">
+                                        <button 
+                                            @click="currentIndex = idx"
+                                            :class="{ 'ring-2 ring-[#D4A373] opacity-100': currentIndex === idx, 'opacity-60': currentIndex !== idx }"
+                                            class="flex-shrink-0 w-12 h-12 rounded-lg overflow-hidden transition-all duration-300 hover:opacity-100"
+                                        >
+                                            <img :src="prod.image" :alt="prod.name" class="w-full h-full object-cover">
+                                        </button>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             @else
                 <div class="text-center py-16">
@@ -373,6 +470,126 @@
                 if (event.key === 'ArrowLeft') {
                     event.preventDefault();
                     this.prevImage();
+                }
+
+                if (event.key === 'Escape') {
+                    event.preventDefault();
+                    this.closeModal();
+                }
+            }
+        }
+    }
+
+    function bestsellerModal() {
+        return {
+            isOpen: false,
+            currentIndex: 0,
+            products: [
+                @foreach($products->take(5) as $product)
+                    {
+                        name: {!! json_encode($product->name) !!},
+                        image: {!! json_encode($product->image) !!},
+                        category: {!! json_encode($product->category_label !== '' ? $product->category_label : 'Menu Pilihan') !!},
+                        price: {!! json_encode($product->formatted_price) !!},
+                        description: {!! json_encode($product->description ?: 'Penjelasan produk belum diisi. Kamu bisa atur deskripsi ini di Panel Admin > Produk > Edit.') !!},
+                        is_special: {{ $product->is_special ? 'true' : 'false' }},
+                        slug: {!! json_encode($product->slug) !!}
+                    },
+                @endforeach
+            ],
+
+            init() {
+                // Periksa hash saat halaman dimuat
+                const match = window.location.hash.match(/^#bestseller-(.+)$/);
+                if (match) {
+                    const slug = match[1];
+                    const index = this.products.findIndex(p => p.slug === slug);
+                    if (index !== -1) {
+                        setTimeout(() => this.openModal(index), 300);
+                    }
+                }
+
+                // Dengar perubahan hash
+                window.addEventListener('hashchange', () => {
+                    const match = window.location.hash.match(/^#bestseller-(.+)$/);
+                    if (match) {
+                        const slug = match[1];
+                        const index = this.products.findIndex(p => p.slug === slug);
+                        if (index !== -1) {
+                            if (!this.isOpen) {
+                                this.openModal(index);
+                            } else if (this.currentIndex !== index) {
+                                this.currentIndex = index;
+                            }
+                        }
+                    } else if (window.location.hash === '' || window.location.hash === '#bestseller') {
+                        if (this.isOpen) {
+                            this.closeModal(true);
+                        }
+                    }
+                });
+            },
+            
+            openModal(index) {
+                if (this.products.length === 0) return;
+                this.currentIndex = index;
+                this.isOpen = true;
+                document.body.style.overflow = 'hidden';
+                
+                // Perbarui URL hash dengan slug
+                const newHash = '#bestseller-' + this.products[index].slug;
+                if (window.location.hash !== newHash) {
+                    window.location.hash = newHash;
+                }
+            },
+            
+            closeModal(skipHashUpdate = false) {
+                this.isOpen = false;
+                document.body.style.overflow = '';
+                
+                // Kembalikan hash URL
+                if (!skipHashUpdate) {
+                    if (window.location.hash.startsWith('#bestseller-')) {
+                        history.replaceState(null, null, '#bestseller');
+                    }
+                }
+            },
+            
+            nextProduct() {
+                if (this.hasNext()) {
+                    this.currentIndex++;
+                    window.location.hash = '#bestseller-' + this.products[this.currentIndex].slug;
+                }
+            },
+            
+            prevProduct() {
+                if (this.hasPrev()) {
+                    this.currentIndex--;
+                    window.location.hash = '#bestseller-' + this.products[this.currentIndex].slug;
+                }
+            },
+            
+            hasNext() {
+                return this.currentIndex < this.products.length - 1;
+            },
+            
+            hasPrev() {
+                return this.currentIndex > 0;
+            },
+
+            handleKeydown(event) {
+                if (!this.isOpen) {
+                    return;
+                }
+
+                if (event.key === 'ArrowRight') {
+                    event.preventDefault();
+                    this.nextProduct();
+                }
+
+                if (event.key === 'ArrowLeft') {
+                    event.preventDefault();
+                    this.prevProduct();
                 }
 
                 if (event.key === 'Escape') {
