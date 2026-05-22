@@ -181,9 +181,9 @@
     <div class="max-w-4xl mx-auto px-6 text-center">
         <h2 class="text-4xl md:text-5xl font-serif text-[#2D1B10] mb-6">Kunjungi kami hari ini.</h2>
         <p class="text-[#2D1B10] text-lg mb-10 opacity-80">Rasakan bedanya secara langsung.</p>
-        <a href="{{ route('contact') }}" class="inline-block px-12 py-5 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-sm hover:bg-[#FDFBF7] hover:text-[#2D1B10] transition-all">
+        {{-- <a href="{{ route('contact') }}" class="inline-block px-12 py-5 bg-[#2D1B10] text-white rounded-full font-bold uppercase tracking-widest text-sm hover:bg-[#FDFBF7] hover:text-[#2D1B10] transition-all">
             Lihat Rute
-        </a>
+        </a> --}}
     </div>
 </section> -->
 @endsection
